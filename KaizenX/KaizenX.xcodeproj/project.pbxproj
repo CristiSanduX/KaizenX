@@ -11,6 +11,8 @@
 		1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A66A2AE87A07008534A7 /* ContentView.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
 		1CF8A6702AE87A09008534A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66F2AE87A09008534A7 /* Preview Assets.xcassets */; };
+		1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6762AE87AE2008534A7 /* ContainerView.swift */; };
+		1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		1CF8A66A2AE87A07008534A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1CF8A66C2AE87A09008534A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CF8A66F2AE87A09008534A7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1CF8A6762AE87AE2008534A7 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 			children = (
 				1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */,
 				1CF8A66A2AE87A07008534A7 /* ContentView.swift */,
+				1CF8A6762AE87AE2008534A7 /* ContainerView.swift */,
+				1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */,
 				1CF8A66C2AE87A09008534A7 /* Assets.xcassets */,
 				1CF8A66E2AE87A09008534A7 /* Preview Content */,
 			);
@@ -139,6 +145,8 @@
 			files = (
 				1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
+				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
+				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

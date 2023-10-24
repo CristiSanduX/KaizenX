@@ -5,6 +5,7 @@
 //  Created by Cristi Sandu on 25.10.2023.
 //
 
+// Ecranul principal după ecranul de pornire
 import SwiftUI
 
 struct ContentView: View {
