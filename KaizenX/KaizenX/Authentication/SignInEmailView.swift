@@ -37,7 +37,7 @@ struct SignInEmailView: View {
                     .foregroundColor(.white)
                     .frame(height: 44)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.darkRed)
                     .cornerRadius(12)
             }
             Spacer()

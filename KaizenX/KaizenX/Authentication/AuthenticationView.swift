@@ -20,7 +20,7 @@ struct AuthenticationView: View {
                     .foregroundColor(.white)
                     .frame(height: 44)
                     .frame(maxWidth: .infinity)
-                    .background(Color.red)
+                    .background(Color.darkRed)
                     .cornerRadius(12)
             }
 
