@@ -7,12 +7,49 @@
 
 import SwiftUI
 
+final class SignInEmailViewModel : ObservableObject {
+    @Published var email = ""
+    @Published var password = ""
+
+}
+
 struct SignInEmailView: View {
+    
+    // Instanțiem clasa
+    @StateObject private var viewModel = SignInEmailViewModel()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            TextField("Email...",text: $viewModel.email)
+                .padding()
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+            
+            SecureField("Password...",text: $viewModel.password)
+                .padding()
+                .background(Color.gray.opacity(0.4))
+                .cornerRadius(10)
+            
+            Button {
+                
+            } label: {
+                Text("Sign in")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(height: 44)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .cornerRadius(12)
+            }
+            Spacer()
+            
+        }
+        .padding()
+        .navigationTitle("Sign in with email")
     }
 }
 
 #Preview {
-    SignInEmailView()
+    NavigationStack{
+        SignInEmailView()
+    }
 }

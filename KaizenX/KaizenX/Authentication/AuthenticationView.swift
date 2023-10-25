@@ -9,23 +9,28 @@ import SwiftUI
 
 struct AuthenticationView: View {
     var body: some View {
+        
+        
         VStack {
             NavigationLink {
-                
+                SignInEmailView()
             } label: {
                 Text("Sign in with email")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 44)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.red)
                     .cornerRadius(12)
             }
+
             Spacer() // Împinge NavigationLink-ul în partea de sus a ecranului
         }
         .padding()
         .navigationTitle("Sign in")
+
     }
+    
 }
 
 #Preview {
