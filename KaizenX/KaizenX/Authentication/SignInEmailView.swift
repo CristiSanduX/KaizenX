@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// Thread-ul principal este responsabil de UI și toate actualizările UI-ului trebuie să aibă loc pe acesta
+@MainActor  // asigurăm să fie executat codul pe thread-ul principal
 final class SignInEmailViewModel : ObservableObject {
     @Published var email = ""
     @Published var password = ""

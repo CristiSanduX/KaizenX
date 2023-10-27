@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */; };
 		1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A66A2AE87A07008534A7 /* ContentView.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1CF8A6652AE87A07008534A7 /* KaizenX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaizenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaizenXApp.swift; sourceTree = "<group>"; };
 		1CF8A66A2AE87A07008534A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				1CF8A6862AE88497008534A7 /* AuthenticationView.swift */,
 				1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */,
+				1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			files = (
 				1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */,
 				1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */,
+				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
