@@ -32,10 +32,17 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
+    @discardableResult // valoarea returnată de funcție poate fi ignorată fără a primi warning
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        
         return AuthDataResultModel(user: authDataResult.user)
+    }
+    
+    @discardableResult
+    func signInUser(email: String, password: String) async throws -> AuthDataResultModel  {
+        let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
+        return AuthDataResultModel(user: authDataResult.user)
+
     }
     
     func signOut() throws{
