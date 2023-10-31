@@ -23,6 +23,16 @@ final class SettingsViewModel: ObservableObject {
         }
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
+    
+    func updateEmail() async throws {
+        let email = "cristisandu@csx.ro"
+        try await AuthenticationManager.shared.updateEmail(email: email)
+    }
+    
+    func updatePassword() async throws {
+        let password = "TestParola1"
+        try await AuthenticationManager.shared.updatePassword(password: password)
+    }
 }
 
 struct SettingsView: View {
@@ -41,15 +51,40 @@ struct SettingsView: View {
                 }
             }
             
-            Button("Reset password") {
-                Task {
-                    do {
-                        try await viewModel.resetPassword()
-                        print("Password reset!")
-                    } catch {
-                        print(error)
+            Section {
+                Button("Reset password") {
+                    Task {
+                        do {
+                            try await viewModel.resetPassword()
+                            print("Password reset!")
+                        } catch {
+                            print(error)
+                        }
                     }
                 }
+                
+                Button("Update password") {
+                    Task {
+                        do {
+                            try await viewModel.updatePassword()
+                            print("Password update!")
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                Button("Update email") {
+                    Task {
+                        do {
+                            try await viewModel.updateEmail()
+                            print("Email update!")
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+            } header: {
+                Text("Email functions")
             }
         }
         .navigationTitle("Settings")
