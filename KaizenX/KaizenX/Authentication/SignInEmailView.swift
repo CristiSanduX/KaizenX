@@ -12,6 +12,8 @@ import SwiftUI
 final class SignInEmailViewModel : ObservableObject {
     @Published var email = ""
     @Published var password = ""
+    @Published var isPasswordVisible = false
+
 
     func signUp() async throws{
         print("signUp - început")
@@ -44,10 +46,25 @@ struct SignInEmailView: View {
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
-            SecureField("Password...",text: $viewModel.password)
-                .padding()
-                .background(Color.gray.opacity(0.4))
-                .cornerRadius(10)
+            HStack {
+                if viewModel.isPasswordVisible {
+                    TextField("Password...", text: $viewModel.password)
+                } else {
+                    SecureField("Password...", text: $viewModel.password)
+                        
+                }
+                
+                Button(action: {
+                    viewModel.isPasswordVisible.toggle()
+                }, label: {
+                    Image(systemName: viewModel.isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .foregroundColor(.gray)
+                })
+            }
+            .padding()
+            .background(Color.gray.opacity(0.4))
+            .cornerRadius(10)
+
             
             Button {
                 Task {
