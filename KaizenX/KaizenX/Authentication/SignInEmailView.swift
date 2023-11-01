@@ -69,14 +69,6 @@ struct SignInEmailView: View {
             Button {
                 Task {
                     do {
-                        try await viewModel.signUp()
-                        showSignInView = false
-                        return
-                    } catch {
-                        print(error)
-                    }
-                    
-                    do {
                         try await viewModel.signIn()
                         showSignInView = false
                         return
@@ -93,6 +85,10 @@ struct SignInEmailView: View {
                     .background(Color.darkRed)
                     .cornerRadius(12)
             }
+            NavigationLink(destination: SignUpView()) {
+                            Text("Nu ai cont? Creează unul nou")
+                        }
+                        .padding(.top, 20)
             Spacer()
             
         }

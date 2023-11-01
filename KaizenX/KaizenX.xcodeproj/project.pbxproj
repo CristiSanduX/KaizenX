@@ -10,6 +10,8 @@
 		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */; };
 		1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */; };
+		1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */; };
+		1C19F8B52AF26F16007BDDE4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1C19F8B42AF26F16007BDDE4 /* FirebaseAnalytics */; };
 		1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */; };
 		1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A66A2AE87A07008534A7 /* ContentView.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
@@ -17,7 +19,6 @@
 		1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6762AE87AE2008534A7 /* ContainerView.swift */; };
 		1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */; };
 		1CF8A67C2AE87D84008534A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A67B2AE87D84008534A7 /* GoogleService-Info.plist */; };
-		1CF8A67F2AE87E19008534A7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A67E2AE87E19008534A7 /* FirebaseAnalytics */; };
 		1CF8A6812AE87E19008534A7 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6802AE87E19008534A7 /* FirebaseAnalyticsSwift */; };
 		1CF8A6842AE87F7F008534A7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6832AE87F7F008534A7 /* FirebaseAuth */; };
 		1CF8A6872AE88497008534A7 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6862AE88497008534A7 /* AuthenticationView.swift */; };
@@ -28,6 +29,7 @@
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1CF8A6652AE87A07008534A7 /* KaizenX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaizenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaizenXApp.swift; sourceTree = "<group>"; };
 		1CF8A66A2AE87A07008534A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 			files = (
 				1CF8A6812AE87E19008534A7 /* FirebaseAnalyticsSwift in Frameworks */,
 				1CF8A6842AE87F7F008534A7 /* FirebaseAuth in Frameworks */,
-				1CF8A67F2AE87E19008534A7 /* FirebaseAnalytics in Frameworks */,
+				1C19F8B52AF26F16007BDDE4 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +111,7 @@
 				1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */,
 				1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */,
 				1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */,
+				1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -130,9 +133,9 @@
 			);
 			name = KaizenX;
 			packageProductDependencies = (
-				1CF8A67E2AE87E19008534A7 /* FirebaseAnalytics */,
 				1CF8A6802AE87E19008534A7 /* FirebaseAnalyticsSwift */,
 				1CF8A6832AE87F7F008534A7 /* FirebaseAuth */,
+				1C19F8B42AF26F16007BDDE4 /* FirebaseAnalytics */,
 			);
 			productName = KaizenX;
 			productReference = 1CF8A6652AE87A07008534A7 /* KaizenX.app */;
@@ -198,6 +201,7 @@
 				1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */,
 				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
+				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
 				1CF8A6872AE88497008534A7 /* AuthenticationView.swift in Sources */,
@@ -419,7 +423,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1CF8A67E2AE87E19008534A7 /* FirebaseAnalytics */ = {
+		1C19F8B42AF26F16007BDDE4 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1CF8A67D2AE87E19008534A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
