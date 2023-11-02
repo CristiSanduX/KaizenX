@@ -13,16 +13,6 @@ final class SignInEmailViewModel : ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var isPasswordVisible = false
-
-
-    func signUp() async throws{
-        print("signUp - început")
-        guard !email.isEmpty, !password.isEmpty else {
-            print("E-mail sau parola lipsă")
-            return
-        }
-        try await AuthenticationManager.shared.createUser(email: email, password: password)
-    }
     
     func signIn() async throws{
         print("signIn - început")
@@ -85,7 +75,7 @@ struct SignInEmailView: View {
                     .background(Color.darkRed)
                     .cornerRadius(12)
             }
-            NavigationLink(destination: SignUpView()) {
+            NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
                             Text("Nu ai cont? Creează unul nou")
                         }
                         .padding(.top, 20)
@@ -99,6 +89,6 @@ struct SignInEmailView: View {
 
 #Preview {
     NavigationStack{
-        SignInEmailView(showSignInView: .constant(false))
+        SignInEmailView(showSignInView: .constant(true))
     }
 }

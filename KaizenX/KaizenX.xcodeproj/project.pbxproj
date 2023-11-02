@@ -21,7 +21,6 @@
 		1CF8A67C2AE87D84008534A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A67B2AE87D84008534A7 /* GoogleService-Info.plist */; };
 		1CF8A6812AE87E19008534A7 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6802AE87E19008534A7 /* FirebaseAnalyticsSwift */; };
 		1CF8A6842AE87F7F008534A7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6832AE87F7F008534A7 /* FirebaseAuth */; };
-		1CF8A6872AE88497008534A7 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6862AE88497008534A7 /* AuthenticationView.swift */; };
 		1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		1CF8A6762AE87AE2008534A7 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		1CF8A67B2AE87D84008534A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1CF8A6862AE88497008534A7 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,12 +104,11 @@
 		1CF8A6852AE88448008534A7 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				1CF8A6862AE88497008534A7 /* AuthenticationView.swift */,
 				1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */,
+				1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */,
 				1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */,
 				1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */,
 				1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */,
-				1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -204,7 +201,6 @@
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
-				1CF8A6872AE88497008534A7 /* AuthenticationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
