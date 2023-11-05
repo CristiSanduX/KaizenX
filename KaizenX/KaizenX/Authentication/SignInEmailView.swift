@@ -67,7 +67,7 @@ struct SignInEmailView: View {
                     }
                 }
             } label: {
-                Text("Sign in")
+                Text("Sign In")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 44)
@@ -83,7 +83,7 @@ struct SignInEmailView: View {
             
         }
         .padding()
-        .navigationTitle("Sign in with email")
+        .navigationTitle("Logare")
     }
 }
 

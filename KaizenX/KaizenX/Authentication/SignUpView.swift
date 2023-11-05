@@ -10,7 +10,7 @@ final class SignUpViewModel: ObservableObject {
     func signUp() async -> Bool {
         print("signUp - început")
         guard !email.isEmpty, !password.isEmpty, password == confirmPassword else {
-            print("E-mail, parola lipsă sau parolele nu coincid.")
+            print("E-mail, parola lipsă sau parolele nu c oincid.")
             return false
         }
         do {
