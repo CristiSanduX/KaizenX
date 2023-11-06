@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
 
 // Thread-ul principal este responsabil de UI și toate actualizările UI-ului trebuie să aibă loc pe acesta
 @MainActor  // asigurăm să fie executat codul pe thread-ul principal
@@ -75,10 +77,16 @@ struct SignInEmailView: View {
                     .background(Color.darkRed)
                     .cornerRadius(12)
             }
+            
+            GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                
+            }
+            
             NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
                             Text("Nu ai cont? Creează unul nou")
                         }
                         .padding(.top, 20)
+            
             Spacer()
             
         }
