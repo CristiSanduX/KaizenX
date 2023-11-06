@@ -24,6 +24,13 @@ final class SignInEmailViewModel : ObservableObject {
         }
         try await AuthenticationManager.shared.signInUser(email: email, password: password)
     }
+    
+    func signInGoogle() async throws{
+        guard let topVC = Utilities.shared.topViewController() else {
+            throw URLError(.cannotFindHost)
+        }
+        let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
+    }
 }
 
 struct SignInEmailView: View {

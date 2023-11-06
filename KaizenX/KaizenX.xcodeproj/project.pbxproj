@@ -15,6 +15,7 @@
 		1C19F8B82AF7AE90007BDDE4 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1C19F8B72AF7AE90007BDDE4 /* GoogleSignIn */; };
 		1C19F8BA2AF7AE90007BDDE4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C19F8B92AF7AE90007BDDE4 /* GoogleSignInSwift */; };
 		1C19F8BF2AF7AFDB007BDDE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C19F8BE2AF7AFDB007BDDE4 /* GoogleService-Info.plist */; };
+		1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */; };
 		1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */; };
 		1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A66A2AE87A07008534A7 /* ContentView.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1C19F8BE2AF7AFDB007BDDE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1CF8A6652AE87A07008534A7 /* KaizenX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaizenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaizenXApp.swift; sourceTree = "<group>"; };
 		1CF8A66A2AE87A07008534A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C19F8C02AF9B08B007BDDE4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		1CF8A65C2AE87A07008534A7 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +91,7 @@
 			children = (
 				1CF8A6852AE88448008534A7 /* Authentication */,
 				1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */,
+				1C19F8C02AF9B08B007BDDE4 /* Utilities */,
 				1CF8A66A2AE87A07008534A7 /* ContentView.swift */,
 				1CF8A6762AE87AE2008534A7 /* ContainerView.swift */,
 				1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */,
@@ -209,6 +220,7 @@
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
+				1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
