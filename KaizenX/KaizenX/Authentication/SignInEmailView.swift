@@ -10,6 +10,11 @@ import GoogleSignIn
 import GoogleSignInSwift
 import FirebaseAuth
 
+struct GoogleSignInResultModel {
+    let idToken: String
+    let accessToken: String
+}
+
 // Thread-ul principal este responsabil de UI și toate actualizările UI-ului trebuie să aibă loc pe acesta
 @MainActor  // asigurăm să fie executat codul pe thread-ul principal
 final class SignInEmailViewModel : ObservableObject {
@@ -37,7 +42,8 @@ final class SignInEmailViewModel : ObservableObject {
         }
         let accessToken = gidSignInResult.user.accessToken.tokenString
         
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken)
+        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
     }
 }
 
@@ -94,7 +100,14 @@ struct SignInEmailView: View {
             }
             
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
-                
+                Task {
+                    do {
+                        try await viewModel.signInGoogle()
+                        showSignInView = false
+                    } catch {
+                        print(error)
+                    }
+                }
             }
 
             
