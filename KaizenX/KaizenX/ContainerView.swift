@@ -14,7 +14,7 @@ struct ContainerView: View {
 
     var body: some View {
         if !isSplashScreenView {
-            RootView()
+            ContentView()
         }
         else {
             SplashScreenView(isPresented: $isSplashScreenView)

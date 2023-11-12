@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseAuth
 
 // Thread-ul principal este responsabil de UI și toate actualizările UI-ului trebuie să aibă loc pe acesta
 @MainActor  // asigurăm să fie executat codul pe thread-ul principal
@@ -30,6 +31,13 @@ final class SignInEmailViewModel : ObservableObject {
             throw URLError(.cannotFindHost)
         }
         let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
+        
+        guard let idToken = gidSignInResult.user.idToken?.tokenString else {
+            throw URLError(.badServerResponse)
+        }
+        let accessToken = gidSignInResult.user.accessToken.tokenString
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
     }
 }
 
@@ -88,6 +96,14 @@ struct SignInEmailView: View {
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                 
             }
+          
+            
+            ScrollView {
+                            Text("Aici poți adăuga conținutul ScrollView-ului.")
+                                .font(.body)
+                                .padding()
+                        }
+                        
             
             NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
                             Text("Nu ai cont? Creează unul nou")
