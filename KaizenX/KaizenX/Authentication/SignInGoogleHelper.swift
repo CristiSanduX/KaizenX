@@ -12,11 +12,13 @@ import GoogleSignInSwift
 struct GoogleSignInResultModel {
     let idToken: String
     let accessToken: String
+    let name: String?
+    let email: String?
 }
 
 final class SignInGoogleHelper {
     @MainActor
-    func signIn async throws -> GoogleSignInResultModel{
+    func signIn() async throws -> GoogleSignInResultModel{
         guard let topVC = Utilities.shared.topViewController() else {
             throw URLError(.cannotFindHost)
         }
@@ -26,8 +28,10 @@ final class SignInGoogleHelper {
             throw URLError(.badServerResponse)
         }
         let accessToken = gidSignInResult.user.accessToken.tokenString
+        let name = gidSignInResult.user.profile?.name
+        let email = gidSignInResult.user.profile?.email
 
-        let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken)
+        let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken, name: name, email: email)
         return tokens
     }
 }
