@@ -96,14 +96,7 @@ struct SignInEmailView: View {
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                 
             }
-          
-            
-            ScrollView {
-                            Text("Aici poți adăuga conținutul ScrollView-ului.")
-                                .font(.body)
-                                .padding()
-                        }
-                        
+
             
             NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
                             Text("Nu ai cont? Creează unul nou")

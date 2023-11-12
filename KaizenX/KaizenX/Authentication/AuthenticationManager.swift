@@ -32,6 +32,16 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
+    
+    
+    func signOut() throws{
+        try Auth.auth().signOut()
+    }
+}
+
+
+// SIGN IN WITH EMAIL
+extension AuthenticationManager {
     @discardableResult // valoarea returnată de funcție poate fi ignorată fără a primi warning
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -61,8 +71,9 @@ final class AuthenticationManager {
         }
         try await user.updateEmail(to: email)
     }
+}
+
+// SIGN IN WITH GOOGLE
+extension AuthenticationManager{
     
-    func signOut() throws{
-        try Auth.auth().signOut()
-    }
 }
