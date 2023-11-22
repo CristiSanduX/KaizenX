@@ -22,6 +22,7 @@
 		1CCA53E72B0DB3CD005EA3DA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */; };
 		1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */; };
 		1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */; };
+		1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */; };
 		1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */; };
 		1CF8A66B2AE87A07008534A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A66A2AE87A07008534A7 /* ContentView.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		1CF8A6652AE87A07008534A7 /* KaizenX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaizenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaizenXApp.swift; sourceTree = "<group>"; };
 		1CF8A66A2AE87A07008534A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		1CCA53E42B0DB317005EA3DA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1CCA53ED2B0E111D005EA3DA /* Profile */,
 				1CCA53E82B0DB41C005EA3DA /* Authentication */,
 				1CCA53E52B0DB3AA005EA3DA /* Settings */,
 				1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */,
@@ -109,6 +112,14 @@
 				1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		1CF8A65C2AE87A07008534A7 = {
@@ -261,6 +272,7 @@
 				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */,
 				1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */,
+				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
 				1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */,
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
