@@ -5,9 +5,9 @@
 //  Created by Cristi Sandu on 25.10.2023.
 //
 
-// Funcționează ca un comutator între ecranul de pornire și conținutul principal
 import SwiftUI
 
+// Funcționează ca un comutator între ecranul de pornire și conținutul principal
 struct ContainerView: View {
 
     @State private var isSplashScreenView = true
