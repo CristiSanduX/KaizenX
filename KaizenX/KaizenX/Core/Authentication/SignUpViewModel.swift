@@ -16,11 +16,12 @@ final class SignUpViewModel: ObservableObject {
     func signUp() async -> Bool {
         print("signUp - început")
         guard !email.isEmpty, !password.isEmpty, password == confirmPassword else {
-            print("E-mail, parola lipsă sau parolele nu c oincid.")
+            print("E-mail, parola lipsă sau parolele nu coincid.")
             return false
         }
         do {
-            try await AuthenticationManager.shared.createUser(email: email, password: password)
+            let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
+            try await UserManager.shared.createNewUser(auth: authDataResult)
             return true
         } catch {
             print(error)
