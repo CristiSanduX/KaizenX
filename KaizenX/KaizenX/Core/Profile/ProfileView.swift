@@ -7,34 +7,32 @@
 
 import SwiftUI
 
-@MainActor
-final class ProfileViewModel: ObservableObject {
-    
-    @Published private(set) var user:AuthDataResultModel? = nil
-    
-    func loadCurrentUser() throws {
-        self.user = try
-        AuthenticationManager.shared.getAuthenticatedUser()
-    }
-    
-}
-
+/// View-ul pentru profilul utilizatorului. Afișează informații despre utilizatorul curent.
 struct ProfileView: View {
     
+    // ViewModel asociat view-ului. Gestionează logica de afișare a datelor profilului.
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInview: Bool
     
     var body: some View {
-        List{
+        List {
+            // Verifică dacă există un utilizator și afișează datele sale.
             if let user = viewModel.user {
-                Text("UserID: \(user.uid)")
+                Text("UserID: \(user.userId)")
+                
+                // Afișează data creării contului dacă este disponibilă.
+                if let dateCreated = user.dateCreated {
+                    Text("Cont creat pe \(dateCreated)")
+                }
             }
         }
-        .onAppear {
-           try? viewModel.loadCurrentUser()
+        .task {
+            // Încarcă datele utilizatorului curent când view-ul apare.
+            try? await viewModel.loadCurrentUser()
         }
         .navigationTitle("Profile")
         .toolbar {
+            // Adaugă un buton pentru navigare către setări.
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SettingsView(showSignInview: $showSignInview)
@@ -42,11 +40,17 @@ struct ProfileView: View {
                     Image(systemName: "gear")
                         .font(.headline)
                 }
-                    
             }
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        ProfileView(showSignInview: .constant(false))
+    }
+}
+
 
 #Preview {
     NavigationStack{
