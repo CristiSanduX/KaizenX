@@ -14,25 +14,32 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInview: Bool
     
+    @State private var isImagePickerPresented = false
+    @State private var selectedImage: UIImage?
+    
     var body: some View {
         List {
             
-          
             
             // Verifică dacă există un utilizator și afișează datele sale.
             if let user = viewModel.user {
                 
-                // Verifică dacă URL-ul fotografiei este disponibil și afișează imaginea.
+                
                 if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
                     AsyncImage(url: photoURL) { image in
-                        image.resizable() // Redimensionează imaginea pentru a se potrivi în view.
+                        image.resizable()
                     } placeholder: {
-                        ProgressView() // Arată un indicator de progres în timpul încărcării.
+                        ProgressView()
                     }
-                    .frame(width: 100, height: 100) // Setează dimensiunea dorită pentru imagine.
-                    .clipShape(Circle()) // Face imaginea circulară.
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
                     .padding()
+                    .onTapGesture {
+                        isImagePickerPresented = true
+                    }
                 }
+
+                
                 
                 Text("UserID: \(user.userId)")
                 
@@ -47,6 +54,14 @@ struct ProfileView: View {
         .task {
             // Încarcă datele utilizatorului curent când view-ul apare.
             try? await viewModel.loadCurrentUser()
+        }
+        .sheet(isPresented: $isImagePickerPresented) {
+            PhotoPicker(selectedImage: $selectedImage) {
+                guard let selectedImage = selectedImage else { return }
+                Task {
+                    try? await viewModel.uploadImageToStorage(selectedImage)
+                }
+            }
         }
         .navigationTitle("Profile")
         .toolbar {
@@ -63,15 +78,13 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        ProfileView(showSignInview: .constant(false))
-    }
-}
-
 
 #Preview {
     NavigationStack{
         ProfileView(showSignInview: .constant(false))
     }
 }
+
+
+
+

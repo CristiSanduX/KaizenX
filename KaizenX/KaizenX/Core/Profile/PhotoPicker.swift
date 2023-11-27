@@ -1,10 +1,3 @@
-//
-//  PhotoPicker.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 27.11.2023.
-//
-
 import PhotosUI
 import SwiftUI
 
@@ -51,4 +44,3 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
     }
 }
-

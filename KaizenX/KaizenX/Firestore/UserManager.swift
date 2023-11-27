@@ -5,7 +5,7 @@ import FirebaseFirestoreSwift
 struct DBUser {
     let userId: String
     let email: String?
-    let photoURL: String?
+    var photoURL: String?
     let dateCreated: Date?
 }
 
