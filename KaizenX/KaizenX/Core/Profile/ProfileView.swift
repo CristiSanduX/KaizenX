@@ -16,14 +16,32 @@ struct ProfileView: View {
     
     var body: some View {
         List {
+            
+          
+            
             // Verifică dacă există un utilizator și afișează datele sale.
             if let user = viewModel.user {
+                
+                // Verifică dacă URL-ul fotografiei este disponibil și afișează imaginea.
+                if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
+                    AsyncImage(url: photoURL) { image in
+                        image.resizable() // Redimensionează imaginea pentru a se potrivi în view.
+                    } placeholder: {
+                        ProgressView() // Arată un indicator de progres în timpul încărcării.
+                    }
+                    .frame(width: 100, height: 100) // Setează dimensiunea dorită pentru imagine.
+                    .clipShape(Circle()) // Face imaginea circulară.
+                    .padding()
+                }
+                
                 Text("UserID: \(user.userId)")
                 
                 // Afișează data creării contului dacă este disponibilă.
-                if let dateCreated = user.dateCreated {
-                    Text("Cont creat pe \(dateCreated)")
+                if let email = user.email {
+                    Text("E-mail: \(email)")
                 }
+                
+    
             }
         }
         .task {
