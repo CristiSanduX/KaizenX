@@ -22,23 +22,41 @@ struct ProfileView: View {
             
             
             // Verifică dacă există un utilizator și afișează datele sale.
+            
+            
             if let user = viewModel.user {
-                
-                
-                if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
-                    AsyncImage(url: photoURL) { image in
-                        image.resizable()
-                    } placeholder: {
-                        ProgressView()
+                // Zona de profil care include imaginea și butonul de editare.
+                ZStack(alignment: .bottomTrailing) {
+                    if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
+                        AsyncImage(url: photoURL) { image in
+                            image.resizable()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
+                    } else {
+                        // Adaugă o imagine placeholder dacă nu există o imagine de profil.
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .padding()
                     }
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                    .padding()
-                    .onTapGesture {
+                    
+                    // Butonul de editare cu semnul „plus”.
+                    Button(action: {
                         isImagePickerPresented = true
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.white)
+                            .background(Color.accentColor)
+                            .clipShape(Circle())
                     }
+                    .padding(10)  // Asigură spațiu în jurul butonului.
                 }
-
+                .padding()
+                
                 
                 
                 Text("UserID: \(user.userId)")
@@ -48,7 +66,7 @@ struct ProfileView: View {
                     Text("E-mail: \(email)")
                 }
                 
-    
+                
             }
         }
         .task {
