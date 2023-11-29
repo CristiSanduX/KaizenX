@@ -12,6 +12,7 @@
 		1C0415E72B13F542008B7E98 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */; };
 		1C0415E92B14BFD1008B7E98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C0415E82B14BFD1008B7E98 /* FirebaseStorage */; };
 		1C0415EB2B14C136008B7E98 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */; };
+		1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */; };
 		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */; };
 		1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */; };
@@ -43,11 +44,12 @@
 		1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KaizenX.entitlements; sourceTree = "<group>"; };
+		1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -90,10 +92,32 @@
 			path = Firestore;
 			sourceTree = "<group>";
 		};
+		1C0415EF2B17ED9D008B7E98 /* ViewManager */ = {
+			isa = PBXGroup;
+			children = (
+				1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */,
+				1CF8A6762AE87AE2008534A7 /* ContainerView.swift */,
+				1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */,
+			);
+			path = ViewManager;
+			sourceTree = "<group>";
+		};
+		1C0415F02B17EE0C008B7E98 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
+				1C0415E12B118604008B7E98 /* GoogleService-Info.plist */,
+				1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		1C19F8C02AF9B08B007BDDE4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */,
 				1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */,
+				1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -104,7 +128,6 @@
 				1CCA53ED2B0E111D005EA3DA /* Profile */,
 				1CCA53E82B0DB41C005EA3DA /* Authentication */,
 				1CCA53E52B0DB3AA005EA3DA /* Settings */,
-				1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -134,7 +157,6 @@
 			children = (
 				1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */,
 				1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */,
-				1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -159,16 +181,13 @@
 		1CF8A6672AE87A07008534A7 /* KaizenX */ = {
 			isa = PBXGroup;
 			children = (
-				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
 				1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */,
 				1CCA53E42B0DB317005EA3DA /* Core */,
 				1C19F8C02AF9B08B007BDDE4 /* Utilities */,
 				1CF8A6852AE88448008534A7 /* Authentication */,
 				1C0415E32B1187EC008B7E98 /* Firestore */,
-				1CF8A6762AE87AE2008534A7 /* ContainerView.swift */,
-				1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */,
-				1C0415E12B118604008B7E98 /* GoogleService-Info.plist */,
-				1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */,
+				1C0415EF2B17ED9D008B7E98 /* ViewManager */,
+				1C0415F02B17EE0C008B7E98 /* Configurations */,
 				1CF8A66C2AE87A09008534A7 /* Assets.xcassets */,
 				1CF8A66E2AE87A09008534A7 /* Preview Content */,
 			);
@@ -292,6 +311,7 @@
 				1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */,
 				1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */,
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
+				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
 				1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */,
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
