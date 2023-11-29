@@ -42,6 +42,7 @@
 		1C0415E42B118812008B7E98 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KaizenX.entitlements; sourceTree = "<group>"; };
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -158,6 +159,7 @@
 		1CF8A6672AE87A07008534A7 /* KaizenX */ = {
 			isa = PBXGroup;
 			children = (
+				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
 				1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */,
 				1CCA53E42B0DB317005EA3DA /* Core */,
 				1C19F8C02AF9B08B007BDDE4 /* Utilities */,
@@ -429,6 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KaizenX/KaizenX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KaizenX/Preview Content\"";
@@ -436,6 +439,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KaizenX/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplicația necesită acces la datele despre activitatea fizică pentru a monitoriza pașii.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Această aplicație necesită accesul la galeria foto pentru a selecta imagini de profil";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -459,6 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = KaizenX/KaizenX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KaizenX/Preview Content\"";
@@ -466,6 +472,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KaizenX/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplicația necesită acces la datele despre activitatea fizică pentru a monitoriza pașii.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Această aplicație necesită accesul la galeria foto pentru a selecta imagini de profil";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

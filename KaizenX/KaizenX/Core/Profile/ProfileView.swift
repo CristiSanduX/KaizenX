@@ -66,6 +66,11 @@ struct ProfileView: View {
                     Text("E-mail: \(email)")
                 }
                 
+                Text("Pași astăzi: \(viewModel.steps, specifier: "%.0f")")
+                            .onAppear {
+                                viewModel.loadSteps()
+                            }
+                
                 
             }
         }
