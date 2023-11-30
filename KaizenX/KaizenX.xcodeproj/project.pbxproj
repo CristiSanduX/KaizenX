@@ -122,16 +122,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		1CCA53E42B0DB317005EA3DA /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				1CCA53ED2B0E111D005EA3DA /* Profile */,
-				1CCA53E82B0DB41C005EA3DA /* Authentication */,
-				1CCA53E52B0DB3AA005EA3DA /* Settings */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		1CCA53E52B0DB3AA005EA3DA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,8 +138,11 @@
 				1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */,
 				1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */,
 				1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */,
+				1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */,
+				1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */,
 			);
-			path = Authentication;
+			name = Authentication;
+			path = Core/Authentication;
 			sourceTree = "<group>";
 		};
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
@@ -182,10 +175,11 @@
 			isa = PBXGroup;
 			children = (
 				1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */,
-				1CCA53E42B0DB317005EA3DA /* Core */,
-				1C19F8C02AF9B08B007BDDE4 /* Utilities */,
-				1CF8A6852AE88448008534A7 /* Authentication */,
+				1CCA53E82B0DB41C005EA3DA /* Authentication */,
+				1CCA53ED2B0E111D005EA3DA /* Profile */,
+				1CCA53E52B0DB3AA005EA3DA /* Settings */,
 				1C0415E32B1187EC008B7E98 /* Firestore */,
+				1C19F8C02AF9B08B007BDDE4 /* Utilities */,
 				1C0415EF2B17ED9D008B7E98 /* ViewManager */,
 				1C0415F02B17EE0C008B7E98 /* Configurations */,
 				1CF8A66C2AE87A09008534A7 /* Assets.xcassets */,
@@ -207,15 +201,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1CF8A6852AE88448008534A7 /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-				1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */,
-				1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */,
-			);
-			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
