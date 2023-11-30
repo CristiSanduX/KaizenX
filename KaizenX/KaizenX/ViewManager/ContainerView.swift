@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-// Funcționează ca un comutator între ecranul de pornire și conținutul principal
+/// `ContainerView` servește drept view-ul rădăcină care decide afișarea ecranului de pornire sau a conținutului principal al aplicației.
 struct ContainerView: View {
-
+    
+    // Variabila de stare care determină dacă ecranul de splash ar trebui afișat.
     @State private var isSplashScreenView = true
-
+    
     var body: some View {
-        if !isSplashScreenView {
-            RootView()
-        }
-        else {
+        if isSplashScreenView {
             SplashScreenView(isPresented: $isSplashScreenView)
+        } else {
+            RootView()
         }
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C0415E22B118604008B7E98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C0415E12B118604008B7E98 /* GoogleService-Info.plist */; };
 		1C0415E52B118812008B7E98 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415E42B118812008B7E98 /* UserManager.swift */; };
 		1C0415E72B13F542008B7E98 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */; };
 		1C0415E92B14BFD1008B7E98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C0415E82B14BFD1008B7E98 /* FirebaseStorage */; };
@@ -36,10 +35,10 @@
 		1CF8A6812AE87E19008534A7 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6802AE87E19008534A7 /* FirebaseAnalyticsSwift */; };
 		1CF8A6842AE87F7F008534A7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6832AE87F7F008534A7 /* FirebaseAuth */; };
 		1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */; };
+		1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C0415E12B118604008B7E98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C0415E42B118812008B7E98 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
@@ -49,7 +48,6 @@
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +61,8 @@
 		1CF8A6762AE87AE2008534A7 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
+		1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1CFCDA9F2B18135100F52D0C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
-				1C0415E12B118604008B7E98 /* GoogleService-Info.plist */,
-				1C19F8BB2AF7AEEF007BDDE4 /* Info.plist */,
+				1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */,
+				1CFCDA9F2B18135100F52D0C /* Info.plist */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -291,8 +291,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF8A6702AE87A09008534A7 /* Preview Assets.xcassets in Resources */,
-				1C0415E22B118604008B7E98 /* GoogleService-Info.plist in Resources */,
 				1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */,
+				1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,14 +451,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = KaizenX/KaizenX.entitlements;
+				CODE_SIGN_ENTITLEMENTS = KaizenX/Configurations/KaizenX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KaizenX/Preview Content\"";
 				DEVELOPMENT_TEAM = 5RR3Q663V8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KaizenX/Info.plist;
+				INFOPLIST_FILE = KaizenX/Configurations/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplicația necesită acces la datele despre activitatea fizică pentru a monitoriza pașii.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Această aplicație necesită accesul la galeria foto pentru a selecta imagini de profil";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -484,14 +484,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = KaizenX/KaizenX.entitlements;
+				CODE_SIGN_ENTITLEMENTS = KaizenX/Configurations/KaizenX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KaizenX/Preview Content\"";
 				DEVELOPMENT_TEAM = 5RR3Q663V8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KaizenX/Info.plist;
+				INFOPLIST_FILE = KaizenX/Configurations/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplicația necesită acces la datele despre activitatea fizică pentru a monitoriza pașii.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Această aplicație necesită accesul la galeria foto pentru a selecta imagini de profil";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

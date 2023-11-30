@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+/// `SplashScreenView` este utilizat pentru a afișa un ecran de încărcare inițială (splash screen) când aplicația este lansată.
 struct SplashScreenView: View {
     
     @Binding var isPresented: Bool
     
-    // Definirea unor variabile de stare pentru animații.
+    // Variabile de stare pentru controlul animațiilor de scalare și opacitate.
     @State private var scale = CGSize(width: 0.8, height: 0.8)
     @State private var opacityL1 = 0.0
     @State private var opacityL2 = 0.0
@@ -19,9 +20,10 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            Color.white.ignoresSafeArea() // Fundal alb pentru splash screen
             
             ZStack {
+                // Două imagini de logo care se schimbă în opacitate
                 Image("Logo1")
                     .resizable()
                     .scaledToFit()
@@ -36,7 +38,7 @@ struct SplashScreenView: View {
             }
             .scaleEffect(scale)
         }
-        .opacity(opacityLogo)
+        .opacity(opacityLogo) // Opacitatea întregului ZStack
         .onAppear{
             
             // Mărește logo-ul de la 0.8x la 1x în 1.5 secunde
@@ -45,20 +47,14 @@ struct SplashScreenView: View {
                 opacityL1 = 1.0
             }
             
-            // Toggle pentru opacitate
+            // Animații pentru alternarea opacității între cele două logo-uri
             for i in 0..<5 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 + Double(i)*0.2, execute: {
-                    if opacityL2 == 0.0
-                    {
-                        opacityL2 = 1.0
-                    }
-                    else {
-                        opacityL2 = 0.0
-                    }
-                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5 + Double(i) * 0.2) {
+                    opacityL2 = opacityL2 == 0.0 ? 1.0 : 0.0
+                }
             }
             
-            // După 2.5 secunde, schimbă efectul de scalare și ascunde SplashScreenView
+            // Ascunde splash screen-ul după o anumită durată
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: {
                 withAnimation(.easeIn(duration: 0.35)) {
                     scale = CGSize(width: 50, height: 50)
