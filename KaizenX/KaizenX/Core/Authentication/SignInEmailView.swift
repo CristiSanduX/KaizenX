@@ -9,26 +9,29 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 
+// View-ul care gestionează autentificarea utilizatorilor
 struct SignInEmailView: View {
     
-    // Instanțiem clasa
-    @StateObject private var viewModel = SignInEmailViewModel()
+    @StateObject private var viewModel = SignInEmailViewModel()  // ViewModel care gestionează logica de autentificare.
     @Binding var showSignInView: Bool
+    
     var body: some View {
         VStack {
+            // Câmpul de introducere a email-ului.
             TextField("Email...",text: $viewModel.email)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             
+            // Câmpurile pentru parolă și butonul pentru a arăta/ascunde parola.
             HStack {
                 if viewModel.isPasswordVisible {
-                    TextField("Password...", text: $viewModel.password)
+                    TextField("Parolă...", text: $viewModel.password)
                 } else {
-                    SecureField("Password...", text: $viewModel.password)
-                        
+                    SecureField("Parolă...", text: $viewModel.password)
                 }
                 
+                // Butonul pentru a comuta vizibilitatea parolei.
                 Button(action: {
                     viewModel.isPasswordVisible.toggle()
                 }, label: {
@@ -39,8 +42,8 @@ struct SignInEmailView: View {
             .padding()
             .background(Color.gray.opacity(0.4))
             .cornerRadius(10)
-
             
+            // Butonul de autentificare.
             Button {
                 Task {
                     do {
@@ -52,7 +55,7 @@ struct SignInEmailView: View {
                     }
                 }
             } label: {
-                Text("Sign In")
+                Text("Loghează-te")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 44)
@@ -61,6 +64,7 @@ struct SignInEmailView: View {
                     .cornerRadius(12)
             }
             
+            // Butonul pentru autentificare cu Google.
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                 Task {
                     do {
@@ -71,15 +75,14 @@ struct SignInEmailView: View {
                     }
                 }
             }
-
             
+            // Link pentru a naviga la ecranul de creare a unui nou cont.
             NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
-                            Text("Nu ai cont? Creează unul nou")
-                        }
-                        .padding(.top, 20)
+                Text("Nu ai cont? Creează unul nou")
+            }
+            .padding(.top, 20)
             
             Spacer()
-            
         }
         .padding()
         .navigationTitle("Logare")

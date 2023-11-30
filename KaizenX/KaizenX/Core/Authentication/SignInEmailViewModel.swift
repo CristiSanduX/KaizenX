@@ -7,13 +7,14 @@
 
 import Foundation
 
-// Thread-ul principal este responsabil de UI și toate actualizările UI-ului trebuie să aibă loc pe acesta
-@MainActor  // asigurăm să fie executat codul pe thread-ul principal
-final class SignInEmailViewModel : ObservableObject {
+/// ViewModel-ul pentru SignInEmailView, gestionează logica de autentificare prin email și Google.
+@MainActor  // Asigură că actualizările UI se fac pe thread-ul principal.
+final class SignInEmailViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
-    @Published var isPasswordVisible = false
+    @Published var isPasswordVisible = false  // Controlează vizibilitatea textului în câmpul parolei.
     
+    /// Încearcă să autentifice utilizatorul cu email-ul și parola introduse.
     func signIn() async throws{
         print("signIn - început")
         guard !email.isEmpty, !password.isEmpty else {
@@ -23,6 +24,7 @@ final class SignInEmailViewModel : ObservableObject {
         try await AuthenticationManager.shared.signInUser(email: email, password: password)
     }
     
+    /// Încearcă să autentifice utilizatorul prin Google și să creeze un nou utilizator în baza de date, dacă este necesar.
     func signInGoogle() async throws{
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()

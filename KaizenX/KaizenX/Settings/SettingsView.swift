@@ -14,7 +14,7 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Button("Log out") {
+            Button("Deconectare") {
                 Task {
                     do {
                         try viewModel.signOut()
@@ -42,46 +42,46 @@ struct SettingsView: View {
             if viewModel.authProviders.contains(.email) {
                 
                 Section {
-                    Button("Reset password") {
+                    Button("Resetare parolă") {
                         Task {
                             do {
                                 try await viewModel.resetPassword()
-                                print("Password reset!")
+                                print("Parolă resetată!")
                             } catch {
                                 print(error)
                             }
                         }
                     }
                     
-                    Button("Update password") {
+                    Button("Schimbare parolă") {
                         Task {
                             do {
                                 try await viewModel.updatePassword()
-                                print("Password update!")
+                                print("Parolă schimbată!")
                             } catch {
                                 print(error)
                             }
                         }
                     }
-                    Button("Update email") {
+                    Button("Schimbare e-mail") {
                         Task {
                             do {
                                 try await viewModel.updateEmail()
-                                print("Email update!")
+                                print("E-mail schimbat!")
                             } catch {
                                 print(error)
                             }
                         }
                     }
                 } header: {
-                    Text("Email functions")
+                    Text("Funcții e-mail")
                 }
             }
         }
         .onAppear {
             viewModel.loadAuthProviders() // Încarcă furnizorii de autentificare la apariția view-ului.
         }
-        .navigationTitle("Settings")
+        .navigationTitle("Setări cont")
     }
 }
 

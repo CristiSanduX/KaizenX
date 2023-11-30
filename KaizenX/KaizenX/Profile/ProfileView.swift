@@ -52,7 +52,7 @@ struct ProfileView: View {
                 .padding()
                 
                 
-                Text("UserID: \(user.userId)")
+                Text("ID: \(user.userId)")
                 
                 if let email = user.email {
                     Text("E-mail: \(email)")
@@ -76,7 +76,7 @@ struct ProfileView: View {
                 }
             }
         }
-        .navigationTitle("Profile")
+        .navigationTitle("Profil")
         .toolbar {
             // Adaugă un buton pentru navigare către setări.
             ToolbarItem(placement: .navigationBarTrailing) {

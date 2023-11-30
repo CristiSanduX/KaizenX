@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// ViewModel care susține logica pentru SignUpView.
 @MainActor
 final class SignUpViewModel: ObservableObject {
     @Published var email = ""
@@ -20,7 +21,9 @@ final class SignUpViewModel: ObservableObject {
             return false
         }
         do {
+            // Încearcă să creeze un utilizator nou în AuthenticationManager.
             let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
+            // Dacă a reușit crearea, înregistrează utilizatorul nou în UserManager.
             try await UserManager.shared.createNewUser(auth: authDataResult)
             return true
         } catch {

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-// Pentru a include doar câmpurile relevante din AuthDataResult
+/// Un model simplificat pentru a reprezenta rezultatul autentificării Firebase.
 struct AuthDataResultModel {
     let uid: String
     let email: String?
@@ -21,11 +21,13 @@ struct AuthDataResultModel {
     }
 }
 
+/// Enumerația opțiunilor de autentificare suportate.
 enum AuthProviderOption: String {
     case email = "password"
     case google = "google.com"
 }
 
+/// Managerul de autentificare centralizează logica de autentificare Firebase.
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
@@ -37,8 +39,7 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
-    // google.com
-    // password
+    /// Returnează lista de furnizori de autentificare asociați cu utilizatorul curent.
     func getProviders() throws -> [AuthProviderOption]{
         guard let providerData = Auth.auth().currentUser?.providerData else {
             throw URLError(.badServerResponse)
@@ -55,10 +56,12 @@ final class AuthenticationManager {
         return providers
     }
     
+    /// Deconectează utilizatorul curent.
     func signOut() throws{
         try Auth.auth().signOut()
     }
     
+    /// Șterge contul utilizatorului curent.
     func delete() async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)
@@ -71,21 +74,25 @@ final class AuthenticationManager {
 // SIGN IN WITH EMAIL
 extension AuthenticationManager {
     @discardableResult // valoarea returnată de funcție poate fi ignorată fără a primi warning
+    /// Creează un utilizator nou și returnează datele acestuia.
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
     }
     
     @discardableResult
+    /// Autentifică un utilizator și returnează datele acestuia.
     func signInUser(email: String, password: String) async throws -> AuthDataResultModel  {
         let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
     }
     
+    /// Trimite o cerere de resetare a parolei la e-mailul specificat.
     func resetPassword(email: String) async throws {
         try await Auth.auth().sendPasswordReset(withEmail: email)
     }
-    
+
+    /// Actualizează parola utilizatorului curent.
     func updatePassword(password: String) async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
@@ -93,6 +100,7 @@ extension AuthenticationManager {
         try await user.updatePassword(to: password)
     }
     
+    /// Actualizează e-mailul utilizatorului curent.
     func updateEmail(email: String) async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
@@ -104,6 +112,7 @@ extension AuthenticationManager {
 // SIGN IN WITH GOOGLE
 extension AuthenticationManager{
     @discardableResult
+    /// Autentifică un utilizator cu credențialele Google și returnează datele acestuia.
     func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
         let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
         return try await signIn(credential: credential)
