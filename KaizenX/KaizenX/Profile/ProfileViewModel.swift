@@ -28,29 +28,25 @@ final class ProfileViewModel: ObservableObject {
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-
-        func loadSteps() {
-            HealthKitManager.shared.requestAuthorization { [weak self] success in
-                guard success else { return }
-                HealthKitManager.shared.fetchSteps { steps in
-                    DispatchQueue.main.async {
-                        self?.steps = steps
-                    }
+    /// Solicită autorizația și încarcă numărul de pași de la HealthKit.
+    func loadSteps() {
+        HealthKitManager.shared.requestAuthorization { [weak self] success in
+            guard success else { return }
+            HealthKitManager.shared.fetchSteps { steps in
+                DispatchQueue.main.async {
+                    self?.steps = steps
                 }
             }
         }
-}
-
-
-
-extension ProfileViewModel {
-
+    }
+    
+    /// Încarcă o imagine nouă în Firebase Storage și actualizează Firestore.
     func uploadImageToStorage(_ image: UIImage) async throws {
         guard let imageData = image.jpegData(compressionQuality: 0.5),
               let userId = self.user?.userId else {
             throw NSError(domain: "com.kaizenX", code: -1, userInfo: [NSLocalizedDescriptionKey: "Nu s-a putut prelua informațiile utilizatorului sau converti imaginea."])
         }
-
+        
         let storageRef = Storage.storage().reference(withPath: "user_photos/\(userId).jpg")
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
@@ -67,8 +63,13 @@ extension ProfileViewModel {
         }
     }
     
+    /// Actualizează URL-ul fotografiei utilizatorului în Firestore.
     func updateUserPhotoURL(_ url: URL, userId: String) async throws {
         let userRef = Firestore.firestore().collection("users").document(userId)
         try await userRef.setData(["photo_url": url.absoluteString], merge: true)
     }
 }
+
+
+
+

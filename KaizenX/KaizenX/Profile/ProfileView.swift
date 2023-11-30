@@ -7,25 +7,19 @@
 
 import SwiftUI
 
-/// View-ul pentru profilul utilizatorului. Afișează informații despre utilizatorul curent.
+/// Afișează profilul utilizatorului curent, permițând actualizarea imaginii de profil și vizualizarea datelor de autentificare.
 struct ProfileView: View {
-    
-    // ViewModel asociat view-ului. Gestionează logica de afișare a datelor profilului.
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInview: Bool
     
+    // Stări pentru afișarea selectorului de imagini și stocarea imaginii selectate.
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage?
     
     var body: some View {
         List {
-            
-            
-            // Verifică dacă există un utilizator și afișează datele sale.
-            
-            
             if let user = viewModel.user {
-                // Zona de profil care include imaginea și butonul de editare.
+                // Secțiune pentru afișarea detaliilor utilizatorului
                 ZStack(alignment: .bottomTrailing) {
                     if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
                         AsyncImage(url: photoURL) { image in
@@ -58,20 +52,16 @@ struct ProfileView: View {
                 .padding()
                 
                 
-                
                 Text("UserID: \(user.userId)")
                 
-                // Afișează data creării contului dacă este disponibilă.
                 if let email = user.email {
                     Text("E-mail: \(email)")
                 }
                 
                 Text("Pași astăzi: \(viewModel.steps, specifier: "%.0f")")
-                            .onAppear {
-                                viewModel.loadSteps()
-                            }
-                
-                
+                    .onAppear {
+                        viewModel.loadSteps()
+                    }
             }
         }
         .task {
