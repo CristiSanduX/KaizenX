@@ -1,3 +1,10 @@
+//
+//  RootView.swift
+//  KaizenX
+//
+//  Created by Cristi Sandu on 25.11.2023.
+//
+
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
