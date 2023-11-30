@@ -2,6 +2,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+/// Structura pentru modelul utilizatorului din baza de date.
 struct DBUser {
     let userId: String
     let email: String?
@@ -9,16 +10,17 @@ struct DBUser {
     let dateCreated: Date?
 }
 
-/// `UserManager` este un singleton care gestionează operațiunile legate de utilizatorii aplicației în Firestore.
+/// `UserManager` gestionează operațiunile legate de utilizatorii aplicației în baza de date Firestore.
 final class UserManager {
     
     /// Singleton instance pentru acces global.
     static let shared = UserManager()
     
-    /// Constructorul privat previne instantierea directă și asigură că `UserManager` rămâne un singleton.
+    /// Constructorul privat previne instantierea directă.
     private init() {}
     
-    /// Creează un nou document utilizator în Firestore cu datele furnizate de modelul `AuthDataResultModel`.
+    /// Creează un nou document utilizator în Firestore dacă acesta nu există.
+    /// - Parameter auth: Modelul cu datele de autentificare ale utilizatorului.
     func createNewUser(auth: AuthDataResultModel) async throws {
         
         let userRef = Firestore.firestore().collection("users").document(auth.uid)
@@ -47,6 +49,9 @@ final class UserManager {
         }
     }
     
+    /// Preia informațiile utilizatorului din Firestore.
+    /// - Parameter userId: Identificatorul unic al utilizatorului.
+    /// - Returns: O instanță `DBUser` cu datele utilizatorului.
     func getUser(userId: String) async throws -> DBUser{
         let snapshot = try await Firestore.firestore().collection("users").document(userId).getDocument()
         
