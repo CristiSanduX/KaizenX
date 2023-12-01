@@ -19,6 +19,11 @@ final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var steps: Double = 0
     
+    // Adaugă proprietăți pentru a stoca ap consumată și obiectivul
+    @Published var waterIntake: Int = 0
+    let waterIntakeGoal: Int = 2000 // în mililitri, echivalent cu 2L
+
+    
     /// Încarcă datele utilizatorului curent autentificat.
     func loadCurrentUser() async throws {
         // Obține datele utilizatorului autentificat de la AuthenticationManager.
@@ -68,6 +73,22 @@ final class ProfileViewModel: ObservableObject {
         let userRef = Firestore.firestore().collection("users").document(userId)
         try await userRef.setData(["photo_url": url.absoluteString], merge: true)
     }
+    
+
+
+    /// Metodă pentru adăugarea cantității de apă
+    func addWaterIntake(amount: Int) {
+        waterIntake += amount
+        // Aici poți adăuga, de asemenea, logica pentru a salva aceste informații în Firestore sau alt serviciu de stocare
+    }
+
+
+    /// Resetarea cantității de apă la miezul nopții sau la o anumită acțiune a utilizatorului
+    func resetWaterIntake() {
+        waterIntake = 0
+        // Actualizează stocarea persistentă dacă este necesar
+    }
+
 }
 
 
