@@ -79,11 +79,13 @@ struct ProfileView: View {
                                 .foregroundColor(.blue)
                         }
                         .sheet(isPresented: $isWaterIntakeSheetPresented) {
-                            // Aici putem avea o nouă View sau o funcție care returnează View-ul dorit pentru sheet
                             WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
-                                viewModel.addWaterIntake(amount: Int(manualWaterIntake) ?? 0)
+                                Task {
+                                    await viewModel.addWaterIntake(amount: Int(manualWaterIntake) ?? 0)
+                                }
                             }
                         }
+                        
 
                     }
                     ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
@@ -103,9 +105,13 @@ struct ProfileView: View {
                 }
             }
         }
-        .task {
-            // Încarcă datele utilizatorului curent când view-ul apare.
-            try? await viewModel.loadCurrentUser()
+
+        .onAppear {
+            Task {
+                try? await viewModel.loadCurrentUser()
+                try? await viewModel.loadWaterIntake()
+                try? await viewModel.checkAndResetWaterIntake()
+            }
         }
         .sheet(isPresented: $isImagePickerPresented) {
             PhotoPicker(selectedImage: $selectedImage) {
@@ -163,7 +169,6 @@ struct WaterIntakeInputView: View {
                 Button("Adaugă") {
                     addWater()
                     isPresented = false
-                    manualWaterIntake = ""
                 }
             }
             .navigationTitle("Adaugă apă")

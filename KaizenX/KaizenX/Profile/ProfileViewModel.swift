@@ -22,7 +22,7 @@ final class ProfileViewModel: ObservableObject {
     // Adaugă proprietăți pentru a stoca ap consumată și obiectivul
     @Published var waterIntake: Int = 0
     let waterIntakeGoal: Int = 2000 // în mililitri, echivalent cu 2L
-
+    
     
     /// Încarcă datele utilizatorului curent autentificat.
     func loadCurrentUser() async throws {
@@ -74,21 +74,57 @@ final class ProfileViewModel: ObservableObject {
         try await userRef.setData(["photo_url": url.absoluteString], merge: true)
     }
     
-
-
+    
+    
     /// Metodă pentru adăugarea cantității de apă
-    func addWaterIntake(amount: Int) {
+    func addWaterIntake(amount: Int) async {
         waterIntake += amount
-        // Aici poți adăuga, de asemenea, logica pentru a salva aceste informații în Firestore sau alt serviciu de stocare
+        // Salvează progresul în Firestore
+        try? await saveWaterIntakeToFirestore()
+    }
+    
+    /// Salvează progresul de hidratare în Firestore
+    private func saveWaterIntakeToFirestore() async throws {
+        guard let userId = self.user?.userId else { return }
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        try await userRef.setData(["waterIntake": waterIntake, "lastResetDate": Timestamp(date: Date())], merge: true)
+    }
+    
+    /// Verifică și resetează cantitatea de apă
+    func checkAndResetWaterIntake() async throws{
+        guard let userId = self.user?.userId else { return }
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        let document = try await userRef.getDocument()
+        if let data = document.data(), let lastReset = data["lastResetDate"] as? Timestamp {
+            let lastResetDate = lastReset.dateValue()
+            if Calendar.current.isDateInYesterday(lastResetDate) {
+                waterIntake = 0
+                try await saveWaterIntakeToFirestore()
+            }
+        }
+    }
+    
+    /// Metodă  pentru încărcarea `waterIntake` din Firestore
+    func loadWaterIntake() async throws {
+        guard let userId = self.user?.userId else { return }
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        
+        let document = try await userRef.getDocument()
+        if let data = document.data(), let waterIntakeValue = data["waterIntake"] as? Int {
+            self.waterIntake = waterIntakeValue
+        } else {
+            // Dacă nu există valoare salvată, setați waterIntake la 0
+            self.waterIntake = 0
+        }
     }
 
-
+    
     /// Resetarea cantității de apă la miezul nopții sau la o anumită acțiune a utilizatorului
     func resetWaterIntake() {
-        waterIntake = 0
+      waterIntake = 0
         // Actualizează stocarea persistentă dacă este necesar
     }
-
+    
 }
 
 
