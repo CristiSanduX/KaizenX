@@ -90,19 +90,23 @@ final class ProfileViewModel: ObservableObject {
         try await userRef.setData(["waterIntake": waterIntake, "lastResetDate": Timestamp(date: Date())], merge: true)
     }
     
-    /// Verifică și resetează cantitatea de apă
-    func checkAndResetWaterIntake() async throws{
+    
+    func checkAndResetWaterIntake() async throws {
         guard let userId = self.user?.userId else { return }
         let userRef = Firestore.firestore().collection("users").document(userId)
         let document = try await userRef.getDocument()
+
         if let data = document.data(), let lastReset = data["lastResetDate"] as? Timestamp {
             let lastResetDate = lastReset.dateValue()
-            if Calendar.current.isDateInYesterday(lastResetDate) {
+            let currentDate = Date()
+
+            if !Calendar.current.isDate(lastResetDate, inSameDayAs: currentDate) {
                 waterIntake = 0
                 try await saveWaterIntakeToFirestore()
             }
         }
     }
+
     
     /// Metodă  pentru încărcarea `waterIntake` din Firestore
     func loadWaterIntake() async throws {
@@ -117,6 +121,7 @@ final class ProfileViewModel: ObservableObject {
             self.waterIntake = 0
         }
     }
+
 
     
     /// Resetarea cantității de apă la miezul nopții sau la o anumită acțiune a utilizatorului
