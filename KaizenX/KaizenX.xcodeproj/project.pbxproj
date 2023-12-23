@@ -27,6 +27,11 @@
 		1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */; };
 		1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */; };
 		1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */; };
+		1CF1A2712B37156A005B0D1F /* WaterCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */; };
+		1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */; };
+		1CF1A2772B371747005B0D1F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2762B371747005B0D1F /* MainView.swift */; };
+		1CF1A27A2B371D24005B0D1F /* GymCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2792B371D24005B0D1F /* GymCounterView.swift */; };
+		1CF1A27C2B371D34005B0D1F /* GymCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */; };
 		1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */; };
 		1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66C2AE87A09008534A7 /* Assets.xcassets */; };
 		1CF8A6702AE87A09008534A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF8A66F2AE87A09008534A7 /* Preview Assets.xcassets */; };
@@ -54,6 +59,11 @@
 		1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterView.swift; sourceTree = "<group>"; };
+		1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterViewModel.swift; sourceTree = "<group>"; };
+		1CF1A2762B371747005B0D1F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		1CF1A2792B371D24005B0D1F /* GymCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCounterView.swift; sourceTree = "<group>"; };
+		1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCounterViewModel.swift; sourceTree = "<group>"; };
 		1CF8A6652AE87A07008534A7 /* KaizenX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaizenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF8A6682AE87A07008534A7 /* KaizenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaizenXApp.swift; sourceTree = "<group>"; };
 		1CF8A66C2AE87A09008534A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,10 +158,39 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1CF1A2782B371D11005B0D1F /* GymCounter */,
+				1CF1A2752B37172B005B0D1F /* Profile */,
+				1CF1A26F2B37154B005B0D1F /* WaterCounter */,
+				1CF1A2762B371747005B0D1F /* MainView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		1CF1A26F2B37154B005B0D1F /* WaterCounter */ = {
+			isa = PBXGroup;
+			children = (
+				1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */,
+				1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */,
+			);
+			path = WaterCounter;
+			sourceTree = "<group>";
+		};
+		1CF1A2752B37172B005B0D1F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
 				1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */,
 				1C0415E62B13F542008B7E98 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		1CF1A2782B371D11005B0D1F /* GymCounter */ = {
+			isa = PBXGroup;
+			children = (
+				1CF1A2792B371D24005B0D1F /* GymCounterView.swift */,
+				1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */,
+			);
+			path = GymCounter;
 			sourceTree = "<group>";
 		};
 		1CF8A65C2AE87A07008534A7 = {
@@ -289,6 +328,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */,
+				1CF1A2772B371747005B0D1F /* MainView.swift in Sources */,
+				1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */,
+				1CF1A27A2B371D24005B0D1F /* GymCounterView.swift in Sources */,
 				1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */,
 				1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */,
 				1C0415E52B118812008B7E98 /* UserManager.swift in Sources */,
@@ -298,6 +340,7 @@
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
 				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
+				1CF1A27C2B371D34005B0D1F /* GymCounterViewModel.swift in Sources */,
 				1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */,
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
@@ -305,6 +348,7 @@
 				1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
 				1C0415E72B13F542008B7E98 /* ProfileViewModel.swift in Sources */,
+				1CF1A2712B37156A005B0D1F /* WaterCounterView.swift in Sources */,
 				1CCA53E72B0DB3CD005EA3DA /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
