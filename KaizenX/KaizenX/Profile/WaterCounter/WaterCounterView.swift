@@ -16,6 +16,9 @@ struct WaterCounterView: View {
     var body: some View {
         NavigationView {
             List {
+                // În WaterCounterView, unde vrei să afișezi animația
+                WaterAnimationView()// sau orice altă înălțime preferi
+
                 
                 // Secțiune pentru Water Counter
                 Section(header: Text("Cantitatea de apă consumată")) {
