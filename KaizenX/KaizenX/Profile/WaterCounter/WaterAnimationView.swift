@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WaterAnimationView: View {
+    @State var progress: CGFloat = 0.5
+    @State var startAnimation: CGFloat = 0
 
 
     var body: some View {
@@ -23,9 +25,38 @@ struct WaterAnimationView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(.gray)
                         .scaleEffect(x:1.1, y:1)
+                        .offset(y: -1)
                     
-                    WaterWave(progress: 1, waveHeight: 0.1, offset: size.width)
+                    WaterWave(progress: 0.5, waveHeight: 0.1, offset: startAnimation)
                         .fill(Color.blue)
+                    // Stropi de apă
+                        .overlay(content: {
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 15, height: 15)
+                                .offset(x: -20)
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 15, height: 15)
+                                .offset(x: 40, y: 30)
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 25, height: 25)
+                                .offset(x: -30, y: 80)
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 25, height: 25)
+                                .offset(x: 50, y: 70)
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 10, height: 10)
+                                .offset(x: -40, y: 50)
+                            Circle()
+                                .fill(.opacity(0.1))
+                                .frame(width: 10, height: 10)
+                                .offset(x: 40, y: 10)
+                                    
+                        })
                         .mask {
                             Image(systemName: "drop.fill")
                                 .resizable()
@@ -35,6 +66,12 @@ struct WaterAnimationView: View {
                         }
                 }
                 .frame(width: size.width, height: size.height, alignment: .center)
+                .onAppear{
+                                    withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
+                                        startAnimation = size.width
+                                    }
+                            }
+
             }
             .frame(height: 350)
         }
