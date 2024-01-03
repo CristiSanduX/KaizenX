@@ -17,30 +17,37 @@ struct WaterCounterView: View {
         NavigationView {
             List {
 
-                WaterAnimationView()
-
-            
                 // Secțiune pentru Water Counter
                 Section(header: Text("Cantitatea de apă consumată")) {
-                    HStack {
-                        Text("Consumat: \(viewModel.waterIntake) ml din 2000 ml")
+                    VStack{
+                        WaterAnimationView(waterIntakeGoal: viewModel.waterIntakeGoal, waterIntake: $viewModel.waterIntake)
+
+                        Spacer()
                         Spacer()
                         
-                        Button(action: {
-                            isWaterIntakeSheetPresented = true
-                        }) {
-                            Image(systemName: "plus.circle")
-                                .foregroundColor(.blue)
-                        }
-                        .sheet(isPresented: $isWaterIntakeSheetPresented) {
-                            WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
-                                Task {
-                                    await viewModel.addWaterIntake(amount: Int(manualWaterIntake) ?? 0)
+                        HStack {
+                            Text("Consumat: \(Int(viewModel.waterIntake)) ml din 2000 ml")
+                            Spacer()
+                            
+                            
+                            
+                            Button(action: {
+                                isWaterIntakeSheetPresented = true
+                            }) {
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(.blue)
+                            }
+                            .sheet(isPresented: $isWaterIntakeSheetPresented) {
+                                WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
+                                    Task {
+                                        await viewModel.addWaterIntake(amount: Double(Int(manualWaterIntake) ?? 0))
+                                    }
                                 }
                             }
+                            
+                            
                         }
-                        
-                        
+                        .padding(.top)
                     }
                     ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
                         .frame(height: 20)
@@ -71,8 +78,8 @@ struct WaterCounterView: View {
 
 
 struct ProgressBar: View {
-    @Binding var value: Int
-    var maxValue: Int
+    @Binding var value: Double
+    var maxValue: Double
 
     var body: some View {
         GeometryReader { geometry in

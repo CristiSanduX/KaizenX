@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct WaterAnimationView: View {
-    @State var progress: CGFloat = 0.5
+    var waterIntakeGoal: Double
+    @Binding var waterIntake: Double
+
+        var progress: CGFloat {
+            CGFloat(waterIntake / waterIntakeGoal)
+        }
     @State var startAnimation: CGFloat = 0
+    
+
 
 
     var body: some View {
-        VStack {
+        
             GeometryReader{proxy in
                 
                 let size = proxy.size
@@ -27,7 +34,7 @@ struct WaterAnimationView: View {
                         .scaleEffect(x:1.1, y:1)
                         .offset(y: -1)
                     
-                    WaterWave(progress: 0.5, waveHeight: 0.1, offset: startAnimation)
+                    WaterWave(progress: progress, waveHeight: 0.1, offset: startAnimation)
                         .fill(Color.blue)
                     // Stropi de apă
                         .overlay(content: {
@@ -61,8 +68,20 @@ struct WaterAnimationView: View {
                             Image(systemName: "drop.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .padding(5)
+                                .padding(3)
                                 
+                        }
+                        .overlay(alignment: .bottom) {
+                            Button(action: {
+                            }, label: {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 25, weight: .black))
+                                    .foregroundColor(.blue)
+                                    .shadow(radius:2)
+                                    .padding(15)
+                                    .background(.white, in: Circle())
+                            })
+                            .offset(y: 40)
                         }
                 }
                 .frame(width: size.width, height: size.height, alignment: .center)
@@ -75,10 +94,7 @@ struct WaterAnimationView: View {
             }
             .frame(height: 350)
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color.white)
-    }
+
 
 }
 
@@ -118,3 +134,4 @@ struct WaterWave: Shape {
         }
     }
 }
+

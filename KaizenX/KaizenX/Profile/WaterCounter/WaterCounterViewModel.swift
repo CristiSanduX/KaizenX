@@ -10,14 +10,16 @@ import Firebase
 import FirebaseStorage
 import FirebaseFirestore
 
+
+
 @MainActor
 final class WaterCounterViewModel: ObservableObject {
     
     @Published private(set) var user: DBUser? = nil
     
     // Adaugă proprietăți pentru a stoca ap consumată și obiectivul
-    @Published var waterIntake: Int = 0
-    let waterIntakeGoal: Int = 2000 // în mililitri, echivalent cu 2L
+    @Published var waterIntake: Double = 0
+    let waterIntakeGoal: Double = 2000 // în mililitri, echivalent cu 2L
     
     /// Încarcă datele utilizatorului curent autentificat.
     func loadCurrentUser() async throws {
@@ -29,7 +31,7 @@ final class WaterCounterViewModel: ObservableObject {
     }
     
     /// Metodă pentru adăugarea cantității de apă
-    func addWaterIntake(amount: Int) async {
+    func addWaterIntake(amount: Double) async {
         waterIntake += amount
         // Salvează progresul în Firestore
         try? await saveWaterIntakeToFirestore()
@@ -66,7 +68,7 @@ final class WaterCounterViewModel: ObservableObject {
         let userRef = Firestore.firestore().collection("users").document(userId)
         
         let document = try await userRef.getDocument()
-        if let data = document.data(), let waterIntakeValue = data["waterIntake"] as? Int {
+        if let data = document.data(), let waterIntakeValue = data["waterIntake"] as? Double {
             self.waterIntake = waterIntakeValue
         } else {
             // Dacă nu există valoare salvată, setați waterIntake la 0
