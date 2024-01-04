@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var showSignInView: Bool = false
+    @Binding var showSignInView: Bool
     var body: some View {
         TabView {
             
@@ -38,7 +38,7 @@ struct MainView: View {
 
 
 #Preview {
-    MainView()
+    MainView(showSignInView: .constant(false))
 }
 
 
