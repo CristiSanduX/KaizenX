@@ -30,19 +30,39 @@ final class WaterCounterViewModel: ObservableObject {
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-    /// Metodă pentru adăugarea cantității de apă
+    /// Metodă pentru adăugarea cantității de apă și salvarea în Firestore.
     func addWaterIntake(amount: Double) async {
+        // Adaugă cantitatea în suma totală pentru ziua curentă
         waterIntake += amount
-        // Salvează progresul în Firestore
-        try? await saveWaterIntakeToFirestore()
+
+        // Salvează progresul în Firestore pentru ziua curentă
+        do {
+            try await saveDailyWaterIntake(amount: amount)
+        } catch {
+            print("Eroare la salvarea cantității de apă: \(error)")
+        }
     }
     
-    /// Salvează progresul de hidratare în Firestore
-    private func saveWaterIntakeToFirestore() async throws {
+    
+    
+    /// Salvează cantitatea de apă consumată pentru ziua curentă în Firestore.
+    func saveDailyWaterIntake(amount: Double) async throws {
         guard let userId = self.user?.userId else { return }
-        let userRef = Firestore.firestore().collection("users").document(userId)
-        try await userRef.setData(["waterIntake": waterIntake, "lastResetDate": Timestamp(date: Date())], merge: true)
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy_MM_dd"
+        let todayString = dateFormatter.string(from: today)
+        
+        let userRef = Firestore.firestore()
+                       .collection("users")
+                       .document(userId)
+                       .collection("daily_intakes")
+                       .document(todayString)
+        
+        let dailyIntakeData = ["date": today, "intake": amount] as [String : Any]
+        try await userRef.setData(dailyIntakeData, merge: true)
     }
+
     
     
     func checkAndResetWaterIntake() async throws {
@@ -56,23 +76,28 @@ final class WaterCounterViewModel: ObservableObject {
 
             if !Calendar.current.isDate(lastResetDate, inSameDayAs: currentDate) {
                 waterIntake = 0
-                try await saveWaterIntakeToFirestore()
             }
         }
     }
 
     
-    /// Metodă  pentru încărcarea `waterIntake` din Firestore
-    func loadWaterIntake() async throws {
+    /// Încarcă cantitatea de apă consumată pentru ziua curentă.
+    func loadTodayWaterIntake() async throws {
         guard let userId = self.user?.userId else { return }
-        let userRef = Firestore.firestore().collection("users").document(userId)
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy_MM_dd"
+        let todayString = dateFormatter.string(from: today)
+        
+        let userRef = Firestore.firestore()
+                       .collection("users")
+                       .document(userId)
+                       .collection("daily_intakes")
+                       .document(todayString)
         
         let document = try await userRef.getDocument()
-        if let data = document.data(), let waterIntakeValue = data["waterIntake"] as? Double {
+        if let data = document.data(), let waterIntakeValue = data["intake"] as? Double {
             self.waterIntake = waterIntakeValue
-        } else {
-            // Dacă nu există valoare salvată, setați waterIntake la 0
-            self.waterIntake = 0
         }
     }
 

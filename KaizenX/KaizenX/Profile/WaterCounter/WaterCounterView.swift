@@ -13,6 +13,16 @@ struct WaterCounterView: View {
     @State private var isWaterIntakeSheetPresented = false
     @State private var manualWaterIntake: String = ""
     
+    var addWater: () -> Void {
+        return {
+            Task {
+                let amountToAdd = Double(Int(manualWaterIntake) ?? 0)
+                await viewModel.addWaterIntake(amount: amountToAdd)
+                try? await viewModel.saveDailyWaterIntake(amount: amountToAdd)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -39,9 +49,7 @@ struct WaterCounterView: View {
                             }
                             .sheet(isPresented: $isWaterIntakeSheetPresented) {
                                 WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
-                                    Task {
-                                        await viewModel.addWaterIntake(amount: Double(Int(manualWaterIntake) ?? 0))
-                                    }
+                                    addWater()
                                 }
                             }
                             
@@ -67,7 +75,7 @@ struct WaterCounterView: View {
                 .onAppear {
                     Task {
                         try? await viewModel.loadCurrentUser()
-                        try? await viewModel.loadWaterIntake()
+                        try? await viewModel.loadTodayWaterIntake()
                         try? await viewModel.checkAndResetWaterIntake()
                     }
                 }
