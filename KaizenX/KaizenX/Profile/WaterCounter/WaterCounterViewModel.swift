@@ -34,18 +34,11 @@ final class WaterCounterViewModel: ObservableObject {
     func addWaterIntake(amount: Double) async {
         // Adaugă cantitatea în suma totală pentru ziua curentă
         waterIntake += amount
-
-        // Salvează progresul în Firestore pentru ziua curentă
-        do {
-            try await saveDailyWaterIntake(amount: amount)
-        } catch {
-            print("Eroare la salvarea cantității de apă: \(error)")
-        }
     }
     
     
     
-    /// Salvează cantitatea de apă consumată pentru ziua curentă în Firestore.
+    // Salvează cantitatea de apă consumată pentru ziua curentă în Firestore.
     func saveDailyWaterIntake(amount: Double) async throws {
         guard let userId = self.user?.userId else { return }
         let today = Date()
@@ -53,14 +46,23 @@ final class WaterCounterViewModel: ObservableObject {
         dateFormatter.dateFormat = "yyyy_MM_dd"
         let todayString = dateFormatter.string(from: today)
         
-        let userRef = Firestore.firestore()
-                       .collection("users")
-                       .document(userId)
-                       .collection("daily_intakes")
-                       .document(todayString)
+        let dailyIntakeRef = Firestore.firestore()
+                           .collection("users")
+                           .document(userId)
+                           .collection("daily_intakes")
+                           .document(todayString)
         
-        let dailyIntakeData = ["date": today, "intake": amount] as [String : Any]
-        try await userRef.setData(dailyIntakeData, merge: true)
+        let document = try await dailyIntakeRef.getDocument()
+        if let data = document.data(), let currentIntake = data["intake"] as? Double {
+            // Adăugăm la cantitatea curentă și salvăm noua valoare
+            let updatedIntake = currentIntake + amount
+            let dailyIntakeData: [String: Any] = ["date": today, "intake": updatedIntake]
+            try await dailyIntakeRef.setData(dailyIntakeData, merge: true)
+        } else {
+            // Dacă nu există nicio valoare, setăm valoarea inițială
+            let dailyIntakeData: [String: Any] = ["date": today, "intake": amount]
+            try await dailyIntakeRef.setData(dailyIntakeData)
+        }
     }
 
     
