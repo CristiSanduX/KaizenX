@@ -10,9 +10,10 @@ import SwiftUI
 struct WaterCounterView: View {
     @StateObject private var viewModel = WaterCounterViewModel()
     
-    @State private var isWaterIntakeSheetPresented = false
-    @State private var manualWaterIntake: String = ""
-    
+    @State private var isWaterIntakeSheetPresented = false // Starea pentru afișarea modalului de introducere a apei
+    @State private var manualWaterIntake: String = "" // Valoarea introdusă manual pentru cantitatea de apă
+
+    // Funcția care gestionează adăugarea apei
     var addWater: () -> Void {
         return {
             Task {
@@ -26,21 +27,20 @@ struct WaterCounterView: View {
     var body: some View {
         NavigationView {
             List {
-
-                // Secțiune pentru Water Counter
+                // Secțiunea principală a UI-ului care afișează cantitatea de apă consumată
                 Section(header: Text("Cantitatea de apă consumată")) {
-                    VStack{
+                    VStack {
+                        // Vizualizarea animației cu apa
                         WaterAnimationView(waterIntakeGoal: viewModel.waterIntakeGoal, waterIntake: $viewModel.waterIntake)
 
-                        Spacer()
-                        Spacer()
-                        
+                        Spacer() // Spațiu suplimentar pentru estetică
+
+                        // Linia cu informații despre consumul de apă și butonul pentru adăugare
                         HStack {
                             Text("Consumat: \(Int(viewModel.waterIntake)) ml din 2000 ml")
                             Spacer()
-                            
-                            
-                            
+
+                            // Butonul pentru adăugarea apei
                             Button(action: {
                                 isWaterIntakeSheetPresented = true
                             }) {
@@ -52,8 +52,6 @@ struct WaterCounterView: View {
                                     addWater()
                                 }
                             }
-                            
-                            
                         }
                         .padding(.top)
                     }
@@ -70,10 +68,10 @@ struct WaterCounterView: View {
                         Text("Continuă să te hidratezi pentru a atinge obiectivul zilnic.")
                             .foregroundColor(.orange)
                     }
-                    
                 }
                 .onAppear {
                     Task {
+                        // Încarcă datele necesare la apariția view-ului
                         try? await viewModel.loadCurrentUser()
                         try? await viewModel.loadTodayWaterIntake()
                         try? await viewModel.checkAndResetWaterIntake()
@@ -84,15 +82,15 @@ struct WaterCounterView: View {
     }
 }
 
-
 struct ProgressBar: View {
     @Binding var value: Double
     var maxValue: Double
 
     var body: some View {
+        // Bara de progres care vizualizează cantitatea de apă consumată
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
+                Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
                     .opacity(0.3)
                     .foregroundColor(Color(UIColor.systemTeal))
 
@@ -110,6 +108,7 @@ struct WaterIntakeInputView: View {
     var addWater: () -> Void
     
     var body: some View {
+        // View-ul pentru introducerea manuală a cantității de apă
         NavigationView {
             Form {
                 TextField("Introdu cantitatea de apă în ml", text: $manualWaterIntake)
@@ -135,4 +134,3 @@ struct WaterIntakeInputView: View {
 #Preview {
     WaterCounterView()
 }
-
