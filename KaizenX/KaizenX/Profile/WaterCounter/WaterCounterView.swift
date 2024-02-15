@@ -12,11 +12,13 @@ struct WaterCounterView: View {
     
     @State private var isWaterIntakeSheetPresented = false // Starea pentru afișarea modalului de introducere a apei
     @State private var manualWaterIntake: String = "" // Valoarea introdusă manual pentru cantitatea de apă
+    
 
     // Funcția care gestionează adăugarea apei
     var addWater: () -> Void {
         return {
             Task {
+                try? await viewModel.loadTodayWaterIntake()
                 let amountToAdd = Double(Int(manualWaterIntake) ?? 0)
                 await viewModel.addWaterIntake(amount: amountToAdd)
                 try? await viewModel.saveDailyWaterIntake(amount: amountToAdd)
