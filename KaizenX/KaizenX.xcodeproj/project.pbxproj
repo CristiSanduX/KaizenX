@@ -12,6 +12,7 @@
 		1C0415E92B14BFD1008B7E98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C0415E82B14BFD1008B7E98 /* FirebaseStorage */; };
 		1C0415EB2B14C136008B7E98 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */; };
 		1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */; };
+		1C195A612B7E1A8100BB5B25 /* FoodCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */; };
 		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */; };
 		1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */; };
@@ -50,6 +51,7 @@
 		1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KaizenX.entitlements; sourceTree = "<group>"; };
 		1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCounterView.swift; sourceTree = "<group>"; };
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,14 @@
 			path = Configurations;
 			sourceTree = "<group>";
 		};
+		1C195A5F2B7E1A3F00BB5B25 /* FoodCounter */ = {
+			isa = PBXGroup;
+			children = (
+				1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */,
+			);
+			path = FoodCounter;
+			sourceTree = "<group>";
+		};
 		1C19F8C02AF9B08B007BDDE4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +170,7 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1C195A5F2B7E1A3F00BB5B25 /* FoodCounter */,
 				1CF1A2782B371D11005B0D1F /* GymCounter */,
 				1CF1A2752B37172B005B0D1F /* Profile */,
 				1CF1A26F2B37154B005B0D1F /* WaterCounter */,
@@ -340,6 +351,7 @@
 				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */,
 				1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */,
+				1C195A612B7E1A8100BB5B25 /* FoodCounterView.swift in Sources */,
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
 				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,

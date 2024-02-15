@@ -20,8 +20,13 @@ struct MainView: View {
             
             GymCounterView() // Acesta va fi un nou View pentru Gym Counter
                 .tabItem {
-                    Label("Gym", systemImage: "figure.walk")
+                    Label("Gym", systemImage: "dumbbell")
                 }
+            
+            FoodCounterView()
+                    .tabItem {
+                        Label("Food", systemImage: "fork.knife")
+                    }
             
             WaterCounterView()
                 .tabItem {
