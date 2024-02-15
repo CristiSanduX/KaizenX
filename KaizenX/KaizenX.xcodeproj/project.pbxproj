@@ -13,6 +13,7 @@
 		1C0415EB2B14C136008B7E98 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415EA2B14C136008B7E98 /* PhotoPicker.swift */; };
 		1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */; };
 		1C195A612B7E1A8100BB5B25 /* FoodCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */; };
+		1C195A632B7E4D0E00BB5B25 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */; };
 		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */; };
 		1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */; };
@@ -52,6 +53,7 @@
 		1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KaizenX.entitlements; sourceTree = "<group>"; };
 		1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCounterView.swift; sourceTree = "<group>"; };
+		1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1C19F8AE2AEFB62F007BDDE4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				1CF1A2792B371D24005B0D1F /* GymCounterView.swift */,
 				1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */,
+				1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */,
 			);
 			path = GymCounter;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				1CF1A27A2B371D24005B0D1F /* GymCounterView.swift in Sources */,
 				1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */,
 				1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */,
+				1C195A632B7E4D0E00BB5B25 /* AddExerciseView.swift in Sources */,
 				1C0415E52B118812008B7E98 /* UserManager.swift in Sources */,
 				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */,
