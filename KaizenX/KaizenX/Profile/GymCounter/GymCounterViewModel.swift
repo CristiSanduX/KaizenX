@@ -60,7 +60,7 @@ class GymCounterViewModel: ObservableObject {
                 print("Error writing exercise to Firestore: \(error.localizedDescription)")
             } else {
                 print("Exercise successfully added!")
-                self.fetchExercises(for: self.selectedMuscleGroup)
+                self.fetchExercisesForToday()
             }
         }
     }
@@ -94,6 +94,31 @@ class GymCounterViewModel: ObservableObject {
                     }
                 }
             }
+    }
+    
+    func fetchExercisesForToday() {
+        let todayString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none)
+        guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else { return }
+        
+        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(todayString)
+        
+        workoutRef.getDocument { (documentSnapshot, error) in
+            if let document = documentSnapshot, document.exists {
+                let data = document.data() ?? [:]
+                if let exercisesData = data["exercises"] as? [[String: Any]] {
+                    self.exercises = exercisesData.map { dict in
+                        let name = dict["name"] as? String ?? "Unknown"
+                        let muscleGroup = dict["muscleGroup"] as? String ?? "Unknown"
+                        let sets = dict["sets"] as? Int ?? 0
+                        let repetitions = dict["repetitions"] as? Int ?? 0
+                        let weight = dict["weight"] as? Double ?? 0.0
+                        return GymExercise(name: name, muscleGroup: muscleGroup, sets: sets, repetitions: repetitions, weight: weight, date: Date()) // Date is not used here
+                    }
+                }
+            } else {
+                self.exercises = []
+            }
+        }
     }
 }
 

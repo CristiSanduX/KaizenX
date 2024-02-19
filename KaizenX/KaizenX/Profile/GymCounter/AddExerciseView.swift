@@ -6,8 +6,10 @@ struct AddExerciseView: View {
     @State private var repetitions: String = ""
     @State private var weight: String = ""
     @Environment(\.presentationMode) var presentationMode
-    var gymViewModel: GymCounterViewModel  // Aici este variabila pasată din GymCounterView
     @Binding var selectedMuscleGroup: String
+    
+    var gymViewModel: GymCounterViewModel  // Variabila pasată din GymCounterView
+
     
     
     var body: some View {

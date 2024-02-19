@@ -7,21 +7,12 @@ struct GymCounterView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Selectează Grupa Musculară")) {
-                    Picker("Grupa Musculară", selection: $viewModel.selectedMuscleGroup) {
-                        ForEach(viewModel.muscleGroups, id: \.self) { group in
-                            Text(group).tag(group)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                }
                 
                 Section(header: Text("Exerciții")) {
                     ForEach(viewModel.exercises) { exercise in
                         HStack {
                             Text(exercise.name)
                             Spacer()
-                            // Aici poți adăuga mai multe detalii despre exercițiu
                         }
                     }
                 }
@@ -34,8 +25,12 @@ struct GymCounterView: View {
             .navigationTitle("Antrenament Sala")
 
             .sheet(isPresented: $showingAddExerciseView) {
-                AddExerciseView(gymViewModel: viewModel, selectedMuscleGroup: $viewModel.selectedMuscleGroup)
+                AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup, gymViewModel: viewModel)
             }
         }
+        .onAppear() {
+            viewModel.fetchExercisesForToday()
+        }
     }
+        
 }
