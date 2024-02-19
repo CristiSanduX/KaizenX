@@ -10,17 +10,13 @@ class GymCounterViewModel: ObservableObject {
     private var db = Firestore.firestore()
     private let userId: String = Auth.auth().currentUser?.uid ?? ""
     
-    init() {
-        fetchMuscleGroups()
-        fetchExercises(for: selectedMuscleGroup)
-    }
     
-    func addExercise(_ exercise: GymExercise) {
+    func addExercise(_ exercise: GymExercise, on date: Date) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else { return }
         
-        let todayString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none)
-        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(todayString)
-        
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(dateString)
+
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             let workoutDocument: DocumentSnapshot
             do {
@@ -60,48 +56,19 @@ class GymCounterViewModel: ObservableObject {
                 print("Error writing exercise to Firestore: \(error.localizedDescription)")
             } else {
                 print("Exercise successfully added!")
-                self.fetchExercisesForToday()
+                self.fetchExercisesForDate(date)
             }
         }
     }
 
     
-    func fetchMuscleGroups() {
-        // Aici poți adăuga logica pentru preluarea grupurilor musculare din Firestore, dacă este necesar
-    }
-    
-    func fetchExercises(for muscleGroup: String) {
-        guard !userId.isEmpty else { return }
-        
-        db.collection("users").document(userId).collection("daily_workouts")
-            .whereField("muscleGroup", isEqualTo: muscleGroup)
-            .getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    print("Error getting exercises: \(error.localizedDescription)")
-                } else {
-                    if let documents = querySnapshot?.documents {
-                        self.exercises = documents.map { docSnapshot -> GymExercise in
-                            let data = docSnapshot.data()
-                            let id = docSnapshot.documentID
-                            let name = data["name"] as? String ?? ""
-                            let muscleGroup = data["muscleGroup"] as? String ?? ""
-                            let sets = data["sets"] as? Int ?? 0
-                            let repetitions = data["repetitions"] as? Int ?? 0
-                            let weight = data["weight"] as? Double ?? 0.0
-                            let date = (data["date"] as? Timestamp)?.dateValue() ?? Date()
-                            return GymExercise(id: id, name: name, muscleGroup: muscleGroup, sets: sets, repetitions: repetitions, weight: weight, date: date)
-                        }
-                    }
-                }
-            }
-    }
-    
-    func fetchExercisesForToday() {
-        let todayString = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .none)
+    // Funcția pentru preluarea exercițiilor de la o dată specificată
+    func fetchExercisesForDate(_ date: Date) {
+        let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else { return }
-        
-        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(todayString)
-        
+
+        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(dateString)
+
         workoutRef.getDocument { (documentSnapshot, error) in
             if let document = documentSnapshot, document.exists {
                 let data = document.data() ?? [:]

@@ -5,12 +5,12 @@ struct AddExerciseView: View {
     @State private var sets: String = ""
     @State private var repetitions: String = ""
     @State private var weight: String = ""
-    @Environment(\.presentationMode) var presentationMode
     @Binding var selectedMuscleGroup: String
+    @Binding var selectedDate: Date
+    @Environment(\.presentationMode) var presentationMode
     
     var gymViewModel: GymCounterViewModel  // Variabila pasată din GymCounterView
 
-    
     
     var body: some View {
         Form {
@@ -22,15 +22,23 @@ struct AddExerciseView: View {
                 }
             }
             .pickerStyle(MenuPickerStyle())
-            .pickerStyle(MenuPickerStyle())
+            
             TextField("Număr de serii", text: $sets)
+                .keyboardType(.numberPad)
+            
             TextField("Număr de repetări", text: $repetitions)
-            TextField("Greutate", text: $weight)
+                .keyboardType(.numberPad)
+            
+            TextField("Greutate (kg)", text: $weight)
+                .keyboardType(.decimalPad)
             
             Button("Adaugă exercițiu") {
-                let newExercise = GymExercise(name: name, muscleGroup: selectedMuscleGroup, sets: Int(sets) ?? 0, repetitions: Int(repetitions) ?? 0, weight: Double(weight) ?? 0.0, date: Date())
-                gymViewModel.addExercise(newExercise)
-                presentationMode.wrappedValue.dismiss()
+                if let setsInt = Int(sets), let repsInt = Int(repetitions), let weightDouble = Double(weight) {
+                    // Creăm un nou exercițiu cu datele introduse și data selectată
+                    let newExercise = GymExercise(name: name, muscleGroup: selectedMuscleGroup, sets: setsInt, repetitions: repsInt, weight: weightDouble, date: selectedDate)
+                    gymViewModel.addExercise(newExercise, on: selectedDate)  // Pasăm exercițiul și data selectată la ViewModel pentru a fi adăugat
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
         .navigationBarTitle("Adaugă exercițiu", displayMode: .inline)

@@ -3,16 +3,28 @@ import SwiftUI
 struct GymCounterView: View {
     @StateObject var viewModel = GymCounterViewModel()
     @State private var showingAddExerciseView = false
+    @State private var selectedDate = Date()
 
     var body: some View {
         NavigationView {
-            List {
+            VStack {
+                DatePicker(
+                    "Alege data",
+                    selection: $selectedDate,
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(GraphicalDatePickerStyle())
+                .padding()
                 
-                Section(header: Text("Exerciții")) {
-                    ForEach(viewModel.exercises) { exercise in
-                        HStack {
-                            Text(exercise.name)
-                            Spacer()
+                List {
+                    Section(header: Text("Exerciții pentru data selectată")) {
+                        ForEach(viewModel.exercises, id: \.id) { exercise in
+                            HStack {
+                                Text(exercise.name)
+                                Spacer()
+                                Text("\(exercise.sets) seturi, \(exercise.repetitions) repetări, \(String(format: "%.2f", exercise.weight)) kg")
+
+                            }
                         }
                     }
                 }
@@ -20,17 +32,18 @@ struct GymCounterView: View {
                 Button("Adaugă Exercițiu") {
                     showingAddExerciseView = true
                 }
-                
             }
             .navigationTitle("Antrenament Sala")
-
-            .sheet(isPresented: $showingAddExerciseView) {
-                AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup, gymViewModel: viewModel)
+            .onChange(of: selectedDate) { newDate in
+                viewModel.fetchExercisesForDate(newDate)
             }
-        }
-        .onAppear() {
-            viewModel.fetchExercisesForToday()
+            .sheet(isPresented: $showingAddExerciseView) {
+                // Aici pasăm toate legăturile necesare către AddExerciseView
+                AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
+                                selectedDate: $selectedDate,
+                                gymViewModel: viewModel)
+            }
+
         }
     }
-        
 }
