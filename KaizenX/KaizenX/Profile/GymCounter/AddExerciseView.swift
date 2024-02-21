@@ -33,9 +33,9 @@ struct AddExerciseView: View {
                 .keyboardType(.decimalPad)
             
             Button("Adaugă exercițiu") {
-                if let setsInt = Int(sets), let repsInt = Int(repetitions), let weightDouble = Double(weight) {
+                if let setsInt = Int(sets), let repsInt = Int(repetitions), let weightInt = Int(weight) {
                     // Creăm un nou exercițiu cu datele introduse și data selectată
-                    let newExercise = GymExercise(name: name, muscleGroup: selectedMuscleGroup, sets: setsInt, repetitions: repsInt, weight: weightDouble, date: selectedDate)
+                    let newExercise = GymExercise(name: name, muscleGroup: selectedMuscleGroup, sets: setsInt, repetitions: repsInt, weight: weightInt, date: selectedDate)
                     gymViewModel.addExercise(newExercise, on: selectedDate)  // Pasăm exercițiul și data selectată la ViewModel pentru a fi adăugat
                     presentationMode.wrappedValue.dismiss()
                 }

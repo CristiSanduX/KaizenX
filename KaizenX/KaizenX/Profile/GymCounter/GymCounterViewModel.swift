@@ -78,7 +78,7 @@ class GymCounterViewModel: ObservableObject {
                         let muscleGroup = dict["muscleGroup"] as? String ?? "Unknown"
                         let sets = dict["sets"] as? Int ?? 0
                         let repetitions = dict["repetitions"] as? Int ?? 0
-                        let weight = dict["weight"] as? Double ?? 0.0
+                        let weight = dict["weight"] as? Int ?? 0
                         return GymExercise(name: name, muscleGroup: muscleGroup, sets: sets, repetitions: repetitions, weight: weight, date: Date()) // Date is not used here
                     }
                 }
@@ -95,6 +95,6 @@ struct GymExercise: Identifiable, Codable {
     var muscleGroup: String
     var sets: Int
     var repetitions: Int
-    var weight: Double
+    var weight: Int
     var date: Date
 }

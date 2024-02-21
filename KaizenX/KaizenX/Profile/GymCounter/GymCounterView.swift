@@ -4,7 +4,7 @@ struct GymCounterView: View {
     @StateObject var viewModel = GymCounterViewModel()
     @State private var showingAddExerciseView = false
     @State private var selectedDate = Date()
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -22,8 +22,8 @@ struct GymCounterView: View {
                             HStack {
                                 Text(exercise.name)
                                 Spacer()
-                                Text("\(exercise.sets) seturi, \(exercise.repetitions) repetări, \(String(format: "%.2f", exercise.weight)) kg")
-
+                                Text("\(exercise.sets) seturi, \(exercise.repetitions) repetări, \(exercise.weight) kg")
+                                
                             }
                         }
                     }
@@ -43,7 +43,10 @@ struct GymCounterView: View {
                                 selectedDate: $selectedDate,
                                 gymViewModel: viewModel)
             }
-
+            
+        }
+        .onAppear {
+            viewModel.fetchExercisesForDate(selectedDate)
         }
     }
 }
