@@ -54,21 +54,7 @@ final class WaterCounterViewModel: ObservableObject {
         }
     }
     
-    /// Verifică și resetează cantitatea de apă la miezul nopții.
-    func checkAndResetWaterIntake() async throws {
-        guard let userId = self.user?.userId else { return }
-        let userRef = Firestore.firestore().collection("users").document(userId)
-        let document = try await userRef.getDocument()
-
-        if let data = document.data(), let lastReset = data["lastResetDate"] as? Timestamp {
-            let lastResetDate = lastReset.dateValue()
-            let currentDate = Date()
-
-            if !Calendar.current.isDate(lastResetDate, inSameDayAs: currentDate) {
-                waterIntake = 0
-            }
-        }
-    }
+  
 
     /// Încarcă cantitatea de apă consumată pentru ziua curentă.
     func loadTodayWaterIntake() async throws {

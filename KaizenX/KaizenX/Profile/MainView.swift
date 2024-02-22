@@ -17,27 +17,27 @@ struct MainView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
+
             
             GymCounterView() // Acesta va fi un nou View pentru Gym Counter
                 .tabItem {
                     Label("Gym", systemImage: "dumbbell")
                 }
+
             
             FoodCounterView()
                     .tabItem {
                         Label("Food", systemImage: "fork.knife")
                     }
+
             
             WaterCounterView()
                 .tabItem {
                     Label("Water", systemImage: "drop.fill")
-                       
                 }
-
-
-           
         }
         .accentColor(Color.darkRed)
+
     }
 }
 

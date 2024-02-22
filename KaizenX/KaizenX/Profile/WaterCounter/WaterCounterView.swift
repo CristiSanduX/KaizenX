@@ -34,20 +34,19 @@ struct WaterCounterView: View {
                     VStack {
                         // Vizualizarea animației cu apa
                         WaterAnimationView(waterIntakeGoal: viewModel.waterIntakeGoal, waterIntake: $viewModel.waterIntake)
-
+                        
                         Spacer() // Spațiu suplimentar pentru estetică
-
+                        
                         // Linia cu informații despre consumul de apă și butonul pentru adăugare
                         HStack {
-                            Text("Consumat: \(Int(viewModel.waterIntake)) ml din 2000 ml")
-                            Spacer()
-
+                            
+                            
                             // Butonul pentru adăugarea apei
                             Button(action: {
                                 isWaterIntakeSheetPresented = true
                             }) {
-                                Image(systemName: "plus.circle")
-                                    .foregroundColor(.blue)
+                                Text("Consumat: \(Int(viewModel.waterIntake)) ml din 2000 ml")
+                                    .accentColor(.black)
                             }
                             .sheet(isPresented: $isWaterIntakeSheetPresented) {
                                 WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
@@ -56,27 +55,28 @@ struct WaterCounterView: View {
                             }
                         }
                         .padding(.top)
+                        
+                        ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
+                            .frame(height: 20)
                     }
-                    ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
-                        .frame(height: 20)
-                    Text("Scopul zilnic este să consumi cel puțin 2 litri de apă.")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
+                        Text("Scopul zilnic este să consumi cel puțin 2 litri de apă.")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                        
+                        if viewModel.waterIntake >= viewModel.waterIntakeGoal {
+                            Text("Felicitări! Ai atins obiectivul de hidratare pentru azi.")
+                                .foregroundColor(.green)
+                        } else {
+                            Text("Continuă să te hidratezi pentru a atinge obiectivul zilnic.")
+                                .foregroundColor(.orange)
+                        }
                     
-                    if viewModel.waterIntake >= viewModel.waterIntakeGoal {
-                        Text("Felicitări! Ai atins obiectivul de hidratare pentru azi.")
-                            .foregroundColor(.green)
-                    } else {
-                        Text("Continuă să te hidratezi pentru a atinge obiectivul zilnic.")
-                            .foregroundColor(.orange)
-                    }
                 }
                 .onAppear {
                     Task {
                         // Încarcă datele necesare la apariția view-ului
                         try? await viewModel.loadCurrentUser()
                         try? await viewModel.loadTodayWaterIntake()
-                        try? await viewModel.checkAndResetWaterIntake()
                     }
                 }
             }
