@@ -19,39 +19,54 @@ struct ProfileView: View {
     
     
     var body: some View {
-        List {
+        VStack(alignment: .center) {
             if let user = viewModel.user {
                 // Secțiune pentru afișarea detaliilor utilizatorului
-                ZStack(alignment: .bottomTrailing) {
-                    if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
-                        AsyncImage(url: photoURL) { image in
-                            image.resizable()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
-                    } else {
-                        // Adaugă o imagine placeholder dacă nu există o imagine de profil.
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                            .padding()
-                    }
+                ZStack() {
                     
-                    // Butonul de editare cu semnul „plus”.
-                    Button(action: {
-                        isImagePickerPresented = true
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.white)
-                            .background(Color.accentColor)
+                    CSXShape()
+                        .fill(Color.darkRed)
+                        .frame(width:250, height: 200)
+                        .overlay(
+                            Text("Profil")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                                .offset(y: -120) // Ajustează poziția titlului 
+                        )
+                    ZStack(alignment: .bottomTrailing) {
+                        if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
+                            AsyncImage(url: photoURL) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 120, height: 120)
                             .clipShape(Circle())
+                            
+                        } else {
+                            // Adaugă o imagine placeholder dacă nu există o imagine de profil.
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
+                                .padding()
+                        }
+                        
+                        // Butonul de editare cu semnul „plus”.
+                        Button(action: {
+                            isImagePickerPresented = true
+                        }) {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.white)
+                                .background(Color.accentColor)
+                                .clipShape(Circle())
+                        }
+                        .padding(10)  // Asigură spațiu în jurul butonului.
                     }
-                    .padding(10)  // Asigură spațiu în jurul butonului.
                 }
-                .padding()
+                .padding(.top, 50)
+                
+                Spacer()
                 
                 
                 Text("ID: \(user.userId)")
@@ -65,14 +80,14 @@ struct ProfileView: View {
                         viewModel.loadSteps()
                     }
                 
-               
+                Spacer()
             }
         }
-
+        
         .onAppear {
             Task {
                 try? await viewModel.loadCurrentUser()
-
+                
             }
         }
         .sheet(isPresented: $isImagePickerPresented) {
@@ -100,12 +115,24 @@ struct ProfileView: View {
 
 
 
-#Preview {
-    NavigationStack{
-        ProfileView(showSignInview: .constant(false))
+struct CSXShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            
+            // SUS
+            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+            
+            // MIJLOC DREAPTA
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+            
+            // JOS
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+            
+            // MIJLOC STÂNGA
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+            
+        }
+        
     }
 }
-
-
-
 

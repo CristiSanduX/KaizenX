@@ -49,7 +49,7 @@ final class ProfileViewModel: ObservableObject {
     func uploadImageToStorage(_ image: UIImage) async throws {
         guard let imageData = image.jpegData(compressionQuality: 0.5),
               let userId = self.user?.userId else {
-            throw NSError(domain: "com.kaizenX", code: -1, userInfo: [NSLocalizedDescriptionKey: "Nu s-a putut prelua informațiile utilizatorului sau converti imaginea."])
+            throw NSError(domain: "com.kaizenX", code: -1, userInfo: [NSLocalizedDescriptionKey: "Nu s-au putut prelua informațiile utilizatorului sau converti imaginea."])
         }
         
         let storageRef = Storage.storage().reference(withPath: "user_photos/\(userId).jpg")

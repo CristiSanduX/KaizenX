@@ -37,9 +37,13 @@ struct MainView: View {
                 }
         }
         .accentColor(Color.darkRed)
+        .colorScheme(.light)
 
     }
+    
+        
 }
+    
 
 
 #Preview {
