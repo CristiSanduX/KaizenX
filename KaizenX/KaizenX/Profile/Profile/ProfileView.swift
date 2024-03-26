@@ -22,65 +22,60 @@ struct ProfileView: View {
         VStack(alignment: .center) {
             if let user = viewModel.user {
                 // Secțiune pentru afișarea detaliilor utilizatorului
-                ZStack() {
-                    
-                    CSXShape()
-                        .fill(Color.darkRed)
-                        .frame(width:250, height: 200)
-                        .overlay(
-                            Text("Profil")
-                                .font(.largeTitle)
-                                .foregroundColor(.black)
-                                .offset(y: -120) // Ajustează poziția titlului 
-                        )
-                    ZStack(alignment: .bottomTrailing) {
-                        if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
-                            AsyncImage(url: photoURL) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 120, height: 120)
-                            .clipShape(Circle())
-                            
-                        } else {
-                            // Adaugă o imagine placeholder dacă nu există o imagine de profil.
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                                .padding()
-                        }
+                VStack {
+                    Text("Profil")
+                        .font(.largeTitle)
+                        .foregroundColor(.accentColor)
+                        .padding(.bottom, 20)
+                    ZStack {
                         
-                        // Butonul de editare cu semnul „plus”.
-                        Button(action: {
-                            isImagePickerPresented = true
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.white)
-                                .background(Color.accentColor)
+                        Circle()
+                            .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
+                            .foregroundColor(.accentColor)
+                            .frame(width: 220, height: 220)
+                        ZStack(alignment: .bottomTrailing) {
+                            if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
+                                AsyncImage(url: photoURL) { image in
+                                    image.resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(width: 150, height: 150)
                                 .clipShape(Circle())
+                                
+                            } else {
+                                // Adaugă o imagine placeholder dacă nu există o imagine de profil.
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                                    .padding()
+                            }
+                            
+                            // Butonul de editare cu semnul „plus”.
+                            Button(action: {
+                                isImagePickerPresented = true
+                            }) {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .background(Color.accentColor)
+                                    .clipShape(Circle())
+                                
+                            }
+                            .padding(10)  // Asigură spațiu în jurul butonului.
                         }
-                        .padding(10)  // Asigură spațiu în jurul butonului.
                     }
+                    .padding(.top, 20)
+                    
+                    
+                    
+                    Spacer()
+                    
+                    AnimationNumber()
+                    
+                    Spacer()
                 }
-                .padding(.top, 50)
-                
-                Spacer()
-                
-                
-                Text("ID: \(user.userId)")
-                
-                if let email = user.email {
-                    Text("E-mail: \(email)")
-                }
-                
-                Text("Pași astăzi: \(viewModel.steps, specifier: "%.0f")")
-                    .onAppear {
-                        viewModel.loadSteps()
-                    }
-                
-                Spacer()
             }
         }
         
@@ -111,6 +106,7 @@ struct ProfileView: View {
             }
         }
     }
+        
 }
 
 
