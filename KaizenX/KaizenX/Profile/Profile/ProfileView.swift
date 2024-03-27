@@ -16,6 +16,9 @@ struct ProfileView: View {
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage?
     
+    // Stare pentru a gestiona apăsarea butonului
+    @State private var isPressed = false
+    
     
     
     var body: some View {
@@ -24,7 +27,7 @@ struct ProfileView: View {
                 // Secțiune pentru afișarea detaliilor utilizatorului
                 VStack {
                     Text("Profil")
-                        .font(.largeTitle)
+                        .font(.custom("VTKS DURA 3d", size: 38))
                         .foregroundColor(.accentColor)
                         .padding(.bottom, 20)
                     ZStack {
@@ -54,16 +57,23 @@ struct ProfileView: View {
                             
                             // Butonul de editare cu semnul „plus”.
                             Button(action: {
-                                isImagePickerPresented = true
+                                isPressed = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    isPressed = false
+                                    isImagePickerPresented = true
+                                }
                             }) {
                                 Image(systemName: "plus.circle.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .background(Color.accentColor)
+                                    .font(.system(size: 25))
+                                    .foregroundColor(isPressed ? .gray : .white)
+                                    .background(isPressed ? Color.gray : Color.accentColor)
+                                    .scaleEffect(isPressed ? 1.5 : 1.0)
                                     .clipShape(Circle())
                                 
                             }
-                            .padding(10)  // Asigură spațiu în jurul butonului.
+                            .padding(10)
+                            .animation(.easeInOut(duration: 0.3), value: isPressed)
+
                         }
                     }
                     .padding(.top, 20)
@@ -106,7 +116,7 @@ struct ProfileView: View {
             }
         }
     }
-        
+    
 }
 
 

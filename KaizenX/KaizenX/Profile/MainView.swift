@@ -9,41 +9,45 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var showSignInView: Bool
+    
+    
     var body: some View {
         TabView {
             
             
             ProfileView(showSignInview: $showSignInView)
                 .tabItem {
-                    Label("Profile", systemImage: "person.fill")
-                }
+                    Label("Profil", systemImage: "person.fill")
 
+                }
+            
             
             GymCounterView() // Acesta va fi un nou View pentru Gym Counter
                 .tabItem {
-                    Label("Gym", systemImage: "dumbbell")
+                    Label("Sală", systemImage: "dumbbell")
                 }
-
+            
             
             FoodCounterView()
-                    .tabItem {
-                        Label("Food", systemImage: "fork.knife")
-                    }
-
+                .tabItem {
+                    Label("Mâncare", systemImage: "fork.knife")
+                    
+                }
+            
             
             WaterCounterView()
                 .tabItem {
-                    Label("Water", systemImage: "drop.fill")
+                    Label("Apă", systemImage: "drop.fill")
                 }
         }
         .accentColor(Color.darkRed)
         .colorScheme(.light)
-
+        
     }
     
-        
-}
     
+}
+
 
 
 #Preview {
