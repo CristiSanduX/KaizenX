@@ -52,6 +52,12 @@ struct AnimationNumber: View {
                 .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color(.systemGray4))
                 .frame(width: 220, height: 220)
+                .overlay(
+                                                CSXShape()
+                                                    .stroke(style: .init(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                                                    .foregroundColor(.accentColor)
+                                                    .frame(width: 100, height: 100)
+                                            )
             
             Circle()
                 .trim(from: 0, to: CGFloat(viewModel.steps/10000))
