@@ -9,17 +9,38 @@ import SwiftUI
 import GoogleMaps
 
 struct GoogleMapsView: UIViewRepresentable {
+    @ObservedObject var locationManager = LocationManager()
     
     func makeUIView(context: Self.Context) -> GMSMapView {
-        let camera = GMSCameraPosition.camera(withLatitude: -33.8688, longitude: 151.2093, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        let mapView = GMSMapView(frame: CGRect.zero)
+        mapView.isMyLocationEnabled = true  // Afișează locația curentă pe hartă
         return mapView
     }
     
-    func updateUIView(_ uiView: GMSMapView, context: Context) {
+    func updateUIView(_ mapView: GMSMapView, context: Context) {
+        if let location = locationManager.lastKnownLocation {
+            let camera = GMSCameraPosition.camera(withTarget: location.coordinate, zoom: 15)
+            mapView.animate(to: camera)
+        }
     }
 }
 
-#Preview {
-    GoogleMapsView()
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let locationManager = CLLocationManager()
+    @Published var lastKnownLocation: CLLocation?
+
+    override init() {
+        super.init()
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        lastKnownLocation = locations.last
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Nu s-a putut obține locația: \(error.localizedDescription)")
+    }
 }
