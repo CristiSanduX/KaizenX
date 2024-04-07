@@ -28,7 +28,7 @@ struct MainView: View {
                 }
             
             
-            FoodCounterView()
+            GoogleMapsView()
                 .tabItem {
                     Label("Mâncare", systemImage: "fork.knife")
                     

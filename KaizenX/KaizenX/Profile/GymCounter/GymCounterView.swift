@@ -8,6 +8,12 @@ struct GymCounterView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Text("ANTRENAMENTUL TĂU")
+                    .font(.custom("Rubik-VariableFont_wght", size: 25))
+                    .foregroundColor(.accentColor)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
+                
                 DatePicker(
                     "Alege data",
                     selection: $selectedDate,
@@ -33,12 +39,11 @@ struct GymCounterView: View {
                     showingAddExerciseView = true
                 }
             }
-            .navigationTitle("Antrenament Sala")
+            
             .onChange(of: selectedDate) { newDate in
                 viewModel.fetchExercisesForDate(newDate)
             }
             .sheet(isPresented: $showingAddExerciseView) {
-                // Aici pasăm toate legăturile necesare către AddExerciseView
                 AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
                                 selectedDate: $selectedDate,
                                 gymViewModel: viewModel)

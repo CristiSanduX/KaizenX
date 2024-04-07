@@ -8,6 +8,8 @@
 // Punctul de intrare al aplicației
 import SwiftUI
 import FirebaseCore
+import GoogleMaps
+
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -25,9 +27,16 @@ struct KaizenXApp: App {
     // register app delegate for Firebase setup
       @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    init() {
+        GMSServices.provideAPIKey("AIzaSyBqmV_qtdvxpUvYaf0JMPEOpT-6cUlzYnw")
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContainerView()
         }
     }
 }
+
+
+
