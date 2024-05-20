@@ -12,7 +12,7 @@ struct GymCounterView: View {
                     .font(.custom("Rubik-VariableFont_wght", size: 25))
                     .foregroundColor(.accentColor)
                     .padding(.top, 20)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 10)
                 
                 DatePicker(
                     "Alege data",
@@ -22,36 +22,67 @@ struct GymCounterView: View {
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .padding()
                 
-                List {
-                    Section(header: Text("Exerciții pentru data selectată")) {
-                        ForEach(viewModel.exercises, id: \.id) { exercise in
-                            HStack {
-                                Text(exercise.name)
-                                Spacer()
-                                Text("\(exercise.sets) seturi, \(exercise.repetitions) repetări, \(exercise.weight) kg")
-                                
+                if viewModel.exercises.isEmpty {
+                    Text("Nu există exerciții pentru data selectată.")
+                        .foregroundColor(.gray)
+                } else {
+                    List {
+                        Section(header: Text("Exerciții pentru data selectată").font(.headline).foregroundColor(.accentColor)) {
+                            ForEach(viewModel.exercises, id: \.id) { exercise in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(exercise.name)
+                                            .font(.body)
+                                            .foregroundColor(.primary)
+                                        Text(exercise.muscleGroup)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    Text("\(exercise.sets) seturi, \(exercise.repetitions) repetări, \(exercise.weight) kg")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.vertical, 5)
                             }
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
+                    .frame(maxHeight: 500) 
                 }
                 
-                Button("Adaugă Exercițiu") {
+                Spacer()
+                
+                Button(action: {
                     showingAddExerciseView = true
+                }) {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.headline)
+                        Text("Adaugă Exercițiu")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .foregroundColor(.white)
+                    .background(Color.accentColor)
+                    .cornerRadius(8)
+                }
+                .padding(.bottom, 5)
+                .sheet(isPresented: $showingAddExerciseView) {
+                    AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
+                                    selectedDate: $selectedDate,
+                                    gymViewModel: viewModel)
                 }
             }
-            
+            .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
             .onChange(of: selectedDate) { newDate in
                 viewModel.fetchExercisesForDate(newDate)
             }
-            .sheet(isPresented: $showingAddExerciseView) {
-                AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
-                                selectedDate: $selectedDate,
-                                gymViewModel: viewModel)
+            .onAppear {
+                viewModel.fetchExercisesForDate(selectedDate)
             }
-            
-        }
-        .onAppear {
-            viewModel.fetchExercisesForDate(selectedDate)
         }
     }
 }

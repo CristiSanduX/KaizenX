@@ -1,10 +1,3 @@
-//
-//  WaterAnimationView.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 01.01.2024.
-//
-
 import SwiftUI
 
 struct WaterAnimationView: View {
@@ -15,10 +8,10 @@ struct WaterAnimationView: View {
     var progress: CGFloat {
         CGFloat(waterIntake / waterIntakeGoal)
     }
-    @State var startAnimation: CGFloat = 0
+    @State private var startAnimation: CGFloat = 0
 
     var body: some View {
-        GeometryReader{proxy in
+        GeometryReader { proxy in
             let size = proxy.size
             
             ZStack {
@@ -28,7 +21,7 @@ struct WaterAnimationView: View {
                     .renderingMode(.template)
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(.gray)
-                    .scaleEffect(x:1.1, y:1)
+                    .scaleEffect(x: 1.1, y: 1)
                     .offset(y: -1)
                 
                 // Animația de valuri care reprezintă nivelul de apă consumată.
@@ -36,8 +29,8 @@ struct WaterAnimationView: View {
                     .fill(Color.blue)
                     .overlay(content: {
                         // Stropi de apă pentru un aspect decorativ.
-                        Circle().fill(.opacity(0.1)).frame(width: 15, height: 15).offset(x: -20)
-                        Circle().fill(.opacity(0.1)).frame(width: 15, height: 15).offset(x: 40, y: 30)
+                        Circle().fill(Color.blue.opacity(0.1)).frame(width: 15, height: 15).offset(x: -20)
+                        Circle().fill(Color.blue.opacity(0.1)).frame(width: 15, height: 15).offset(x: 40, y: 30)
                         // ... (alte cercuri pentru a completa efectul de stropi)
                     })
                     .mask {
@@ -54,18 +47,17 @@ struct WaterAnimationView: View {
                             Image(systemName: "plus")
                                 .font(.system(size: 25, weight: .black))
                                 .foregroundColor(.blue)
-                                .shadow(radius:2)
+                                .shadow(radius: 2)
                                 .padding(15)
-                                .background(.white, in: Circle())
+                                .background(Color.white, in: Circle())
                         })
                         .offset(y: 40)
                     }
             }
             .frame(width: size.width, height: size.height, alignment: .center)
-            .onAppear{
-                // Inițializează animația de valuri.
-                withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
-                    startAnimation = size.width
+            .onAppear {
+                withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
+                    startAnimation = size.width * 2
                 }
             }
         }
@@ -85,20 +77,24 @@ struct WaterWave: Shape {
     }
     
     func path(in rect: CGRect) -> Path {
-        return Path { path in
-            // Crearea traiectoriei valurilor.
-            path.move(to: .zero)
-            let progressHeight: CGFloat = (1 - progress) * rect.height
-            let height = waveHeight * rect.height
-            for value in stride(from: 0, to: rect.width, by: 2) {
-                let x: CGFloat = value
-                let sine: CGFloat = sin(Angle(degrees: value + offset).radians)
-                let y: CGFloat = progressHeight + (height * sine)
-                path.addLine(to: CGPoint(x: x, y: y))
-            }
-            // Finalizarea traiectoriei.
-            path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-            path.addLine(to: CGPoint(x: 0, y: rect.height))
+        var path = Path()
+        let progressHeight: CGFloat = (1 - progress) * rect.height
+        let height = waveHeight * rect.height
+        let length = rect.width
+
+        path.move(to: .zero)
+
+        for value in stride(from: 0, through: length, by: 1) {
+            let x: CGFloat = value
+            let sine: CGFloat = sin(Angle(degrees: value + offset).radians)
+            let y: CGFloat = progressHeight + (height * sine)
+            path.addLine(to: CGPoint(x: x, y: y))
         }
+
+        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+        path.addLine(to: CGPoint(x: 0, y: rect.height))
+        path.closeSubpath()
+
+        return path
     }
 }

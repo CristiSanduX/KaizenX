@@ -1,15 +1,7 @@
-//
-//  ProfileViewModel.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 26.11.2023.
-//
-
 import SwiftUI
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
-
 
 /// ViewModel pentru ProfileView. Gestionează încărcarea și stocarea datelor profilului utilizatorului.
 @MainActor
@@ -19,10 +11,9 @@ final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var steps: Double = 0
     
-    // Adaugă proprietăți pentru a stoca ap consumată și obiectivul
-    @Published var waterIntake: Int = 0
-    let waterIntakeGoal: Int = 2000 // în mililitri, echivalent cu 2L
-    
+    // Adaugă proprietăți pentru a stoca apa consumată și obiectivul
+    @Published var waterIntake: Double = 0
+    let waterIntakeGoal: Double = 2000 // în mililitri, echivalent cu 2L
     
     /// Încarcă datele utilizatorului curent autentificat.
     func loadCurrentUser() async throws {
@@ -30,7 +21,8 @@ final class ProfileViewModel: ObservableObject {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         
         // Preia datele utilizatorului din Firestore folosind UserManager.
-        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        let user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        self.user = user
     }
     
     /// Solicită autorizația și încarcă numărul de pași de la HealthKit.
@@ -42,6 +34,26 @@ final class ProfileViewModel: ObservableObject {
                     self?.steps = steps
                 }
             }
+        }
+    }
+    
+    /// Încarcă cantitatea de apă consumată pentru ziua curentă.
+    func loadTodayWaterIntake() async throws {
+        guard let userId = self.user?.userId else { return }
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy_MM_dd"
+        let todayString = dateFormatter.string(from: today)
+        
+        let userRef = Firestore.firestore()
+                       .collection("users")
+                       .document(userId)
+                       .collection("daily_intakes")
+                       .document(todayString)
+        
+        let document = try await userRef.getDocument()
+        if let data = document.data(), let waterIntakeValue = data["intake"] as? Double {
+            self.waterIntake = waterIntakeValue
         }
     }
     
@@ -73,13 +85,4 @@ final class ProfileViewModel: ObservableObject {
         let userRef = Firestore.firestore().collection("users").document(userId)
         try await userRef.setData(["photo_url": url.absoluteString], merge: true)
     }
-    
-    
-    
-    
-    
 }
-
-
-
-

@@ -14,7 +14,6 @@
 		1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */; };
 		1C0600E82BAC887600BD53B5 /* StepCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0600E72BAC887600BD53B5 /* StepCounterView.swift */; };
 		1C0600EA2BAC89BB00BD53B5 /* AnimationNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0600E92BAC89BB00BD53B5 /* AnimationNumber.swift */; };
-		1C195A612B7E1A8100BB5B25 /* FoodCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */; };
 		1C195A632B7E4D0E00BB5B25 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */; };
 		1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */; };
 		1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */; };
@@ -40,6 +39,7 @@
 		1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */; };
 		1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */; };
 		1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */; };
+		1CD80C782BFB4CC7007D1C16 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD80C772BFB4CC7007D1C16 /* StepsView.swift */; };
 		1CF1A2712B37156A005B0D1F /* WaterCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */; };
 		1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */; };
 		1CF1A2772B371747005B0D1F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2762B371747005B0D1F /* MainView.swift */; };
@@ -64,7 +64,6 @@
 		1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1C0600E72BAC887600BD53B5 /* StepCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCounterView.swift; sourceTree = "<group>"; };
 		1C0600E92BAC89BB00BD53B5 /* AnimationNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationNumber.swift; sourceTree = "<group>"; };
-		1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCounterView.swift; sourceTree = "<group>"; };
 		1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		1C19F8AA2AEC1AF0007BDDE4 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1C19F8AC2AEFB1F9007BDDE4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EE2B0E1130005EA3DA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		1CD80C772BFB4CC7007D1C16 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
 		1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterView.swift; sourceTree = "<group>"; };
 		1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterViewModel.swift; sourceTree = "<group>"; };
 		1CF1A2762B371747005B0D1F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -148,14 +148,6 @@
 			path = Configurations;
 			sourceTree = "<group>";
 		};
-		1C195A5F2B7E1A3F00BB5B25 /* FoodCounter */ = {
-			isa = PBXGroup;
-			children = (
-				1C195A602B7E1A8100BB5B25 /* FoodCounterView.swift */,
-			);
-			path = FoodCounter;
-			sourceTree = "<group>";
-		};
 		1C19F8C02AF9B08B007BDDE4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,13 +184,21 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				1C195A5F2B7E1A3F00BB5B25 /* FoodCounter */,
+				1CD80C722BFB4C6F007D1C16 /* StepCounter */,
 				1CF1A2782B371D11005B0D1F /* GymCounter */,
 				1CF1A2752B37172B005B0D1F /* Profile */,
 				1CF1A26F2B37154B005B0D1F /* WaterCounter */,
 				1CF1A2762B371747005B0D1F /* MainView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		1CD80C722BFB4C6F007D1C16 /* StepCounter */ = {
+			isa = PBXGroup;
+			children = (
+				1CD80C772BFB4CC7007D1C16 /* StepsView.swift */,
+			);
+			path = StepCounter;
 			sourceTree = "<group>";
 		};
 		1CF1A26F2B37154B005B0D1F /* WaterCounter */ = {
@@ -386,11 +386,11 @@
 				1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */,
 				1C19F8AF2AEFB62F007BDDE4 /* SettingsView.swift in Sources */,
 				1C195A632B7E4D0E00BB5B25 /* AddExerciseView.swift in Sources */,
+				1CD80C782BFB4CC7007D1C16 /* StepsView.swift in Sources */,
 				1C0415E52B118812008B7E98 /* UserManager.swift in Sources */,
 				1C19F8AB2AEC1AF0007BDDE4 /* AuthenticationManager.swift in Sources */,
 				1CCA53EA2B0DB4BA005EA3DA /* SignInEmailViewModel.swift in Sources */,
 				1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */,
-				1C195A612B7E1A8100BB5B25 /* FoodCounterView.swift in Sources */,
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
 				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,

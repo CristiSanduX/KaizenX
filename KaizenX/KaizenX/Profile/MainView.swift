@@ -28,9 +28,9 @@ struct MainView: View {
                 }
             
             
-            GoogleMapsView()
+            StepsView()
                 .tabItem {
-                    Label("Mâncare", systemImage: "fork.knife")
+                    Label("Pași", systemImage: "figure.walk")
                     
                 }
             

@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 22.11.2023.
-//
-
 import SwiftUI
 
 /// Afișează profilul utilizatorului curent, permițând actualizarea imaginii de profil și vizualizarea datelor de autentificare.
@@ -19,90 +12,149 @@ struct ProfileView: View {
     // Stare pentru a gestiona apăsarea butonului
     @State private var isPressed = false
     
-    
-    
     var body: some View {
-        VStack(alignment: .center) {
-            if let user = viewModel.user {
-                // Secțiune pentru afișarea detaliilor utilizatorului
-                VStack {
-                    Text("PROFIL")
-                        .font(.custom("Rubik-VariableFont_wght", size: 35))
-                        .foregroundColor(.accentColor)
-                        .padding(.top, 20)
-                        .padding(.bottom, 20)
-                    ZStack {
-                        
-                        Circle()
-                            .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
+        ScrollView {
+            VStack(alignment: .center) {
+                if let user = viewModel.user {
+                    // Secțiune pentru afișarea detaliilor utilizatorului
+                    VStack {
+                        Text("PROFIL")
+                            .font(.custom("Rubik-VariableFont_wght", size: 35))
                             .foregroundColor(.accentColor)
-                            .frame(width: 220, height: 220)
-                            .overlay(
-                                CSXShape()
-                                    .stroke(style: .init(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                                    .foregroundColor(.accentColor)
-                                    .frame(width: 100, height: 100)
-                            )
-                        ZStack(alignment: .bottomTrailing) {
-                            if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
-                                AsyncImage(url: photoURL) { image in
-                                    image.resizable()
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                                
-                            } else {
-                                // Adaugă o imagine placeholder dacă nu există o imagine de profil.
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
+                            .padding(.top, 20)
+                            .padding(.bottom, 15)
+                        ZStack {
+                            Circle()
+                                .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
+                                .foregroundColor(.accentColor)
+                                .frame(width: 220, height: 220)
+                                .overlay(
+                                    CSXShape()
+                                        .stroke(style: .init(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                                        .foregroundColor(.accentColor)
+                                        .frame(width: 100, height: 100)
+                                )
+                            ZStack(alignment: .bottomTrailing) {
+                                if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
+                                    AsyncImage(url: photoURL) { image in
+                                        image.resizable()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
                                     .frame(width: 150, height: 150)
                                     .clipShape(Circle())
-                                    .padding()
-                            }
-                            
-                            // Butonul de editare cu semnul „plus”.
-                            Button(action: {
-                                isPressed = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    isPressed = false
-                                    isImagePickerPresented = true
+                                } else {
+                                    // Adaugă o imagine placeholder dacă nu există o imagine de profil.
+                                    Image(systemName: "person.circle.fill")
+                                        .resizable()
+                                        .frame(width: 150, height: 150)
+                                        .clipShape(Circle())
+                                        .padding()
                                 }
-                            }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .font(.system(size: 25))
-                                    .foregroundColor(isPressed ? .gray : .white)
-                                    .background(isPressed ? Color.gray : Color.accentColor)
-                                    .scaleEffect(isPressed ? 1.5 : 1.0)
-                                    .clipShape(Circle())
                                 
+                                // Butonul de editare cu semnul „plus”.
+                                Button(action: {
+                                    isPressed = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        isPressed = false
+                                        isImagePickerPresented = true
+                                    }
+                                }) {
+                                    Image(systemName: "plus.circle.fill")
+                                        .font(.system(size: 25))
+                                        .foregroundColor(isPressed ? .gray : .white)
+                                        .background(isPressed ? Color.gray : Color.accentColor)
+                                        .scaleEffect(isPressed ? 1.5 : 1.0)
+                                        .clipShape(Circle())
+                                }
+                                .padding(10)
+                                .animation(.easeInOut(duration: 0.3), value: isPressed)
                             }
-                            .padding(10)
-                            .animation(.easeInOut(duration: 0.3), value: isPressed)
-                            
                         }
+                        .padding(.top, 30)
+                        .padding(.bottom, 30)
+                        
+                        /*// Card pentru detalii utilizator
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack {
+                                Image(systemName: "envelope.fill")
+                                    .foregroundColor(.accentColor)
+                                Text(user.email ?? "Email necunoscut")
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                            }
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color(.systemGray6)))
+                        .shadow(radius: 5)
+                        .padding(.horizontal)*/
+                        
+                        // Progresul pașilor
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Progres Pași")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                            ProgressView(value: viewModel.steps / 10000)
+                                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                            HStack {
+                                Text("Pași: \(Int(viewModel.steps))")
+                                Spacer()
+                                Text("Obiectiv: 10.000")
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color(.systemGray6)))
+                        .shadow(radius: 5)
+                        .padding(.horizontal)
+                        
+                        // Progresul hidratării
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Progres Hidratare")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                            ProgressView(value: viewModel.waterIntake / viewModel.waterIntakeGoal)
+                                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                            HStack {
+                                Text("Apă: \(Int(viewModel.waterIntake)) ml")
+                                Spacer()
+                                Text("Obiectiv: \(Int(viewModel.waterIntakeGoal)) ml")
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color(.systemGray6)))
+                        .shadow(radius: 5)
+                        .padding(.horizontal)
+                        
+                        Spacer()
+                        
+                        // Săli de sport din apropiere
+                        VStack {
+                            Text("Săli de sport din apropiere")
+                                .font(.title2)
+                                .foregroundColor(.accentColor)
+                                .padding(.top, 25)
+                                .padding(.bottom, 20)
+                            GoogleMapsView()
+                                .clipShape(Circle())
+                                .frame(width: 280, height: 280) // Ajustează acest frame la dimensiunea necesară
+                                .padding(.horizontal)
+                                .padding(.bottom, 10)
+                        }
+                        
+                        Spacer()
                     }
-                    .padding(.top, 40)
-                    .padding(.bottom, 15)
-                    
-                    
-                    
-                    
-                    Spacer()
-                    
-                    AnimationNumber()
-                        .padding(.top, 15)
-                    
-                    Spacer()
                 }
             }
         }
-        
         .onAppear {
             Task {
                 try? await viewModel.loadCurrentUser()
-                
+                viewModel.loadSteps()
+                try? await viewModel.loadTodayWaterIntake()
             }
         }
         .sheet(isPresented: $isImagePickerPresented) {
@@ -126,10 +178,7 @@ struct ProfileView: View {
             }
         }
     }
-    
 }
-
-
 
 struct CSXShape: Shape {
     func path(in rect: CGRect) -> Path {
@@ -137,7 +186,6 @@ struct CSXShape: Shape {
         let center = CGPoint(x: rect.midX, y: rect.midY)
         let min = CGPoint(x: rect.minX, y: rect.minY)
         let max = CGPoint(x: rect.maxX, y: rect.maxY)
-        
         
         var path = Path()
         
@@ -159,6 +207,5 @@ struct CSXShape: Shape {
         
         return path
             .strokedPath(.init(lineWidth: 2.5))
-        
     }
 }

@@ -15,7 +15,10 @@ struct DBUser {
     let email: String?
     var photoURL: String?
     let dateCreated: Date?
+
+
 }
+
 
 /// `UserManager` gestionează operațiunile legate de utilizatorii aplicației în baza de date Firestore.
 final class UserManager {

@@ -1,10 +1,3 @@
-//
-//  WaterCounterView.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 23.12.2023.
-//
-
 import SwiftUI
 
 struct WaterCounterView: View {
@@ -13,7 +6,6 @@ struct WaterCounterView: View {
     @State private var isWaterIntakeSheetPresented = false // Starea pentru afișarea modalului de introducere a apei
     @State private var manualWaterIntake: String = "" // Valoarea introdusă manual pentru cantitatea de apă
     
-
     // Funcția care gestionează adăugarea apei
     var addWater: () -> Void {
         return {
@@ -27,58 +19,75 @@ struct WaterCounterView: View {
     }
     
     var body: some View {
-        NavigationView {
-            List {
-                // Secțiunea principală a UI-ului care afișează cantitatea de apă consumată
-                Section(header: Text("Cantitatea de apă consumată")) {
-                    VStack {
-                        // Vizualizarea animației cu apa
-                        WaterAnimationView(waterIntakeGoal: viewModel.waterIntakeGoal, waterIntake: $viewModel.waterIntake)
-                        
-                        Spacer() // Spațiu suplimentar pentru estetică
-                        
-                        // Linia cu informații despre consumul de apă și butonul pentru adăugare
+        VStack {
+            Text("CONSUMUL TĂU DE APĂ")
+                .font(.custom("Rubik-VariableFont_wght", size: 25))
+                .foregroundColor(.accentColor)
+                .padding(.top, 20)
+                .padding(.bottom, 10)
+            
+            WaterAnimationView(waterIntakeGoal: viewModel.waterIntakeGoal, waterIntake: $viewModel.waterIntake)
+                .frame(height: 350)
+                .padding(.top, 10)
+            
+            Spacer()
+            
+            VStack {
+                HStack {
+                    Text("Consumat: \(Int(viewModel.waterIntake)) ml")
+                        .font(.headline)
+                    Spacer()
+                    Button(action: {
+                        isWaterIntakeSheetPresented = true
+                    }) {
                         HStack {
-                            
-                            
-                            // Butonul pentru adăugarea apei
-                            Button(action: {
-                                isWaterIntakeSheetPresented = true
-                            }) {
-                                Text("Consumat: \(Int(viewModel.waterIntake)) ml din 2000 ml")
-                                    .accentColor(.black)
-                            }
-                            .sheet(isPresented: $isWaterIntakeSheetPresented) {
-                                WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
-                                    addWater()
-                                }
-                            }
+                            Image(systemName: "plus.circle.fill")
+                                .font(.headline)
+                            Text("Adaugă Apă")
+                                .font(.headline)
+                                .fontWeight(.bold)
                         }
-                        .padding(.top)
-                        
-                        ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
-                            .frame(height: 20)
-                    }
-                        Text("Scopul zilnic este să consumi cel puțin 2 litri de apă.")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                        
-                        if viewModel.waterIntake >= viewModel.waterIntakeGoal {
-                            Text("Felicitări! Ai atins obiectivul de hidratare pentru azi.")
-                                .foregroundColor(.green)
-                        } else {
-                            Text("Continuă să te hidratezi pentru a atinge obiectivul zilnic.")
-                                .foregroundColor(.orange)
-                        }
-                    
-                }
-                .onAppear {
-                    Task {
-                        // Încarcă datele necesare la apariția view-ului
-                        try? await viewModel.loadCurrentUser()
-                        try? await viewModel.loadTodayWaterIntake()
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(.white)
+                        .background(Color.accentColor)
+                        .cornerRadius(8)
                     }
                 }
+                .padding(.horizontal)
+                .padding(.bottom, 10)
+                
+                ProgressBar(value: $viewModel.waterIntake, maxValue: viewModel.waterIntakeGoal)
+                    .frame(height: 20)
+                    .padding(.horizontal)
+                
+                Text("Scopul zilnic este să consumi cel puțin 2 litri de apă.")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.top, 10)
+                
+                if viewModel.waterIntake >= viewModel.waterIntakeGoal {
+                    Text("Felicitări! Ai atins obiectivul de hidratare pentru azi.")
+                        .foregroundColor(.green)
+                } else {
+                    Text("Continuă să te hidratezi pentru a atinge obiectivul zilnic.")
+                        .foregroundColor(.orange)
+                }
+            }
+            
+            Spacer()
+        }
+        .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
+        .sheet(isPresented: $isWaterIntakeSheetPresented) {
+            WaterIntakeInputView(isPresented: $isWaterIntakeSheetPresented, manualWaterIntake: $manualWaterIntake) {
+                addWater()
+            }
+        }
+        .onAppear {
+            Task {
+                // Încarcă datele necesare la apariția view-ului
+                try? await viewModel.loadCurrentUser()
+                try? await viewModel.loadTodayWaterIntake()
             }
         }
     }
@@ -113,15 +122,31 @@ struct WaterIntakeInputView: View {
         // View-ul pentru introducerea manuală a cantității de apă
         NavigationView {
             Form {
-                TextField("Introdu cantitatea de apă în ml", text: $manualWaterIntake)
-                    .keyboardType(.numberPad)
+                Section(header: Text("Introduceți cantitatea de apă (ml)").font(.headline)) {
+                    TextField("Introdu cantitatea de apă în ml", text: $manualWaterIntake)
+                        .keyboardType(.numberPad)
+                }
                 
-                Button("Adaugă") {
+                Button(action: {
                     addWater()
                     isPresented = false
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Adaugă")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8) 
+                    .padding(.horizontal, 16)
+                    .foregroundColor(.white)
+                    .background(Color.accentColor)
+                    .cornerRadius(8)
                 }
+                .padding(.top, 10)
             }
-            .navigationTitle("Adaugă apă")
+            .navigationBarTitle("Adaugă Apă", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Anulează") {
