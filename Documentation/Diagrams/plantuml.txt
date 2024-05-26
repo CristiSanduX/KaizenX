@@ -1,0 +1,342 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+set namespaceSeparator none
+
+
+class "SplashScreenView" as SplashScreenView << (S, SkyBlue) struct >> { 
+  ~isPresented : Bool
+  -scale
+  -opacityL1
+  -opacityL2
+  -opacityLogo
+  ~body : some View 
+}
+class "RootView" as RootView << (S, SkyBlue) struct >> { 
+  -showSignInView : Bool
+  ~body : some View 
+}
+class "ContainerView" as ContainerView << (S, SkyBlue) struct >> { 
+  -isSplashScreenView
+  ~body : some View 
+}
+class "SettingsView" as SettingsView << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~showSignInview : Bool
+  ~body : some View 
+}
+class "SettingsViewModel" as SettingsViewModel << (C, DarkSeaGreen) >> { 
+  ~authProviders : [AuthProviderOption]
+  ~loadAuthProviders()
+  ~signOut()
+  ~deleteAccount()
+  ~resetPassword()
+  ~updateEmail()
+  ~updatePassword() 
+}
+class "SignUpViewModel" as SignUpViewModel << (C, DarkSeaGreen) >> { 
+  ~email
+  ~password
+  ~confirmPassword
+  ~signUp() 
+}
+class "AuthDataResultModel" as AuthDataResultModel << (S, SkyBlue) struct >> { 
+  ~uid : String
+  ~email : String?
+  ~photoURL : String?
+  ~init(user:) 
+}
+class "AuthProviderOption" as AuthProviderOption << (E, LightSteelBlue) enum >> { 
+  ~email
+  ~google 
+}
+class "AuthenticationManager" as AuthenticationManager << (C, DarkSeaGreen) >> { 
+  ~{static} shared
+  -init()
+  ~getAuthenticatedUser()
+  ~getProviders()
+  ~signOut()
+  ~delete() 
+}
+class "SignInEmailView" as SignInEmailView << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~showSignInView : Bool
+  ~body : some View 
+}
+class "SignInEmailViewModel" as SignInEmailViewModel << (C, DarkSeaGreen) >> { 
+  ~email
+  ~password
+  ~isPasswordVisible
+  ~signIn()
+  ~signInGoogle() 
+}
+class "SignUpView" as SignUpView << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~showSignInView : Bool
+  ~body : some View 
+}
+class "GoogleSignInResultModel" as GoogleSignInResultModel << (S, SkyBlue) struct >> { 
+  ~idToken : String
+  ~accessToken : String
+  ~name : String?
+  ~email : String? 
+}
+class "SignInGoogleHelper" as SignInGoogleHelper << (C, DarkSeaGreen) >> { 
+  ~signIn() 
+}
+class "DBUser" as DBUser << (S, SkyBlue) struct >> { 
+  ~userId : String
+  ~email : String?
+  ~photoURL : String?
+  ~dateCreated : Date? 
+}
+class "UserManager" as UserManager << (C, DarkSeaGreen) >> { 
+  ~{static} shared
+  -init()
+  ~createNewUser(auth:)
+  ~getUser(userId:) 
+}
+class "AppDelegate" as AppDelegate << (C, DarkSeaGreen) >> { 
+  ~application(_:didFinishLaunchingWithOptions:) 
+}
+class "KaizenXApp" as KaizenXApp << (S, SkyBlue) struct >> { 
+  ~delegate
+  ~init()
+  ~body : some Scene 
+}
+class "Utilities" as Utilities << (C, DarkSeaGreen) >> { 
+  ~{static} shared
+  -init()
+  ~topViewController(controller:) 
+}
+class "HealthKitManager" as HealthKitManager << (C, DarkSeaGreen) >> { 
+  ~{static} shared
+  -healthStore : HKHealthStore?
+  ~init()
+  ~requestAuthorization(completion:)
+  ~fetchSteps(completion:) 
+}
+class "PhotoPicker" as PhotoPicker << (S, SkyBlue) struct >> { 
+  ~selectedImage : UIImage?
+  ~didSelectImage : () -> Void
+  ~makeUIViewController(context:)
+  ~updateUIViewController(_:context:)
+  ~makeCoordinator() 
+}
+class "Coordinator" as PhotoPicker.Coordinator << (C, DarkSeaGreen) >> { 
+  ~parent : PhotoPicker
+  ~init(_:)
+  ~imagePickerController(_:didFinishPickingMediaWithInfo:)
+  ~imagePickerControllerDidCancel(_:) 
+}
+class "Number" as Number << (S, SkyBlue) struct >> { 
+  ~animatableData : Int
+  ~init(number:)
+  ~body(content:) 
+}
+class "StepCounterView" as StepCounterView << (S, SkyBlue) struct >> { 
+  ~body : some View 
+}
+class "ProfileView" as ProfileView << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~showSignInview : Bool
+  -isImagePickerPresented
+  -selectedImage : UIImage?
+  -isPressed
+  ~body : some View 
+}
+class "CSXShape" as CSXShape << (S, SkyBlue) struct >> { 
+  ~path(in:) 
+}
+class "AnimatableNumber" as AnimatableNumber << (S, SkyBlue) struct >> { 
+  ~animatableData : Int
+  ~init(animatableData:)
+  ~body(content:) 
+}
+class "AnimationNumber" as AnimationNumber << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~body : some View 
+}
+class "GoogleMapsView" as GoogleMapsView << (S, SkyBlue) struct >> { 
+  ~locationManager
+  ~makeUIView(context:)
+  ~updateUIView(_:context:) 
+}
+class "LocationManager" as LocationManager << (C, DarkSeaGreen) >> { 
+  -locationManager
+  ~lastKnownLocation : CLLocation?
+  ~googlePlacesAPIKey
+  ~googlePlacesURL
+  ~init()
+  ~locationManager(_:didUpdateLocations:)
+  ~searchNearbyGyms(completion:) 
+}
+class "ProfileViewModel" as ProfileViewModel << (C, DarkSeaGreen) >> { 
+  ~user : DBUser?
+  ~steps : Double
+  ~waterIntake : Double
+  ~waterIntakeGoal : Double
+  ~loadCurrentUser()
+  ~loadSteps()
+  ~loadTodayWaterIntake()
+  ~uploadImageToStorage(_:)
+  ~updateUserPhotoURL(_:userId:) 
+}
+class "MainView" as MainView << (S, SkyBlue) struct >> { 
+  ~showSignInView : Bool
+  ~body : some View 
+}
+class "GymCounterViewModel" as GymCounterViewModel << (C, DarkSeaGreen) >> { 
+  ~muscleGroups : [String]
+  ~selectedMuscleGroup : String
+  ~exercises : [GymExercise]
+  -db
+  -userId : String
+  ~addExercise(_:on:)
+  ~fetchExercisesForDate(_:) 
+}
+class "GymExercise" as GymExercise << (S, SkyBlue) struct >> { 
+  ~id
+  ~name : String
+  ~muscleGroup : String
+  ~sets : Int
+  ~repetitions : Int
+  ~weight : Int
+  ~date : Date 
+}
+class "GymCounterView" as GymCounterView << (S, SkyBlue) struct >> { 
+  ~viewModel
+  -showingAddExerciseView
+  -selectedDate
+  ~body : some View 
+}
+class "AddExerciseView" as AddExerciseView << (S, SkyBlue) struct >> { 
+  -name : String
+  -sets : String
+  -repetitions : String
+  -weight : String
+  ~selectedMuscleGroup : String
+  ~selectedDate : Date
+  ~presentationMode
+  ~gymViewModel : GymCounterViewModel
+  ~body : some View 
+}
+class "StepsView" as StepsView << (S, SkyBlue) struct >> { 
+  -viewModel
+  ~body : some View 
+}
+class "WaterAnimationView" as WaterAnimationView << (S, SkyBlue) struct >> { 
+  ~waterIntakeGoal : Double
+  ~waterIntake : Double
+  ~progress : CGFloat
+  -startAnimation : CGFloat
+  ~body : some View 
+}
+class "WaterWave" as WaterWave << (S, SkyBlue) struct >> { 
+  ~progress : CGFloat
+  ~waveHeight : CGFloat
+  ~offset : CGFloat
+  ~animatableData : CGFloat
+  ~path(in:) 
+}
+class "WaterCounterViewModel" as WaterCounterViewModel << (C, DarkSeaGreen) >> { 
+  ~user : DBUser?
+  ~waterIntake : Double
+  ~waterIntakeGoal : Double
+  ~loadCurrentUser()
+  ~addWaterIntake(amount:)
+  ~saveDailyWaterIntake(amount:)
+  ~loadTodayWaterIntake() 
+}
+class "WaterCounterView" as WaterCounterView << (S, SkyBlue) struct >> { 
+  -viewModel
+  -isWaterIntakeSheetPresented
+  -manualWaterIntake : String
+  ~addWater : () -> Void
+  ~body : some View 
+}
+class "ProgressBar" as ProgressBar << (S, SkyBlue) struct >> { 
+  ~value : Double
+  ~maxValue : Double
+  ~body : some View 
+}
+class "WaterIntakeInputView" as WaterIntakeInputView << (S, SkyBlue) struct >> { 
+  ~isPresented : Bool
+  ~manualWaterIntake : String
+  ~addWater : () -> Void
+  ~body : some View 
+}
+class "AuthenticationManager" as AuthenticationManager0 << (X, Orchid) extension >> { 
+  ~createUser(email:password:)
+  ~signInUser(email:password:)
+  ~resetPassword(email:)
+  ~updatePassword(password:)
+  ~updateEmail(email:) 
+}
+class "AuthenticationManager" as AuthenticationManager1 << (X, Orchid) extension >> { 
+  ~signInWithGoogle(tokens:)
+  ~signIn(credential:) 
+}
+class "Int" as Int << (X, Orchid) extension >> { 
+  +scale(by:)
+  +magnitudeSquared : Double 
+}
+class "View" as View << (X, Orchid) extension >> { 
+  ~animationOverlay(for:) 
+}
+class "Double" as Double << (X, Orchid) extension >> { 
+  +scaling(by:)
+  +Square : Double 
+}
+class "View" as View2 << (X, Orchid) extension >> { 
+  ~animation(for:) 
+}
+View <|-- SplashScreenView : inherits
+View <|-- RootView : inherits
+View <|-- ContainerView : inherits
+View <|-- SettingsView : inherits
+ObservableObject <|-- SettingsViewModel : inherits
+ObservableObject <|-- SignUpViewModel : inherits
+String -- AuthProviderOption : inherits
+View <|-- SignInEmailView : inherits
+ObservableObject <|-- SignInEmailViewModel : inherits
+View <|-- SignUpView : inherits
+NSObject <|-- AppDelegate : inherits
+UIApplicationDelegate <|-- AppDelegate : inherits
+App <|-- KaizenXApp : inherits
+UIViewControllerRepresentable <|-- PhotoPicker : inherits
+NSObject <|-- PhotoPicker.Coordinator : inherits
+UINavigationControllerDelegate <|-- PhotoPicker.Coordinator : inherits
+UIImagePickerControllerDelegate <|-- PhotoPicker.Coordinator : inherits
+AnimatableModifier <|-- Number : inherits
+View <|-- StepCounterView : inherits
+View <|-- ProfileView : inherits
+Shape <|-- CSXShape : inherits
+AnimatableModifier <|-- AnimatableNumber : inherits
+View <|-- AnimationNumber : inherits
+UIViewRepresentable <|-- GoogleMapsView : inherits
+NSObject <|-- LocationManager : inherits
+ObservableObject <|-- LocationManager : inherits
+CLLocationManagerDelegate <|-- LocationManager : inherits
+ObservableObject <|-- ProfileViewModel : inherits
+View <|-- MainView : inherits
+ObservableObject <|-- GymCounterViewModel : inherits
+Identifiable <|-- GymExercise : inherits
+Codable <|-- GymExercise : inherits
+View <|-- GymCounterView : inherits
+View <|-- AddExerciseView : inherits
+View <|-- StepsView : inherits
+View <|-- WaterAnimationView : inherits
+Shape <|-- WaterWave : inherits
+ObservableObject <|-- WaterCounterViewModel : inherits
+View <|-- WaterCounterView : inherits
+View <|-- ProgressBar : inherits
+View <|-- WaterIntakeInputView : inherits
+VectorArithmetic <.. Int : inherits
+VectorArithmetic <.. Double : inherits
+PhotoPicker +-- PhotoPicker.Coordinator
+AuthenticationManager <.. AuthenticationManager0 : ext
+AuthenticationManager <.. AuthenticationManager1 : ext
+@enduml
