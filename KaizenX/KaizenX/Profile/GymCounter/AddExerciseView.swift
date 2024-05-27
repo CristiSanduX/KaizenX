@@ -52,7 +52,7 @@ struct AddExerciseView: View {
                             .fontWeight(.bold)
                     }
                     .padding(.vertical, 8)
-                    .padding(.horizontal, 16) 
+                    .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(Color.accentColor)
                     .cornerRadius(8)

@@ -24,15 +24,13 @@
 		1C19F8BA2AF7AE90007BDDE4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C19F8B92AF7AE90007BDDE4 /* GoogleSignInSwift */; };
 		1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */; };
 		1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */; };
-		1C4C0E672BB42B800005156F /* DISCOVERY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C4C0E662BB42B800005156F /* DISCOVERY.ttf */; };
-		1C4C0E692BB42CDD0005156F /* VTKS DURA 3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C4C0E682BB42CDD0005156F /* VTKS DURA 3d.ttf */; };
-		1C596ADF2BC3431600625FC2 /* Rubik-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C596ADE2BC3431600625FC2 /* Rubik-VariableFont_wght.ttf */; };
 		1C596AE22BC34E3D00625FC2 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE12BC34E3D00625FC2 /* GoogleMaps */; };
 		1C596AE42BC34E3D00625FC2 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE32BC34E3D00625FC2 /* GoogleMapsBase */; };
 		1C596AE62BC34E3D00625FC2 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE52BC34E3D00625FC2 /* GoogleMapsCore */; };
 		1C596AE82BC34E3D00625FC2 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE72BC34E3D00625FC2 /* GoogleMapsM4B */; };
 		1C596AEA2BC3500800625FC2 /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C596AE92BC3500800625FC2 /* GoogleMapsView.swift */; };
 		1C9782582B428345003B8CDD /* WaterAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9782572B428345003B8CDD /* WaterAnimationView.swift */; };
+		1C9AB6E62C04EAB60004B66B /* PredefinedExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9AB6E52C04EAB60004B66B /* PredefinedExercisesView.swift */; };
 		1CCA53E12B0DB22A005EA3DA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCA53E02B0DB22A005EA3DA /* FirebaseFirestore */; };
 		1CCA53E32B0DB22A005EA3DA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCA53E22B0DB22A005EA3DA /* FirebaseFirestoreSwift */; };
 		1CCA53E72B0DB3CD005EA3DA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */; };
@@ -71,11 +69,9 @@
 		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
-		1C4C0E662BB42B800005156F /* DISCOVERY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DISCOVERY.ttf; path = ../../../Downloads/discovery/DISCOVERY.ttf; sourceTree = "<group>"; };
-		1C4C0E682BB42CDD0005156F /* VTKS DURA 3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VTKS DURA 3d.ttf"; path = "../../../Downloads/VTKS DURA 3d.ttf"; sourceTree = "<group>"; };
-		1C596ADE2BC3431600625FC2 /* Rubik-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-VariableFont_wght.ttf"; path = "../../../Downloads/Rubik/Rubik-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		1C596AE92BC3500800625FC2 /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		1C9782572B428345003B8CDD /* WaterAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterAnimationView.swift; sourceTree = "<group>"; };
+		1C9AB6E52C04EAB60004B66B /* PredefinedExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedExercisesView.swift; sourceTree = "<group>"; };
 		1CCA53E62B0DB3CD005EA3DA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		1CCA53E92B0DB4BA005EA3DA /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		1CCA53EB2B0DB69A005EA3DA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -229,6 +225,7 @@
 				1CF1A2792B371D24005B0D1F /* GymCounterView.swift */,
 				1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */,
 				1C195A622B7E4D0E00BB5B25 /* AddExerciseView.swift */,
+				1C9AB6E52C04EAB60004B66B /* PredefinedExercisesView.swift */,
 			);
 			path = GymCounter;
 			sourceTree = "<group>";
@@ -262,9 +259,6 @@
 				1C0415EF2B17ED9D008B7E98 /* ViewManager */,
 				1C0415F02B17EE0C008B7E98 /* Configurations */,
 				1CF8A66C2AE87A09008534A7 /* Assets.xcassets */,
-				1C596ADE2BC3431600625FC2 /* Rubik-VariableFont_wght.ttf */,
-				1C4C0E682BB42CDD0005156F /* VTKS DURA 3d.ttf */,
-				1C4C0E662BB42B800005156F /* DISCOVERY.ttf */,
 				1CF8A66E2AE87A09008534A7 /* Preview Content */,
 			);
 			path = KaizenX;
@@ -363,9 +357,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF8A6702AE87A09008534A7 /* Preview Assets.xcassets in Resources */,
-				1C4C0E672BB42B800005156F /* DISCOVERY.ttf in Resources */,
-				1C4C0E692BB42CDD0005156F /* VTKS DURA 3d.ttf in Resources */,
-				1C596ADF2BC3431600625FC2 /* Rubik-VariableFont_wght.ttf in Resources */,
 				1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */,
 				1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */,
 			);
@@ -394,6 +385,7 @@
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
 				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
+				1C9AB6E62C04EAB60004B66B /* PredefinedExercisesView.swift in Sources */,
 				1CF1A27C2B371D34005B0D1F /* GymCounterViewModel.swift in Sources */,
 				1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */,
 				1C19F8B32AF26DC4007BDDE4 /* SignUpView.swift in Sources */,

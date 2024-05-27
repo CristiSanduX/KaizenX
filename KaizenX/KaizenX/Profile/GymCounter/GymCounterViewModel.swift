@@ -2,10 +2,25 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
+struct PredefinedExercise {
+    var name: String
+    var muscleGroup: String
+    var imageName: String // Numele imaginii sau GIF-ului pentru modul de execuție
+}
+
 class GymCounterViewModel: ObservableObject {
     @Published var muscleGroups: [String] = ["Piept", "Spate", "Brațe", "Picioare", "Umeri/Trapez", "Abdomen"]
     @Published var selectedMuscleGroup: String = "Piept"
-    @Published var exercises: [GymExercise] = []
+    @Published var exercises: [GymExercise] = [
+    
+    ]
+    
+    @Published var predefinedExercises: [PredefinedExercise] = [
+            PredefinedExercise(name: "Biceps Curl", muscleGroup: "Brațe", imageName: "biceps_curl"),
+            PredefinedExercise(name: "Triceps Dip", muscleGroup: "Brațe", imageName: "triceps_dip"),
+            PredefinedExercise(name: "Bench Press", muscleGroup: "Piept", imageName: "bench_press"),
+            // Adaugă mai multe exerciții predefinite aici
+        ]
     
     private var db = Firestore.firestore()
     private let userId: String = Auth.auth().currentUser?.uid ?? ""

@@ -3,6 +3,7 @@ import SwiftUI
 struct GymCounterView: View {
     @StateObject var viewModel = GymCounterViewModel()
     @State private var showingAddExerciseView = false
+    @State private var showingPredefinedExerciseView = false
     @State private var selectedDate = Date()
     
     var body: some View {
@@ -52,36 +53,59 @@ struct GymCounterView: View {
                 }
                 
                 Spacer()
-                
-                Button(action: {
-                    showingAddExerciseView = true
-                }) {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.headline)
-                        Text("Adaugă Exercițiu")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+                HStack {
+                    
+                    
+                    Button(action: {
+                        showingPredefinedExerciseView = true
+                    }) {
+                        HStack {
+                            Image(systemName: "list.bullet")
+                                .font(.headline)
+                            Text("Alege Exercițiu Predefinit")
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(.white)
+                        .background(Color.accentColor)
+                        .cornerRadius(8)
                     }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(Color.accentColor)
-                    .cornerRadius(8)
+                    .sheet(isPresented: $showingPredefinedExerciseView) {
+                        PredefinedExercisesView(selectedDate: $selectedDate, gymViewModel: viewModel)
+                    }
+                    
+                    Button(action: {
+                        showingAddExerciseView = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.headline)
+                            Text("Adaugă Exercițiu")
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(.white)
+                        .background(Color.accentColor)
+                        .cornerRadius(8)
+                    }
+                    .padding(.bottom, 5)
+                    .sheet(isPresented: $showingAddExerciseView) {
+                        AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
+                                        selectedDate: $selectedDate,
+                                        gymViewModel: viewModel)
+                    }
                 }
-                .padding(.bottom, 5)
-                .sheet(isPresented: $showingAddExerciseView) {
-                    AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
-                                    selectedDate: $selectedDate,
-                                    gymViewModel: viewModel)
+                .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
+                .onChange(of: selectedDate) { newDate in
+                    viewModel.fetchExercisesForDate(newDate)
                 }
-            }
-            .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
-            .onChange(of: selectedDate) { newDate in
-                viewModel.fetchExercisesForDate(newDate)
-            }
-            .onAppear {
-                viewModel.fetchExercisesForDate(selectedDate)
+                .onAppear {
+                    viewModel.fetchExercisesForDate(selectedDate)
+                }
             }
         }
     }
