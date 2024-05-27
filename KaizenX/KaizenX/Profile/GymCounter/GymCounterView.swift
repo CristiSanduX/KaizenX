@@ -1,10 +1,13 @@
 import SwiftUI
 
+
+
 struct GymCounterView: View {
     @StateObject var viewModel = GymCounterViewModel()
     @State private var showingAddExerciseView = false
     @State private var showingPredefinedExerciseView = false
     @State private var selectedDate = Date()
+    @State private var selectedPredefinedExercise: PredefinedExercise? = nil
     
     var body: some View {
         NavigationView {
@@ -49,13 +52,11 @@ struct GymCounterView: View {
                         }
                     }
                     .listStyle(InsetGroupedListStyle())
-                    .frame(maxHeight: 500) 
+                    .frame(maxHeight: 500)
                 }
                 
                 Spacer()
                 HStack {
-                    
-                    
                     Button(action: {
                         showingPredefinedExerciseView = true
                     }) {
@@ -73,7 +74,7 @@ struct GymCounterView: View {
                         .cornerRadius(8)
                     }
                     .sheet(isPresented: $showingPredefinedExerciseView) {
-                        PredefinedExercisesView(selectedDate: $selectedDate, gymViewModel: viewModel)
+                        PredefinedExercisesView(selectedDate: $selectedDate, gymViewModel: viewModel, selectedPredefinedExercise: $selectedPredefinedExercise)
                     }
                     
                     Button(action: {
@@ -93,11 +94,6 @@ struct GymCounterView: View {
                         .cornerRadius(8)
                     }
                     .padding(.bottom, 5)
-                    .sheet(isPresented: $showingAddExerciseView) {
-                        AddExerciseView(selectedMuscleGroup: $viewModel.selectedMuscleGroup,
-                                        selectedDate: $selectedDate,
-                                        gymViewModel: viewModel)
-                    }
                 }
                 .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
                 .onChange(of: selectedDate) { newDate in
@@ -107,6 +103,14 @@ struct GymCounterView: View {
                     viewModel.fetchExercisesForDate(selectedDate)
                 }
             }
+        }
+        .sheet(item: $selectedPredefinedExercise) { exercise in
+            AddExerciseView(
+                selectedMuscleGroup: $viewModel.selectedMuscleGroup,
+                selectedDate: $selectedDate,
+                gymViewModel: viewModel,
+                predefinedExercise: .constant(exercise)
+            )
         }
     }
 }

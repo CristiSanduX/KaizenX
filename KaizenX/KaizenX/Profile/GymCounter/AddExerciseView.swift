@@ -10,12 +10,19 @@ struct AddExerciseView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var gymViewModel: GymCounterViewModel  // Variabila pasată din GymCounterView
+    @Binding var predefinedExercise: PredefinedExercise?
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Detalii Exercițiu")) {
                     TextField("Nume exercițiu", text: $name)
+                        .onAppear {
+                            if let exercise = predefinedExercise {
+                                name = exercise.name
+                                selectedMuscleGroup = exercise.muscleGroup
+                            }
+                        }
                     
                     Picker("Grupă musculară", selection: $selectedMuscleGroup) {
                         ForEach(gymViewModel.muscleGroups, id: \.self) { group in
@@ -60,6 +67,9 @@ struct AddExerciseView: View {
                 .padding(.top, 20)
             }
             .navigationBarTitle("Adaugă exercițiu", displayMode: .inline)
+        }
+        .onDisappear {
+            predefinedExercise = nil
         }
     }
 }

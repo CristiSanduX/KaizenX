@@ -2,11 +2,16 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 
-struct PredefinedExercise {
+
+
+
+struct PredefinedExercise: Identifiable {
+    var id = UUID()
     var name: String
     var muscleGroup: String
     var imageName: String // Numele imaginii sau GIF-ului pentru modul de execuție
 }
+
 
 class GymCounterViewModel: ObservableObject {
     @Published var muscleGroups: [String] = ["Piept", "Spate", "Brațe", "Picioare", "Umeri/Trapez", "Abdomen"]

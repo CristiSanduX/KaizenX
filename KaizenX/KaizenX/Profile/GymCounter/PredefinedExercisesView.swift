@@ -11,6 +11,7 @@ struct PredefinedExercisesView: View {
     @Binding var selectedDate: Date
     @ObservedObject var gymViewModel: GymCounterViewModel
     @Environment(\.presentationMode) var presentationMode
+    @Binding var selectedPredefinedExercise: PredefinedExercise?
     
     var body: some View {
         NavigationView {
@@ -19,8 +20,7 @@ struct PredefinedExercisesView: View {
                     Section(header: Text(muscleGroup)) {
                         ForEach(gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, id: \.name) { exercise in
                             Button(action: {
-                                let newExercise = GymExercise(name: exercise.name, muscleGroup: exercise.muscleGroup, sets: 0, repetitions: 0, weight: 0, date: selectedDate)
-                                gymViewModel.addExercise(newExercise, on: selectedDate)
+                                selectedPredefinedExercise = exercise
                                 presentationMode.wrappedValue.dismiss()
                             }) {
                                 HStack {
