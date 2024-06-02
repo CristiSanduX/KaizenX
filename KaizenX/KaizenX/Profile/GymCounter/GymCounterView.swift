@@ -1,7 +1,5 @@
 import SwiftUI
 
-
-
 struct GymCounterView: View {
     @StateObject var viewModel = GymCounterViewModel()
     @State private var showingAddExerciseView = false
@@ -74,7 +72,11 @@ struct GymCounterView: View {
                         .cornerRadius(8)
                     }
                     .sheet(isPresented: $showingPredefinedExerciseView) {
-                        PredefinedExercisesView(selectedDate: $selectedDate, gymViewModel: viewModel, selectedPredefinedExercise: $selectedPredefinedExercise)
+                        PredefinedExercisesView(
+                            selectedDate: $selectedDate,
+                            gymViewModel: viewModel,
+                            selectedPredefinedExercise: $selectedPredefinedExercise
+                        )
                     }
                     
                     Button(action: {
@@ -94,6 +96,14 @@ struct GymCounterView: View {
                         .cornerRadius(8)
                     }
                     .padding(.bottom, 5)
+                    .sheet(isPresented: $showingAddExerciseView) {
+                        AddExerciseView(
+                            selectedMuscleGroup: $viewModel.selectedMuscleGroup,
+                            selectedDate: $selectedDate,
+                            gymViewModel: viewModel,
+                            predefinedExercise: .constant(nil)
+                        )
+                    }
                 }
                 .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
                 .onChange(of: selectedDate) { newDate in

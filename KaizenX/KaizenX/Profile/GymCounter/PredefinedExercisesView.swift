@@ -12,30 +12,41 @@ struct PredefinedExercisesView: View {
     @ObservedObject var gymViewModel: GymCounterViewModel
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedPredefinedExercise: PredefinedExercise?
+    @State private var exerciseForDetails: PredefinedExercise? = nil
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(gymViewModel.muscleGroups, id: \.self) { muscleGroup in
                     Section(header: Text(muscleGroup)) {
-                        ForEach(gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, id: \.name) { exercise in
-                            Button(action: {
+                        ForEach(gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, id: \.id) { exercise in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(exercise.name)
+                                }
+                                Spacer()
+                                Button(action: {
+                                    exerciseForDetails = exercise
+                                }) {
+                                    Image(systemName: "info.circle")
+                                        .foregroundColor(.accentColor)
+                                        .font(.title) // Mărim iconița
+                                }
+                                .buttonStyle(BorderlessButtonStyle()) // Pentru a evita conflictele de stil
+                            }
+                            .contentShape(Rectangle()) // Pentru a face întreaga celulă clicabilă
+                            .onTapGesture {
                                 selectedPredefinedExercise = exercise
                                 presentationMode.wrappedValue.dismiss()
-                            }) {
-                                HStack {
-                                    Text(exercise.name)
-                                    Spacer()
-                                    Image(exercise.imageName)
-                                        .resizable()
-                                        .frame(width: 50, height: 50)
-                                }
                             }
                         }
                     }
                 }
             }
             .navigationBarTitle("Exerciții Predefinite")
+            .sheet(item: $exerciseForDetails) { exercise in
+                ExerciseDetailView(exercise: exercise)
+            }
         }
     }
 }
