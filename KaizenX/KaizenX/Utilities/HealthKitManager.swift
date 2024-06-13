@@ -52,4 +52,34 @@ class HealthKitManager {
         
         healthStore?.execute(query)
     }
+    
+    /// Extrage numărul de pași pentru utilizator pentru ultimele `days` zile.
+        /// - Parameters:
+        ///   - days: Numărul de zile pentru care să obțină date.
+        ///   - completion: Un bloc de completare care returnează o listă de numere de pași pentru fiecare zi.
+        func fetchStepsForLastDays(_ days: Int, completion: @escaping (Result<[Double], Error>) -> Void) {
+            let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+            let now = Date()
+            let startDate = Calendar.current.date(byAdding: .day, value: -days, to: now)!
+            let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictStartDate)
+            
+            var stepsData: [Double] = Array(repeating: 0.0, count: days)
+            let query = HKSampleQuery(sampleType: stepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { query, samples, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                samples?.forEach { sample in
+                    if let quantitySample = sample as? HKQuantitySample {
+                        let stepCount = quantitySample.quantity.doubleValue(for: .count())
+                        let sampleDate = quantitySample.startDate
+                        let dayIndex = Calendar.current.dateComponents([.day], from: startDate, to: sampleDate).day!
+                        stepsData[dayIndex] += stepCount
+                    }
+                }
+                completion(.success(stepsData))
+            }
+            healthStore?.execute(query)
+        }
 }

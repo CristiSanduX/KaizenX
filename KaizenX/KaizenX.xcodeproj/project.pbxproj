@@ -24,6 +24,11 @@
 		1C19F8BA2AF7AE90007BDDE4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C19F8B92AF7AE90007BDDE4 /* GoogleSignInSwift */; };
 		1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */; };
 		1C19F8C42B0176AB007BDDE4 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */; };
+		1C2ABFA12C1A4C3C0011093D /* RewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2ABFA02C1A4C3C0011093D /* RewardView.swift */; };
+		1C2ABFA32C1A4C660011093D /* RewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2ABFA22C1A4C660011093D /* RewardViewModel.swift */; };
+		1C2ABFA62C1A4CAA0011093D /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2ABFA52C1A4CAA0011093D /* StatisticsView.swift */; };
+		1C2ABFA82C1A4CCA0011093D /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2ABFA72C1A4CCA0011093D /* StatisticsViewModel.swift */; };
+		1C2ABFAB2C1A534F0011093D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C2ABFAD2C1A534F0011093D /* Localizable.strings */; };
 		1C596AE22BC34E3D00625FC2 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE12BC34E3D00625FC2 /* GoogleMaps */; };
 		1C596AE42BC34E3D00625FC2 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE32BC34E3D00625FC2 /* GoogleMapsBase */; };
 		1C596AE62BC34E3D00625FC2 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1C596AE52BC34E3D00625FC2 /* GoogleMapsCore */; };
@@ -98,6 +103,12 @@
 		1C19F8B22AF26DC4007BDDE4 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1C19F8C12AF9B0AC007BDDE4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		1C19F8C32B0176AB007BDDE4 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
+		1C2ABFA02C1A4C3C0011093D /* RewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardView.swift; sourceTree = "<group>"; };
+		1C2ABFA22C1A4C660011093D /* RewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardViewModel.swift; sourceTree = "<group>"; };
+		1C2ABFA52C1A4CAA0011093D /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		1C2ABFA72C1A4CCA0011093D /* StatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
+		1C2ABFAC2C1A534F0011093D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1C2ABFAE2C1A55D90011093D /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C596AE92BC3500800625FC2 /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		1C9782572B428345003B8CDD /* WaterAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterAnimationView.swift; sourceTree = "<group>"; };
 		1C9AB6E52C04EAB60004B66B /* PredefinedExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedExercisesView.swift; sourceTree = "<group>"; };
@@ -198,6 +209,7 @@
 				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
 				1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */,
 				1CFCDA9F2B18135100F52D0C /* Info.plist */,
+				1C2ABFAD2C1A534F0011093D /* Localizable.strings */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -210,6 +222,24 @@
 				1C0415ED2B17ED24008B7E98 /* HealthKitManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		1C2ABF9F2C1A4C210011093D /* Rewards */ = {
+			isa = PBXGroup;
+			children = (
+				1C2ABFA02C1A4C3C0011093D /* RewardView.swift */,
+				1C2ABFA22C1A4C660011093D /* RewardViewModel.swift */,
+			);
+			path = Rewards;
+			sourceTree = "<group>";
+		};
+		1C2ABFA42C1A4C8F0011093D /* Satistics */ = {
+			isa = PBXGroup;
+			children = (
+				1C2ABFA52C1A4CAA0011093D /* StatisticsView.swift */,
+				1C2ABFA72C1A4CCA0011093D /* StatisticsViewModel.swift */,
+			);
+			path = Satistics;
 			sourceTree = "<group>";
 		};
 		1CCA53E52B0DB3AA005EA3DA /* Settings */ = {
@@ -238,6 +268,8 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1C2ABFA42C1A4C8F0011093D /* Satistics */,
+				1C2ABF9F2C1A4C210011093D /* Rewards */,
 				1CD80C722BFB4C6F007D1C16 /* StepCounter */,
 				1CF1A2782B371D11005B0D1F /* GymCounter */,
 				1CF1A2752B37172B005B0D1F /* Profile */,
@@ -422,6 +454,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ro,
 			);
 			mainGroup = 1CF8A65C2AE87A07008534A7;
 			packageReferences = (
@@ -445,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF8A6702AE87A09008534A7 /* Preview Assets.xcassets in Resources */,
+				1C2ABFAB2C1A534F0011093D /* Localizable.strings in Resources */,
 				1CF8A66D2AE87A09008534A7 /* Assets.xcassets in Resources */,
 				1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */,
 			);
@@ -473,6 +507,8 @@
 				1CCA53EC2B0DB69A005EA3DA /* SignUpViewModel.swift in Sources */,
 				1C9AB6EA2C0C891A0004B66B /* UIImage+GIF.swift in Sources */,
 				1CCA53EF2B0E1130005EA3DA /* ProfileView.swift in Sources */,
+				1C2ABFA12C1A4C3C0011093D /* RewardView.swift in Sources */,
+				1C2ABFA32C1A4C660011093D /* RewardViewModel.swift in Sources */,
 				1C0415EE2B17ED24008B7E98 /* HealthKitManager.swift in Sources */,
 				1CF8A6692AE87A07008534A7 /* KaizenXApp.swift in Sources */,
 				1C9AB6E62C04EAB60004B66B /* PredefinedExercisesView.swift in Sources */,
@@ -486,13 +522,27 @@
 				1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
 				1C0415E72B13F542008B7E98 /* ProfileViewModel.swift in Sources */,
+				1C2ABFA62C1A4CAA0011093D /* StatisticsView.swift in Sources */,
 				1C0600EA2BAC89BB00BD53B5 /* AnimationNumber.swift in Sources */,
 				1CF1A2712B37156A005B0D1F /* WaterCounterView.swift in Sources */,
 				1CCA53E72B0DB3CD005EA3DA /* SettingsViewModel.swift in Sources */,
+				1C2ABFA82C1A4CCA0011093D /* StatisticsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1C2ABFAD2C1A534F0011093D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C2ABFAC2C1A534F0011093D /* en */,
+				1C2ABFAE2C1A55D90011093D /* ro */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1CF8A6712AE87A09008534A7 /* Debug */ = {
@@ -500,6 +550,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -563,6 +614,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

@@ -39,6 +39,16 @@ struct MainView: View {
                 .tabItem {
                     Label("Apă", systemImage: "drop.fill")
                 }
+            
+            RewardView()
+                           .tabItem {
+                               Label("Premii", systemImage: "gift.fill")
+                           }
+                       
+                       StatisticsView()
+                           .tabItem {
+                               Label("Statistici", systemImage: "chart.bar.fill")
+                           }
         }
         .accentColor(Color.darkRed)
         .colorScheme(.light)
