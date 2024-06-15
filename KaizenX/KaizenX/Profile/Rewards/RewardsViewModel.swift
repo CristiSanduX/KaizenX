@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import HealthKit
 
 struct Achievement: Identifiable, Equatable {
     let id = UUID()
@@ -15,12 +16,28 @@ struct Achievement: Identifiable, Equatable {
     let criteria: Criteria
     var isEarned: Bool = false
     var achievedDate: Date? = nil
+    var difficulty: Difficulty
     
     enum Criteria {
         case dailySteps(Int)
         case weeklySteps(Int)
         case monthlySteps(Int)
         case consecutiveWeeklySteps(Int, Int) // Numar de zile consecutive, numar total de pasi
+    }
+    
+    enum Difficulty {
+        case easy, medium, hard
+        
+        var color: Color {
+            switch self {
+            case .easy:
+                return .green
+            case .medium:
+                return .orange
+            case .hard:
+                return .red
+            }
+        }
     }
 
     static func == (lhs: Achievement, rhs: Achievement) -> Bool {
@@ -29,12 +46,12 @@ struct Achievement: Identifiable, Equatable {
 }
 
 let allAchievements: [Achievement] = [
-    Achievement(title: "10.000 de pași într-o zi", description: "Atinge 10.000 de pași într-o singură zi", criteria: .dailySteps(10000)),
-    Achievement(title: "20.000 de pași într-o zi", description: "Atinge 20.000 de pași într-o singură zi", criteria: .dailySteps(20000)),
-    Achievement(title: "30.000 de pași într-o zi", description: "Atinge 30.000 de pași într-o singură zi", criteria: .dailySteps(30000)),
-    Achievement(title: "150.000 de pași într-o lună", description: "Atinge 150.000 de pași într-o lună", criteria: .monthlySteps(150000)),
-    Achievement(title: "300.000 de pași într-o lună", description: "Atinge 300.000 de pași într-o lună", criteria: .monthlySteps(300000)),
-    Achievement(title: "50.000 de pași în 7 zile consecutive", description: "Atinge 50.000 de pași în 7 zile consecutive", criteria: .consecutiveWeeklySteps(7, 50000)),
+    Achievement(title: "10.000 de pași într-o zi", description: "Realizează 10.000 de pași într-o singură zi", criteria: .dailySteps(10000), difficulty: .easy),
+    Achievement(title: "20.000 de pași într-o zi", description: "Realizează 20.000 de pași într-o singură zi", criteria: .dailySteps(20000), difficulty: .medium),
+    Achievement(title: "30.000 de pași într-o zi", description: "Realizează 30.000 de pași într-o singură zi", criteria: .dailySteps(30000), difficulty: .hard),
+    Achievement(title: "150.000 de pași într-o lună", description: "Realizează 150.000 de pași într-o lună", criteria: .monthlySteps(150000), difficulty: .medium),
+    Achievement(title: "300.000 de pași într-o lună", description: "Realizează 300.000 de pași într-o lună", criteria: .monthlySteps(300000), difficulty: .hard),
+    Achievement(title: "50.000 de pași în 7 zile consecutive", description: "Realizează 50.000 de pași în 7 zile consecutive", criteria: .consecutiveWeeklySteps(7, 50000), difficulty: .medium),
 ]
 
 @MainActor
@@ -105,8 +122,8 @@ class RewardsViewModel: ObservableObject {
         let calendar = Calendar.current
         
         let groupedByMonth = Dictionary(grouping: stepsData) { (date, _) -> String in
-            let components = calendar.dateComponents([.year, .month, .day], from: date)
-            return "\(components.year!)-\(components.month!)-\(components.day!)"
+            let components = calendar.dateComponents([.year, .month], from: date)
+            return "\(components.year!)-\(components.month!)"
         }
         
         for (_, monthlyData) in groupedByMonth {
@@ -135,8 +152,23 @@ class RewardsViewModel: ObservableObject {
     
     func getAchievementDate(for achievement: Achievement) -> String {
         guard let date = achievement.achievedDate else { return "" }
+        
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy"
-        return formatter.string(from: date)
+        let calendar = Calendar.current
+        let adjustedDate: Date
+        
+        switch achievement.criteria {
+        case .monthlySteps(_):
+            adjustedDate = date
+            formatter.dateFormat = "MMMM yyyy"
+        default:
+            adjustedDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            formatter.dateFormat = "dd MMM yyyy"
+        }
+        
+        return formatter.string(from: adjustedDate)
     }
+    
+    
+
 }

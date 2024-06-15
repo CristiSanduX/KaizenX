@@ -17,9 +17,9 @@ class HealthKitManager {
     private var healthStore: HKHealthStore?
     
     enum HealthKitError: Error {
-            case notAvailable
-            case authorizationFailed
-        }
+        case dataUnavailable
+        case authorizationFailed
+    }
     
     /// Inițializează `HealthKitManager` și setează `healthStore` dacă datele de sănătate sunt disponibile.
     init() {
@@ -27,6 +27,8 @@ class HealthKitManager {
             healthStore = HKHealthStore()
         }
     }
+  
+    
     
     /// Solicită autorizația utilizatorului pentru a accesa datele de sănătate.
     /// - Parameter completion: Un bloc de completare care returnează un bool indicând succesul autorizației.
@@ -59,77 +61,74 @@ class HealthKitManager {
     }
     
     /// Extrage numărul de pași pentru utilizator pentru ultimele `days` zile.
-        /// - Parameters:
-        ///   - days: Numărul de zile pentru care să obțină date.
-        ///   - completion: Un bloc de completare care returnează o listă de numere de pași pentru fiecare zi.
-        func fetchStepsForLastDays(_ days: Int, completion: @escaping (Result<[Double], Error>) -> Void) {
-            let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-            let now = Date()
-            let startDate = Calendar.current.date(byAdding: .day, value: -days, to: now)!
-            let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictStartDate)
-            
-            var stepsData: [Double] = Array(repeating: 0.0, count: days)
-            let query = HKSampleQuery(sampleType: stepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { query, samples, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                samples?.forEach { sample in
-                    if let quantitySample = sample as? HKQuantitySample {
-                        let stepCount = quantitySample.quantity.doubleValue(for: .count())
-                        let sampleDate = quantitySample.startDate
-                        let dayIndex = Calendar.current.dateComponents([.day], from: startDate, to: sampleDate).day!
-                        stepsData[dayIndex] += stepCount
-                    }
-                }
-                completion(.success(stepsData))
-            }
-            healthStore?.execute(query)
-        }
-    
-    /// Extrage numărul total de pași pentru o perioadă dată.
-        /// - Parameters:
-        ///   - startDate: Data de început.
-        ///   - endDate: Data de sfârșit.
-        ///   - completion: Un bloc de completare care returnează un dicționar cu date și numărul de pași sau o eroare.
-        func fetchSteps(startDate: Date, endDate: Date, completion: @escaping (Result<[Date: Double], Error>) -> Void) {
-            guard let healthStore = healthStore else {
-                completion(.failure(HealthKitError.notAvailable))
+    /// - Parameters:
+    ///   - days: Numărul de zile pentru care să obțină date.
+    ///   - completion: Un bloc de completare care returnează o listă de numere de pași pentru fiecare zi.
+    func fetchStepsForLastDays(_ days: Int, completion: @escaping (Result<[Double], Error>) -> Void) {
+        let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+        let now = Date()
+        let startDate = Calendar.current.date(byAdding: .day, value: -days, to: now)!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictStartDate)
+        
+        var stepsData: [Double] = Array(repeating: 0.0, count: days)
+        let query = HKSampleQuery(sampleType: stepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { query, samples, error in
+            if let error = error {
+                completion(.failure(error))
                 return
             }
-
-            let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
             
+            samples?.forEach { sample in
+                if let quantitySample = sample as? HKQuantitySample {
+                    let stepCount = quantitySample.quantity.doubleValue(for: .count())
+                    let sampleDate = quantitySample.startDate
+                    let dayIndex = Calendar.current.dateComponents([.day], from: startDate, to: sampleDate).day!
+                    stepsData[dayIndex] += stepCount
+                }
+            }
+            completion(.success(stepsData))
+        }
+        healthStore?.execute(query)
+    }
+    
+    /// Extrage numărul total de pași pentru o perioadă dată.
+    /// - Parameters:
+    ///   - startDate: Data de început.
+    ///   - endDate: Data de sfârșit.
+    ///   - completion: Un bloc de completare care returnează un dicționar cu date și numărul de pași sau o eroare.
+    func fetchSteps(startDate: Date, endDate: Date, completion: @escaping (Result<[Date: Double], Error>) -> Void) {
+            guard let healthStore = healthStore else {
+                completion(.failure(HealthKitError.dataUnavailable))
+                return
+            }
+            
+            let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
             let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
             
-            let query = HKStatisticsCollectionQuery(
-                quantityType: stepsQuantityType,
-                quantitySamplePredicate: predicate,
-                options: [.cumulativeSum],
-                anchorDate: Calendar.current.startOfDay(for: startDate),
-                intervalComponents: DateComponents(day: 1)
-            )
+            var interval = DateComponents()
+            interval.day = 1
+            
+            let query = HKStatisticsCollectionQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: .cumulativeSum, anchorDate: startDate, intervalComponents: interval)
             
             query.initialResultsHandler = { query, results, error in
-                if let error = error {
-                    completion(.failure(error))
+                guard let statsCollection = results else {
+                    completion(.failure(error ?? HealthKitError.dataUnavailable))
                     return
                 }
                 
                 var stepsData: [Date: Double] = [:]
-                results?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
-                    if let sum = statistics.sumQuantity() {
-                        let date = statistics.startDate
-                        let steps = sum.doubleValue(for: .count())
-                        stepsData[date] = steps
+                statsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                    if let quantity = statistics.sumQuantity() {
+                        let steps = quantity.doubleValue(for: .count())
+                        stepsData[statistics.startDate] = steps
                     }
                 }
                 
-                completion(.success(stepsData))
+                DispatchQueue.main.async {
+                    completion(.success(stepsData))
+                }
             }
             
             healthStore.execute(query)
         }
-
+    
 }
