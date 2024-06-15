@@ -16,6 +16,11 @@ class HealthKitManager {
     /// Referința la HealthStore pentru interogări și cereri de date.
     private var healthStore: HKHealthStore?
     
+    enum HealthKitError: Error {
+            case notAvailable
+            case authorizationFailed
+        }
+    
     /// Inițializează `HealthKitManager` și setează `healthStore` dacă datele de sănătate sunt disponibile.
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -82,4 +87,49 @@ class HealthKitManager {
             }
             healthStore?.execute(query)
         }
+    
+    /// Extrage numărul total de pași pentru o perioadă dată.
+        /// - Parameters:
+        ///   - startDate: Data de început.
+        ///   - endDate: Data de sfârșit.
+        ///   - completion: Un bloc de completare care returnează un dicționar cu date și numărul de pași sau o eroare.
+        func fetchSteps(startDate: Date, endDate: Date, completion: @escaping (Result<[Date: Double], Error>) -> Void) {
+            guard let healthStore = healthStore else {
+                completion(.failure(HealthKitError.notAvailable))
+                return
+            }
+
+            let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+            
+            let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+            
+            let query = HKStatisticsCollectionQuery(
+                quantityType: stepsQuantityType,
+                quantitySamplePredicate: predicate,
+                options: [.cumulativeSum],
+                anchorDate: Calendar.current.startOfDay(for: startDate),
+                intervalComponents: DateComponents(day: 1)
+            )
+            
+            query.initialResultsHandler = { query, results, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                var stepsData: [Date: Double] = [:]
+                results?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
+                    if let sum = statistics.sumQuantity() {
+                        let date = statistics.startDate
+                        let steps = sum.doubleValue(for: .count())
+                        stepsData[date] = steps
+                    }
+                }
+                
+                completion(.success(stepsData))
+            }
+            
+            healthStore.execute(query)
+        }
+
 }
