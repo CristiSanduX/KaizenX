@@ -4,16 +4,12 @@
 //
 //  Created by Cristi Sandu on 02.06.2024.
 //
-//
-//  UIImage+GIF.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 02.06.2024.
-//
+
 import SwiftUI
 import UIKit
 import ImageIO
 
+// Structura care permite utilizarea unui UIImageView pentru afișarea GIF-urilor în SwiftUI
 struct GIFImageView: UIViewRepresentable {
     let url: URL
 
@@ -29,6 +25,7 @@ struct GIFImageView: UIViewRepresentable {
     }
 }
 
+// Extensie pentru UIImageView care adaugă funcționalitatea de a încărca GIF-uri
 extension UIImageView {
     func loadGif(from url: URL) {
         DispatchQueue.global().async {
@@ -41,6 +38,7 @@ extension UIImageView {
     }
 }
 
+// Extensie pentru UIImage care procesează datele unui GIF și returnează un UIImage animat
 extension UIImage {
     static func gif(data: Data) -> UIImage? {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }

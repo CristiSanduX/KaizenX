@@ -12,7 +12,11 @@ struct PredefinedExercisesView: View {
             ScrollView {
                 VStack {
                     ForEach(gymViewModel.muscleGroups, id: \.self) { muscleGroup in
-                        NavigationLink(destination: ExerciseListView(muscleGroup: muscleGroup, exercises: gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, selectedPredefinedExercise: $selectedPredefinedExercise, exerciseForDetails: $exerciseForDetails)) {
+                        NavigationLink(destination: ExerciseListView(
+                            muscleGroup: muscleGroup,
+                            exercises: gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup },
+                            selectedPredefinedExercise: $selectedPredefinedExercise,
+                            exerciseForDetails: $exerciseForDetails)) {
                             MuscleGroupCardView(muscleGroup: muscleGroup)
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -23,12 +27,14 @@ struct PredefinedExercisesView: View {
             .navigationBarTitle("Exerciții Predefinite", displayMode: .inline)
             .background(Color.white.edgesIgnoringSafeArea(.all))
         }
+        // Afișează un view detaliat pentru exercițiul selectat
         .sheet(item: $exerciseForDetails) { exercise in
             ExerciseDetailView(exercise: exercise)
         }
     }
 }
 
+// Card pentru afișarea grupei musculare
 struct MuscleGroupCardView: View {
     var muscleGroup: String
 
@@ -55,7 +61,7 @@ struct MuscleGroupCardView: View {
     }
 }
 
-
+// View pentru listarea exercițiilor predefinite pentru o anumită grupă musculară
 struct ExerciseListView: View {
     var muscleGroup: String
     var exercises: [PredefinedExercise]
@@ -73,6 +79,7 @@ struct ExerciseListView: View {
                     }
                     Spacer()
                     Button(action: {
+                        // Afișează detaliile exercițiului selectat
                         exerciseForDetails = exercise
                     }) {
                         Image(systemName: "info.circle")
@@ -83,6 +90,7 @@ struct ExerciseListView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    // Selectează exercițiul predefinit și închide view-ul
                     selectedPredefinedExercise = exercise
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -92,5 +100,3 @@ struct ExerciseListView: View {
         .background(Color.white.edgesIgnoringSafeArea(.all))
     }
 }
-
-

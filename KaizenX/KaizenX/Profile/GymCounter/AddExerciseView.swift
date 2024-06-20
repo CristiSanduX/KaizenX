@@ -18,6 +18,7 @@ struct AddExerciseView: View {
                 Section(header: Text("Detalii Exercițiu")) {
                     TextField("Nume exercițiu", text: $name)
                         .onAppear {
+                            // Dacă este un exercițiu predefinit, completează câmpurile
                             if let exercise = predefinedExercise {
                                 name = exercise.name
                                 selectedMuscleGroup = exercise.muscleGroup
@@ -27,7 +28,6 @@ struct AddExerciseView: View {
                     Picker("Grupă musculară", selection: $selectedMuscleGroup) {
                         ForEach(gymViewModel.muscleGroups, id: \.self) { group in
                             Text(group).tag(group)
-                                
                         }
                     }
                     .pickerStyle(MenuPickerStyle())
@@ -49,7 +49,7 @@ struct AddExerciseView: View {
                         // Creăm un nou exercițiu cu datele introduse și data selectată
                         let newExercise = GymExercise(name: name, muscleGroup: selectedMuscleGroup, sets: setsInt, repetitions: repsInt, weight: weightInt, date: selectedDate)
                         gymViewModel.addExercise(newExercise, on: selectedDate)  // Pasăm exercițiul și data selectată la ViewModel pentru a fi adăugat
-                        presentationMode.wrappedValue.dismiss()
+                        presentationMode.wrappedValue.dismiss()  // Închidem view-ul după adăugarea exercițiului
                     }
                 }) {
                     HStack {

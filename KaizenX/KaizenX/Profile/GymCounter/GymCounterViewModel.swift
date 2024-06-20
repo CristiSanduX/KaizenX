@@ -1,8 +1,16 @@
+//
+//  GymCounterView.swift
+//  KaizenX
+//
+//  Created by Cristi Sandu on 23.12.2023.
+//
+
 import Foundation
 import FirebaseFirestore
 import Firebase
 import HealthKit
 
+// Structură pentru exercițiile predefinite
 struct PredefinedExercise: Identifiable {
     var id = UUID()
     var name: String
@@ -11,8 +19,9 @@ struct PredefinedExercise: Identifiable {
     var gifName: String
 }
 
+// Structură pentru exercițiile de la sală
 struct GymExercise: Identifiable, Codable {
-    var id = UUID().uuidString // This ensures every new exercise gets a unique ID
+    var id = UUID().uuidString // Asigură că fiecare exercițiu nou are un ID unic
     var name: String
     var muscleGroup: String
     var sets: Int
@@ -23,6 +32,7 @@ struct GymExercise: Identifiable, Codable {
     var imageName: String = ""
 }
 
+// ViewModel pentru gestionarea logicii aplicației
 class GymCounterViewModel: ObservableObject {
     @Published var muscleGroups: [String] = ["Piept", "Spate", "Biceps","Triceps", "Picioare", "Umeri/Trapez", "Abdomen"]
     @Published var selectedMuscleGroup: String = "Piept"
@@ -44,6 +54,7 @@ class GymCounterViewModel: ObservableObject {
         fetchPredefinedExercises()
     }
 
+    // Solicită autorizarea pentru HealthKit
     func requestAuthorization() {
         HealthKitManager.shared.requestAuthorization2 { success in
             if success {
@@ -72,6 +83,7 @@ class GymCounterViewModel: ObservableObject {
         }
     }
 
+    // Adaugă un exercițiu la Firestore
     func addExercise(_ exercise: GymExercise, on date: Date) {
         guard let userId = Auth.auth().currentUser?.uid, !userId.isEmpty else { return }
 
@@ -160,6 +172,35 @@ class GymCounterViewModel: ObservableObject {
                         let description = data["description"] as? String ?? ""
                         let gifName = data["gifName"] as? String ?? ""
                         return PredefinedExercise(name: name, muscleGroup: muscleGroup, description: description, gifName: gifName)
+                    }
+                }
+            }
+        }
+    }
+
+    // Șterge un exercițiu din Firestore
+    func deleteExercise(_ exercise: GymExercise, on date: Date) {
+        let dateString = dateFormatter.string(from: date)
+        guard !userId.isEmpty else { return }
+
+        let workoutRef = db.collection("users").document(userId).collection("daily_workouts").document(dateString)
+
+        workoutRef.getDocument { (documentSnapshot, error) in
+            if let document = documentSnapshot, document.exists {
+                var exercisesData = document.data()?["exercises"] as? [[String: Any]] ?? []
+                exercisesData.removeAll { dict in
+                    dict["name"] as? String == exercise.name &&
+                    dict["muscleGroup"] as? String == exercise.muscleGroup &&
+                    dict["sets"] as? Int == exercise.sets &&
+                    dict["repetitions"] as? Int == exercise.repetitions &&
+                    dict["weight"] as? Int == exercise.weight
+                }
+
+                workoutRef.updateData(["exercises": exercisesData]) { error in
+                    if let error = error {
+                        print("Error updating document: \(error)")
+                    } else {
+                        self.fetchExercisesForDate(date)
                     }
                 }
             }
