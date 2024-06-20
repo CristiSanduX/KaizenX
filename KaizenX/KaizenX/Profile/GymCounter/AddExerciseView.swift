@@ -8,7 +8,7 @@ struct AddExerciseView: View {
     @Binding var selectedMuscleGroup: String
     @Binding var selectedDate: Date
     @Environment(\.presentationMode) var presentationMode
-    
+
     var gymViewModel: GymCounterViewModel  // Variabila pasată din GymCounterView
     @Binding var predefinedExercise: PredefinedExercise?
 
@@ -23,26 +23,27 @@ struct AddExerciseView: View {
                                 selectedMuscleGroup = exercise.muscleGroup
                             }
                         }
-                    
+
                     Picker("Grupă musculară", selection: $selectedMuscleGroup) {
                         ForEach(gymViewModel.muscleGroups, id: \.self) { group in
                             Text(group).tag(group)
+                                
                         }
                     }
                     .pickerStyle(MenuPickerStyle())
                 }
-                
+
                 Section(header: Text("Detalii Seturi și Greutate")) {
                     TextField("Număr de serii", text: $sets)
                         .keyboardType(.numberPad)
-                    
+
                     TextField("Număr de repetări", text: $repetitions)
                         .keyboardType(.numberPad)
-                    
+
                     TextField("Greutate (kg)", text: $weight)
                         .keyboardType(.decimalPad)
                 }
-                
+
                 Button(action: {
                     if let setsInt = Int(sets), let repsInt = Int(repetitions), let weightInt = Int(weight) {
                         // Creăm un nou exercițiu cu datele introduse și data selectată

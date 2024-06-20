@@ -41,6 +41,26 @@ class HealthKitManager {
         }
     }
     
+    func requestAuthorization2(completion: @escaping (Bool) -> Void) {
+            let workoutType = HKObjectType.workoutType()
+            let typesToRead: Set<HKObjectType> = [workoutType]
+            
+            healthStore?.requestAuthorization(toShare: nil, read: typesToRead) { (success, error) in
+                completion(success)
+            }
+        }
+    func fetchWorkouts(completion: @escaping ([HKWorkout]) -> Void) {
+            let workoutType = HKObjectType.workoutType()
+            let query = HKSampleQuery(sampleType: workoutType, predicate: nil, limit: 0, sortDescriptors: nil) { (query, samples, error) in
+                if let workouts = samples as? [HKWorkout] {
+                    completion(workouts)
+                } else {
+                    completion([])
+                }
+            }
+            
+            healthStore?.execute(query)
+        }
     /// Extrage numărul total de pași pentru utilizator pentru ziua curentă.
     /// - Parameter completion: Un bloc de completare care returnează numărul de pași ca un double.
     func fetchSteps(completion: @escaping (Double) -> Void) {

@@ -170,7 +170,7 @@ struct ProfileView: View {
             // Adaugă un buton pentru navigare către setări.
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    SettingsView(showSignInview: $showSignInview)
+                    SettingsView(showSignInView: $showSignInview)
                 } label: {
                     Image(systemName: "gear")
                         .font(.headline)

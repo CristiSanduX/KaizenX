@@ -1,10 +1,3 @@
-//
-//  PredefinedExercisesView.swift
-//  KaizenX
-//
-//  Created by Cristi Sandu on 27.05.2024.
-//
-
 import SwiftUI
 
 struct PredefinedExercisesView: View {
@@ -13,40 +6,91 @@ struct PredefinedExercisesView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedPredefinedExercise: PredefinedExercise?
     @State private var exerciseForDetails: PredefinedExercise? = nil
-    
+
     var body: some View {
         NavigationView {
-            List {
-                ForEach(gymViewModel.muscleGroups, id: \.self) { muscleGroup in
-                    Section(header: Text(muscleGroup)) {
-                        ForEach(gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, id: \.id) { exercise in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(exercise.name)
-                                }
-                                Spacer()
-                                Button(action: {
-                                    exerciseForDetails = exercise
-                                }) {
-                                    Image(systemName: "info.circle")
-                                        .foregroundColor(.accentColor)
-                                        .font(.title) // Mărim iconița
-                                }
-                                .buttonStyle(BorderlessButtonStyle()) // Pentru a evita conflictele de stil
-                            }
-                            .contentShape(Rectangle()) // Pentru a face întreaga celulă clicabilă
-                            .onTapGesture {
-                                selectedPredefinedExercise = exercise
-                                presentationMode.wrappedValue.dismiss()
-                            }
+            ScrollView {
+                VStack {
+                    ForEach(gymViewModel.muscleGroups, id: \.self) { muscleGroup in
+                        NavigationLink(destination: ExerciseListView(muscleGroup: muscleGroup, exercises: gymViewModel.predefinedExercises.filter { $0.muscleGroup == muscleGroup }, selectedPredefinedExercise: $selectedPredefinedExercise, exerciseForDetails: $exerciseForDetails)) {
+                            MuscleGroupCardView(muscleGroup: muscleGroup)
                         }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
                     }
                 }
             }
-            .navigationBarTitle("Exerciții Predefinite")
-            .sheet(item: $exerciseForDetails) { exercise in
-                ExerciseDetailView(exercise: exercise)
-            }
+            .navigationBarTitle("Exerciții Predefinite", displayMode: .inline)
+            .background(Color.white.edgesIgnoringSafeArea(.all))
+        }
+        .sheet(item: $exerciseForDetails) { exercise in
+            ExerciseDetailView(exercise: exercise)
         }
     }
 }
+
+struct MuscleGroupCardView: View {
+    var muscleGroup: String
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(muscleGroup)
+                    .font(.title3)
+                    .foregroundColor(.black)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.darkRed)
+            }
+            .padding()
+        }
+        .background(Color.white)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.darkRed, lineWidth: 2)
+        )
+        .shadow(radius: 5)
+        .padding(.vertical, 5)
+    }
+}
+
+
+struct ExerciseListView: View {
+    var muscleGroup: String
+    var exercises: [PredefinedExercise]
+    @Binding var selectedPredefinedExercise: PredefinedExercise?
+    @Binding var exerciseForDetails: PredefinedExercise?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    var body: some View {
+        List {
+            ForEach(exercises, id: \.id) { exercise in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(exercise.name)
+                            .foregroundColor(.black)
+                    }
+                    Spacer()
+                    Button(action: {
+                        exerciseForDetails = exercise
+                    }) {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(Color.darkRed)
+                            .font(.title)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPredefinedExercise = exercise
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        }
+        .navigationBarTitle(muscleGroup)
+        .background(Color.white.edgesIgnoringSafeArea(.all))
+    }
+}
+
+

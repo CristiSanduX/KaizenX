@@ -9,7 +9,7 @@ import Foundation
 import GoogleSignIn
 import GoogleSignInSwift
 
-/// Model pentru stocarea rezultatelor autentificării cu Google.
+/// Model pentru stocarea rezultatelor autentificării cu Google
 struct GoogleSignInResultModel {
     let idToken: String
     let accessToken: String
@@ -17,10 +17,10 @@ struct GoogleSignInResultModel {
     let email: String?
 }
 
-/// Clasa ajutătoare pentru autentificarea cu Google.
+/// Clasa ajutătoare pentru autentificarea cu Google
 final class SignInGoogleHelper {
     
-    /// Inițiază și gestionează procesul de autentificare cu Google.
+    /// Inițiază și gestionează procesul de autentificare cu Google
     @MainActor
     func signIn() async throws -> GoogleSignInResultModel{
         guard let topVC = Utilities.shared.topViewController() else {
@@ -29,7 +29,7 @@ final class SignInGoogleHelper {
         // Realizează autentificarea și obține rezultatele.
         let gidSignInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: topVC)
         
-        // Extragere și validare token-uri de la rezultatele autentificării.
+        // Extragere și validare token-uri de la rezultatele autentificării
         guard let idToken = gidSignInResult.user.idToken?.tokenString else {
             throw URLError(.badServerResponse)
         }
@@ -37,7 +37,7 @@ final class SignInGoogleHelper {
         let name = gidSignInResult.user.profile?.name
         let email = gidSignInResult.user.profile?.email
         
-        // Crează și returnează modelul cu rezultatele autentificării.
+        // Crează și returnează modelul cu rezultatele autentificării
         let tokens = GoogleSignInResultModel(idToken: idToken, accessToken: accessToken, name: name, email: email)
         return tokens
     }
