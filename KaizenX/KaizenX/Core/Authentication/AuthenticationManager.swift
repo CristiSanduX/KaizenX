@@ -2,7 +2,7 @@
 //  AuthenticationManager.swift
 //  KaizenX
 //
-//  Created de Cristi Sandu pe 27.10.2023.
+//  Created de Cristi Sandu on 27.10.2023.
 //
 
 import Foundation

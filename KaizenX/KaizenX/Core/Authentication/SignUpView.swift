@@ -2,7 +2,7 @@
 //  SignUpView.swift
 //  KaizenX
 //
-//  Created de Cristi Sandu pe 02.11.2023.
+//  Created de Cristi Sandu on 02.11.2023.
 //
 
 import SwiftUI

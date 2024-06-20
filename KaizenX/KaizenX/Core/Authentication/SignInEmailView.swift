@@ -2,7 +2,7 @@
 //  SignInEmailView.swift
 //  KaizenX
 //
-//  Created by Cristi Sandu pe 25.10.2023.
+//  Created by Cristi Sandu on 25.10.2023.
 //
 
 import SwiftUI

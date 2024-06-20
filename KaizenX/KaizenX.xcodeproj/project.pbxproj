@@ -274,11 +274,11 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1CF1A2752B37172B005B0D1F /* Profile */,
 				1C2ABFA42C1A4C8F0011093D /* Satistics */,
 				1C2ABF9F2C1A4C210011093D /* Rewards */,
 				1CD80C722BFB4C6F007D1C16 /* StepCounter */,
 				1CF1A2782B371D11005B0D1F /* GymCounter */,
-				1CF1A2752B37172B005B0D1F /* Profile */,
 				1CF1A26F2B37154B005B0D1F /* WaterCounter */,
 				1CF1A2762B371747005B0D1F /* MainView.swift */,
 			);

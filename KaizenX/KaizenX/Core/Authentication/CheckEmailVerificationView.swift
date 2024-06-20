@@ -2,7 +2,7 @@
 //  CheckEmailVerificationView.swift
 //  KaizenX
 //
-//  Created by Cristi Sandu pe 20.06.2024.
+//  Created by Cristi Sandu on 20.06.2024.
 //
 
 import SwiftUI

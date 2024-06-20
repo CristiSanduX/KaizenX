@@ -2,7 +2,7 @@
 //  SignInEmailViewModel.swift
 //  KaizenX
 //
-//  Created by Cristi Sandu pe 22.11.2023.
+//  Created by Cristi Sandu on 22.11.2023.
 //
 
 import Foundation

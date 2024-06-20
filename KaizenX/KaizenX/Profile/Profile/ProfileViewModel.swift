@@ -1,3 +1,10 @@
+//
+//  ProfileViewModel.swift
+//  KaizenX
+//
+//  Created by Cristi Sandu on 22.11.2023.
+//
+
 import SwiftUI
 import Firebase
 import FirebaseStorage
