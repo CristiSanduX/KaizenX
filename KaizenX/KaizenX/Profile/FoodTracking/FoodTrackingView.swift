@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FoodTrackingView: View {
-    @StateObject private var viewModel = FoodTrackingViewModel()
+    @StateObject private var trackingViewModel = FoodTrackingViewModel()
+    @StateObject private var databaseViewModel = FoodDatabaseViewModel() // Adăugăm ViewModel-ul pentru baza de date
     @State private var selectedDate = Date()
     @State private var showingAddFoodView = false
 
@@ -32,13 +33,13 @@ struct FoodTrackingView: View {
 
                 ScrollView {
                     VStack(spacing: 15) {
-                        FoodProgressBar(title: "Calorii", current: viewModel.totalCalories, goal: 2500, unit: "kcal")
-                        FoodProgressBar(title: "Proteine", current: viewModel.totalProtein, goal: 150, unit: "g")
-                        FoodProgressBar(title: "Carbohidrați", current: viewModel.totalCarbs, goal: 250, unit: "g")
-                        FoodProgressBar(title: "Grăsimi", current: viewModel.totalFats, goal: 70, unit: "g")
-                        FoodProgressBar(title: "Grăsimi saturate", current: viewModel.totalSaturatedFats, goal: 20, unit: "g")
-                        FoodProgressBar(title: "Glucide", current: viewModel.totalGlucides, goal: 60, unit: "g")
-                        FoodProgressBar(title: "Fibre", current: viewModel.totalFibers, goal: 35, unit: "g")
+                        FoodProgressBar(title: "Calorii", current: trackingViewModel.totalCalories, goal: 2500, unit: "kcal")
+                        FoodProgressBar(title: "Proteine", current: trackingViewModel.totalProtein, goal: 150, unit: "g")
+                        FoodProgressBar(title: "Carbohidrați", current: trackingViewModel.totalCarbs, goal: 250, unit: "g")
+                        FoodProgressBar(title: "Grăsimi", current: trackingViewModel.totalFats, goal: 70, unit: "g")
+                        FoodProgressBar(title: "Grăsimi saturate", current: trackingViewModel.totalSaturatedFats, goal: 20, unit: "g")
+                        FoodProgressBar(title: "Glucide", current: trackingViewModel.totalGlucides, goal: 60, unit: "g")
+                        FoodProgressBar(title: "Fibre", current: trackingViewModel.totalFibers, goal: 35, unit: "g")
                     }
                     .padding(.horizontal)
 
@@ -46,7 +47,7 @@ struct FoodTrackingView: View {
                         .font(.headline)
                         .padding(.top, 10)
 
-                    ForEach(viewModel.foods) { food in
+                    ForEach(trackingViewModel.foods) { food in
                         FoodEntryView(food: food)
                     }
                 }
@@ -70,17 +71,18 @@ struct FoodTrackingView: View {
                 }
                 .padding()
                 .sheet(isPresented: $showingAddFoodView) {
-                    AddFoodView(viewModel: viewModel, selectedDate: formattedDate)
+                    AddFoodView(databaseViewModel: databaseViewModel, trackingViewModel: trackingViewModel, selectedDate: formattedDate)
                 }
             }
             .onAppear {
                 Task {
-                    await viewModel.fetchDailyFoodEntries(for: formattedDate)
+                    await trackingViewModel.fetchDailyFoodEntries(for: formattedDate)
+                    await databaseViewModel.fetchSavedFoods()
                 }
             }
             .onChange(of: selectedDate) { oldDate, newDate in
                 Task {
-                    await viewModel.fetchDailyFoodEntries(for: formattedDate)
+                    await trackingViewModel.fetchDailyFoodEntries(for: formattedDate)
                 }
             }
             .navigationBarTitle("Alimentație", displayMode: .inline)

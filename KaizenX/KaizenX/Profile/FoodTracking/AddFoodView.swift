@@ -8,86 +8,73 @@
 import SwiftUI
 
 struct AddFoodView: View {
-    @ObservedObject var viewModel: FoodTrackingViewModel
+    @ObservedObject var databaseViewModel: FoodDatabaseViewModel
+    @ObservedObject var trackingViewModel: FoodTrackingViewModel
     let selectedDate: String
 
-    @State private var name: String = ""
-    @State private var calories: String = ""
-    @State private var protein: String = ""
-    @State private var carbs: String = ""
-    @State private var fats: String = ""
-    @State private var saturatedFats: String = ""
-    @State private var glucides: String = ""
-    @State private var fibers: String = ""
-
-    @Environment(\.presentationMode) var presentationMode
+    @State private var selectedFood: FoodItem?
+    @State private var grams: String = ""
+    @State private var showingNewFoodForm = false
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Detalii Aliment")) {
-                    TextField("Nume aliment", text: $name)
-
-                    TextField("Calorii (kcal)", text: $calories)
-                        .keyboardType(.numberPad)
-
-                    TextField("Proteine (g)", text: $protein)
-                        .keyboardType(.numberPad)
-
-                    TextField("Carbohidrați (g)", text: $carbs)
-                        .keyboardType(.numberPad)
-
-                    TextField("Grăsimi (g)", text: $fats)
-                        .keyboardType(.numberPad)
-
-                    TextField("Grăsimi saturate (g)", text: $saturatedFats)
-                        .keyboardType(.numberPad)
-
-                    TextField("Glucide (g)", text: $glucides)
-                        .keyboardType(.numberPad)
-
-                    TextField("Fibre (g)", text: $fibers)
-                        .keyboardType(.numberPad)
+            VStack {
+                List {
+                    ForEach(databaseViewModel.savedFoods) { food in
+                        Button(action: { selectedFood = food }) {
+                            HStack {
+                                Text(food.name)
+                                Spacer()
+                                if selectedFood?.id == food.id {
+                                    Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+                                }
+                            }
+                        }
+                    }
                 }
 
-                Button(action: {
-                    if let caloriesInt = Int(calories),
-                       let proteinInt = Int(protein),
-                       let carbsInt = Int(carbs),
-                       let fatsInt = Int(fats),
-                       let saturatedFatsInt = Int(saturatedFats),
-                       let glucidesInt = Int(glucides),
-                       let fibersInt = Int(fibers) {
+                TextField("Grame consumate", text: $grams)
+                    .keyboardType(.numberPad)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                        let newFood = FoodEntry(
-                            name: name,
-                            calories: caloriesInt,
-                            protein: proteinInt,
-                            carbs: carbsInt,
-                            fats: fatsInt,
-                            saturatedFats: saturatedFatsInt,
-                            glucides: glucidesInt,
-                            fibers: fibersInt
+                Button("Adaugă în jurnal") {
+                    if let food = selectedFood, let gramsInt = Int(grams) {
+                        let ratio = Double(gramsInt) / 100.0
+                        let newFoodEntry = FoodEntry(
+                            name: food.name,
+                            calories: Int(Double(food.caloriesPer100g) * ratio),
+                            protein: Int(Double(food.proteinPer100g) * ratio),
+                            carbs: Int(Double(food.carbsPer100g) * ratio),
+                            fats: Int(Double(food.fatsPer100g) * ratio),
+                            saturatedFats: Int(Double(food.saturatedFatsPer100g) * ratio),
+                            glucides: Int(Double(food.glucidesPer100g) * ratio),
+                            fibers: Int(Double(food.fibersPer100g) * ratio)
                         )
 
                         Task {
-                            await viewModel.addFoodEntry(newFood, for: selectedDate)
+                            await trackingViewModel.addFoodEntry(newFoodEntry, for: selectedDate)
                         }
-                        
-                        presentationMode.wrappedValue.dismiss()
                     }
-                }) {
-                    Text("Adaugă Aliment")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.green)
-                        .cornerRadius(10)
+                }
+                .disabled(selectedFood == nil || grams.isEmpty)
+
+                Button("Adaugă produs nou") {
+                    showingNewFoodForm = true
                 }
                 .padding()
+
+                Spacer()
             }
-            .navigationTitle("Adaugă Aliment")
+            .navigationTitle("Selectează sau Adaugă")
+            .onAppear {
+                Task {
+                    await databaseViewModel.fetchSavedFoods()
+                }
+            }
+            .sheet(isPresented: $showingNewFoodForm) {
+                AddNewFoodView(databaseViewModel: databaseViewModel)
+            }
         }
     }
 }

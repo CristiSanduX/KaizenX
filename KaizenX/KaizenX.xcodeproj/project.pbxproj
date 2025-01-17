@@ -89,6 +89,8 @@
 		1CFC6C082D3AA9DF00C005D8 /* FoodProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C072D3AA9DF00C005D8 /* FoodProgressBar.swift */; };
 		1CFC6C0A2D3AAA0B00C005D8 /* FoodEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C092D3AAA0B00C005D8 /* FoodEntryView.swift */; };
 		1CFC6C0C2D3AAA2300C005D8 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C0B2D3AAA2300C005D8 /* AddFoodView.swift */; };
+		1CFC6C0E2D3AADDA00C005D8 /* FoodDatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C0D2D3AADD100C005D8 /* FoodDatabaseViewModel.swift */; };
+		1CFC6C102D3AAE4600C005D8 /* AddNewFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C0F2D3AAE4600C005D8 /* AddNewFoodView.swift */; };
 		1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */; };
 		1CFF754C2C1B7F0E00275CD3 /* StatisticsExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFF754B2C1B7F0E00275CD3 /* StatisticsExportView.swift */; };
 		1CFF75522C1CE89A00275CD3 /* RewardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFF75512C1CE89A00275CD3 /* RewardsViewModel.swift */; };
@@ -142,6 +144,8 @@
 		1CFC6C072D3AA9DF00C005D8 /* FoodProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodProgressBar.swift; sourceTree = "<group>"; };
 		1CFC6C092D3AAA0B00C005D8 /* FoodEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodEntryView.swift; sourceTree = "<group>"; };
 		1CFC6C0B2D3AAA2300C005D8 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
+		1CFC6C0D2D3AADD100C005D8 /* FoodDatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDatabaseViewModel.swift; sourceTree = "<group>"; };
+		1CFC6C0F2D3AAE4600C005D8 /* AddNewFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodView.swift; sourceTree = "<group>"; };
 		1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1CFF754B2C1B7F0E00275CD3 /* StatisticsExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsExportView.swift; sourceTree = "<group>"; };
 		1CFF75512C1CE89A00275CD3 /* RewardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewModel.swift; sourceTree = "<group>"; };
@@ -389,11 +393,13 @@
 		1CFC6C022D3AA72200C005D8 /* FoodTracking */ = {
 			isa = PBXGroup;
 			children = (
+				1CFC6C0D2D3AADD100C005D8 /* FoodDatabaseViewModel.swift */,
 				1CFC6C052D3AA95E00C005D8 /* FoodTrackingViewModel.swift */,
 				1CFC6C032D3AA73F00C005D8 /* FoodTrackingView.swift */,
 				1CFC6C072D3AA9DF00C005D8 /* FoodProgressBar.swift */,
 				1CFC6C092D3AAA0B00C005D8 /* FoodEntryView.swift */,
 				1CFC6C0B2D3AAA2300C005D8 /* AddFoodView.swift */,
+				1CFC6C0F2D3AAE4600C005D8 /* AddNewFoodView.swift */,
 			);
 			path = FoodTracking;
 			sourceTree = "<group>";
@@ -520,6 +526,7 @@
 			files = (
 				1C19F8AD2AEFB1F9007BDDE4 /* RootView.swift in Sources */,
 				1C596AEA2BC3500800625FC2 /* GoogleMapsView.swift in Sources */,
+				1CFC6C102D3AAE4600C005D8 /* AddNewFoodView.swift in Sources */,
 				1CF1A2772B371747005B0D1F /* MainView.swift in Sources */,
 				1CFC6C0A2D3AAA0B00C005D8 /* FoodEntryView.swift in Sources */,
 				1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */,
@@ -561,6 +568,7 @@
 				1CFC6C0C2D3AAA2300C005D8 /* AddFoodView.swift in Sources */,
 				1C6CBF7F2C23A414006C12CA /* CheckEmailVerificationView.swift in Sources */,
 				1C2ABFA82C1A4CCA0011093D /* StatisticsViewModel.swift in Sources */,
+				1CFC6C0E2D3AADDA00C005D8 /* FoodDatabaseViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
