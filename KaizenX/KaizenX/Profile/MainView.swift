@@ -21,6 +21,11 @@ struct MainView: View {
                     Label("Sală", systemImage: "dumbbell")
                 }
             
+            FoodTrackingView()
+                .tabItem {
+                    Label("Mâncare", systemImage: "fork.knife")
+                }
+            
             StepsView()
                 .tabItem {
                     Label("Pași", systemImage: "figure.walk")
@@ -30,6 +35,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Apă", systemImage: "drop.fill")
                 }
+            
             
             RewardsView()
                 .tabItem {

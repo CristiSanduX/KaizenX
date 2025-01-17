@@ -84,6 +84,7 @@
 		1CF8A6812AE87E19008534A7 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6802AE87E19008534A7 /* FirebaseAnalyticsSwift */; };
 		1CF8A6842AE87F7F008534A7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF8A6832AE87F7F008534A7 /* FirebaseAuth */; };
 		1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */; };
+		1CFC6C042D3AA73F00C005D8 /* FoodTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC6C032D3AA73F00C005D8 /* FoodTrackingView.swift */; };
 		1CFCDA9E2B180EF100F52D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */; };
 		1CFF754C2C1B7F0E00275CD3 /* StatisticsExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFF754B2C1B7F0E00275CD3 /* StatisticsExportView.swift */; };
 		1CFF75522C1CE89A00275CD3 /* RewardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFF75512C1CE89A00275CD3 /* RewardsViewModel.swift */; };
@@ -132,8 +133,8 @@
 		1CF8A6762AE87AE2008534A7 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		1CF8A6792AE87B2E008534A7 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		1CF8A6882AE8878B008534A7 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
+		1CFC6C032D3AA73F00C005D8 /* FoodTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackingView.swift; sourceTree = "<group>"; };
 		1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1CFCDA9F2B18135100F52D0C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CFF754B2C1B7F0E00275CD3 /* StatisticsExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsExportView.swift; sourceTree = "<group>"; };
 		1CFF75512C1CE89A00275CD3 /* RewardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewModel.swift; sourceTree = "<group>"; };
 		1CFF75532C1CE8BD00275CD3 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsView.swift; sourceTree = "<group>"; };
@@ -212,7 +213,6 @@
 			children = (
 				1C0415EC2B17BB75008B7E98 /* KaizenX.entitlements */,
 				1CFCDA9D2B180EF100F52D0C /* GoogleService-Info.plist */,
-				1CFCDA9F2B18135100F52D0C /* Info.plist */,
 				1C2ABFAD2C1A534F0011093D /* Localizable.strings */,
 			);
 			path = Configurations;
@@ -274,6 +274,7 @@
 		1CCA53ED2B0E111D005EA3DA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1CFC6C022D3AA72200C005D8 /* FoodTracking */,
 				1CF1A2752B37172B005B0D1F /* Profile */,
 				1CF1A2782B371D11005B0D1F /* GymCounter */,
 				1C2ABFA42C1A4C8F0011093D /* Satistics */,
@@ -375,6 +376,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1CFC6C022D3AA72200C005D8 /* FoodTracking */ = {
+			isa = PBXGroup;
+			children = (
+				1CFC6C032D3AA73F00C005D8 /* FoodTrackingView.swift */,
+			);
+			path = FoodTracking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +534,7 @@
 				1CF8A6772AE87AE2008534A7 /* ContainerView.swift in Sources */,
 				1C9782582B428345003B8CDD /* WaterAnimationView.swift in Sources */,
 				1C0415EB2B14C136008B7E98 /* PhotoPicker.swift in Sources */,
+				1CFC6C042D3AA73F00C005D8 /* FoodTrackingView.swift in Sources */,
 				1C0600E82BAC887600BD53B5 /* StepCounterView.swift in Sources */,
 				1C19F8C22AF9B0AC007BDDE4 /* Utilities.swift in Sources */,
 				1CF8A67A2AE87B2E008534A7 /* SplashScreenView.swift in Sources */,
