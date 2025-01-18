@@ -39,17 +39,18 @@ struct AddFoodView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Button("Adaugă în jurnal") {
-                    if let food = selectedFood, let gramsInt = Int(grams) {
-                        let ratio = Double(gramsInt) / 100.0
+                    if let food = selectedFood, let gramsDouble = Double(grams) {
+                        let ratio = gramsDouble / 100.0
                         let newFoodEntry = FoodEntry(
                             name: food.name,
-                            calories: Int(Double(food.caloriesPer100g) * ratio),
-                            protein: Int(Double(food.proteinPer100g) * ratio),
-                            carbs: Int(Double(food.carbsPer100g) * ratio),
-                            fats: Int(Double(food.fatsPer100g) * ratio),
-                            saturatedFats: Int(Double(food.saturatedFatsPer100g) * ratio),
-                            glucides: Int(Double(food.glucidesPer100g) * ratio),
-                            fibers: Int(Double(food.fibersPer100g) * ratio)
+                            grams: gramsDouble,
+                            calories: (food.caloriesPer100g * ratio).rounded(toPlaces: 1),
+                            protein: (food.proteinPer100g * ratio).rounded(toPlaces: 1),
+                            carbs: (food.carbsPer100g * ratio).rounded(toPlaces: 1),
+                            fats: (food.fatsPer100g * ratio).rounded(toPlaces: 1),
+                            saturatedFats: (food.saturatedFatsPer100g * ratio).rounded(toPlaces: 1),
+                            glucides: (food.glucidesPer100g * ratio).rounded(toPlaces: 1),
+                            fibers: (food.fibersPer100g * ratio).rounded(toPlaces: 1)
                         )
 
                         Task {

@@ -9,17 +9,19 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
+
 struct FoodItem: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String? = UUID().uuidString
     var name: String
-    var caloriesPer100g: Int
-    var proteinPer100g: Int
-    var carbsPer100g: Int
-    var fatsPer100g: Int
-    var saturatedFatsPer100g: Int
-    var glucidesPer100g: Int
-    var fibersPer100g: Int
+    var caloriesPer100g: Double
+    var proteinPer100g: Double
+    var carbsPer100g: Double
+    var fatsPer100g: Double
+    var saturatedFatsPer100g: Double
+    var glucidesPer100g: Double
+    var fibersPer100g: Double
 }
+
 
 @MainActor
 class FoodDatabaseViewModel: ObservableObject {
@@ -43,14 +45,32 @@ class FoodDatabaseViewModel: ObservableObject {
     }
 
     func addNewFood(_ food: FoodItem) async {
-        guard !userId.isEmpty else { return }
-        let foodRef = db.collection("users").document(userId).collection("saved_foods").document(food.id)
+        guard !userId.isEmpty else {
+            print("❌ Eroare: User ID gol!")
+            return
+        }
+
+        let foodRef = db.collection("users").document(userId).collection("saved_foods").document(food.id ?? UUID().uuidString)
+
+        let foodData: [String: Any] = [
+            "name": food.name,
+            "caloriesPer100g": food.caloriesPer100g.rounded(toPlaces: 1),
+            "proteinPer100g": food.proteinPer100g.rounded(toPlaces: 1),
+            "carbsPer100g": food.carbsPer100g.rounded(toPlaces: 1),
+            "fatsPer100g": food.fatsPer100g.rounded(toPlaces: 1),
+            "saturatedFatsPer100g": food.saturatedFatsPer100g.rounded(toPlaces: 1),
+            "glucidesPer100g": food.glucidesPer100g.rounded(toPlaces: 1),
+            "fibersPer100g": food.fibersPer100g.rounded(toPlaces: 1)
+        ]
 
         do {
-            try await foodRef.setData(from: food)
+            try await foodRef.setData(foodData)
+            print("✅ Produs salvat cu succes în Firestore!")
             await fetchSavedFoods()
         } catch {
-            print("Eroare la adăugarea produsului: \(error.localizedDescription)")
+            print("❌ Eroare Firestore: \(error.localizedDescription)")
         }
     }
+
+
 }

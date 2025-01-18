@@ -9,17 +9,17 @@ import SwiftUI
 
 struct FoodProgressBar: View {
     let title: String
-    let current: Int
-    let goal: Int
+    let current: Double
+    let goal: Double
     let unit: String
 
     var progress: Double {
-        return min(Double(current) / Double(goal), 1.0)
+        return min(current / goal, 1.0)
     }
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(title): \(current)/\(goal) \(unit)")
+            Text("\(title): \(String(format: "%.1f", current))/\(String(format: "%.1f", goal)) \(unit)")
                 .font(.subheadline)
                 .fontWeight(.bold)
 
@@ -31,3 +31,4 @@ struct FoodProgressBar: View {
         .padding(.vertical, 5)
     }
 }
+

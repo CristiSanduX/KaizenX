@@ -23,50 +23,54 @@ struct AddNewFoodView: View {
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Detalii produs")) {
-                    TextField("Nume produs", text: $name)
+            VStack {
+                Form {
+                    Section(header: Text("Detalii produs")) {
+                        TextField("Nume produs", text: $name)
 
-                    TextField("Calorii per 100g", text: $calories)
-                        .keyboardType(.numberPad)
+                        TextField("Calorii per 100g", text: $calories)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Proteine per 100g", text: $protein)
-                        .keyboardType(.numberPad)
+                        TextField("Proteine per 100g", text: $protein)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Carbohidrați per 100g", text: $carbs)
-                        .keyboardType(.numberPad)
+                        TextField("Carbohidrați per 100g", text: $carbs)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Grăsimi per 100g", text: $fats)
-                        .keyboardType(.numberPad)
+                        TextField("Grăsimi per 100g", text: $fats)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Grăsimi saturate per 100g", text: $saturatedFats)
-                        .keyboardType(.numberPad)
+                        TextField("Grăsimi saturate per 100g", text: $saturatedFats)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Glucide per 100g", text: $glucides)
-                        .keyboardType(.numberPad)
+                        TextField("Glucide per 100g", text: $glucides)
+                            .keyboardType(.decimalPad)
 
-                    TextField("Fibre per 100g", text: $fibers)
-                        .keyboardType(.numberPad)
+                        TextField("Fibre per 100g", text: $fibers)
+                            .keyboardType(.decimalPad)
+                    }
                 }
 
                 Button("Salvează produs") {
-                    if let caloriesInt = Int(calories),
-                       let proteinInt = Int(protein),
-                       let carbsInt = Int(carbs),
-                       let fatsInt = Int(fats),
-                       let saturatedFatsInt = Int(saturatedFats),
-                       let glucidesInt = Int(glucides),
-                       let fibersInt = Int(fibers) {
+                    if let caloriesDouble = Double(calories.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let proteinDouble = Double(protein.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let carbsDouble = Double(carbs.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let fatsDouble = Double(fats.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let saturatedFatsDouble = Double(saturatedFats.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let glucidesDouble = Double(glucides.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1),
+                       let fibersDouble = Double(fibers.replacingOccurrences(of: ",", with: "."))?.rounded(toPlaces: 1) {
+
+                        print("✅ Produs înainte de salvare: \(name), kcal: \(caloriesDouble), proteine: \(proteinDouble)")
 
                         let newFood = FoodItem(
                             name: name,
-                            caloriesPer100g: caloriesInt,
-                            proteinPer100g: proteinInt,
-                            carbsPer100g: carbsInt,
-                            fatsPer100g: fatsInt,
-                            saturatedFatsPer100g: saturatedFatsInt,
-                            glucidesPer100g: glucidesInt,
-                            fibersPer100g: fibersInt
+                            caloriesPer100g: caloriesDouble,
+                            proteinPer100g: proteinDouble,
+                            carbsPer100g: carbsDouble,
+                            fatsPer100g: fatsDouble,
+                            saturatedFatsPer100g: saturatedFatsDouble,
+                            glucidesPer100g: glucidesDouble,
+                            fibersPer100g: fibersDouble
                         )
 
                         Task {
@@ -74,8 +78,12 @@ struct AddNewFoodView: View {
                         }
 
                         presentationMode.wrappedValue.dismiss()
+                    } else {
+                        print("❌ Conversia la Double a eșuat! Verifică inputul.")
                     }
                 }
+
+
                 .disabled(name.isEmpty || calories.isEmpty || protein.isEmpty || carbs.isEmpty || fats.isEmpty || saturatedFats.isEmpty || glucides.isEmpty || fibers.isEmpty)
                 .padding()
             }
