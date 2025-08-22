@@ -8,6 +8,8 @@
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
+import AuthenticationServices
+
 
 // View-ul care gestionează autentificarea utilizatorilor
 struct SignInEmailView: View {
@@ -123,6 +125,18 @@ struct SignInEmailView: View {
                 }
                 .frame(height: 44)
                 .padding(.top, 10)
+                
+                SignInWithAppleButton(.signIn) { _ in } onCompletion: { _ in }
+                    .frame(height: 44)
+                    .onTapGesture {
+                        Task {
+                            await viewModel.signInWithApple()
+                            if viewModel.isSignedIn {
+                                showSignInView = false    
+                            }
+                        }
+                        
+                    }
             }
             .padding()
             

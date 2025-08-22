@@ -52,7 +52,7 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Button("Schimbare parolă") {
+                    /*Button("Schimbare parolă") {
                         Task {
                             do {
                                 try await viewModel.updatePassword()
@@ -71,7 +71,7 @@ struct SettingsView: View {
                                 print(error)
                             }
                         }
-                    }
+                    }*/
                 } header: {
                     Text("Funcții e-mail")
                 }

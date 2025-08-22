@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAuth
+
 
 /// ViewModel pentru ProfileView. Gestionează încărcarea și stocarea datelor profilului utilizatorului.
 @MainActor

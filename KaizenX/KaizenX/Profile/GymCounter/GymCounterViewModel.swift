@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestore
 import Firebase
 import HealthKit
+import FirebaseAuth
+
 
 // Structură pentru exercițiile predefinite
 struct PredefinedExercise: Identifiable {

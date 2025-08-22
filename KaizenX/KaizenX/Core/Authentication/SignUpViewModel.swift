@@ -86,7 +86,7 @@ final class SignUpViewModel: ObservableObject {
     
     /// Gestionarea erorilor de autentificare
     private func handleAuthError(_ error: Error) -> String {
-        if let authError = error as NSError?, let errorCode = AuthErrorCode.Code(rawValue: authError.code) {
+        if let authError = error as NSError?, let errorCode = AuthErrorCode(rawValue: authError.code) {
             switch errorCode {
             case .invalidEmail:
                 return "Adresa de e-mail este invalidă."
@@ -101,3 +101,4 @@ final class SignUpViewModel: ObservableObject {
         return "A apărut o eroare necunoscută. Vă rugăm să încercați din nou."
     }
 }
+

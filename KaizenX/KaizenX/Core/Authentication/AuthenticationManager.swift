@@ -23,9 +23,11 @@ struct AuthDataResultModel {
 
 /// Enumerația opțiunilor de autentificare suportate
 enum AuthProviderOption: String {
-    case email = "password"
+    case email  = "password"
     case google = "google.com"
+    case apple  = "apple.com" 
 }
+
 
 /// Managerul de autentificare centralizează logica de autentificare Firebase
 final class AuthenticationManager {

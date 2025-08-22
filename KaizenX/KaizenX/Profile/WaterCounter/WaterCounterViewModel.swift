@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAuth
+
 
 @MainActor
 final class WaterCounterViewModel: ObservableObject {

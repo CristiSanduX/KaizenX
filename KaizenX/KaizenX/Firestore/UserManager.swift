@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+
 
 /// Structura pentru modelul utilizatorului din baza de date.
 struct DBUser {
