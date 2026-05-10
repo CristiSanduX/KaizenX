@@ -25,5 +25,9 @@
 	</array>
 	<key>UIAppSupportsHDR</key>
 	<false/>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>KaizenX folosește HealthKit pentru a salva antrenamentele și activitatea ta zilnică.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>KaizenX citește pașii și antrenamentele tale pentru a-ți afișa progresul zilnic.</string>
 </dict>
 </plist>
