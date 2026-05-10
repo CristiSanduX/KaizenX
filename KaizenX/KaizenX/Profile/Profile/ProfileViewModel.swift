@@ -26,10 +26,8 @@ final class ProfileViewModel: ObservableObject {
     
     /// Încarcă datele utilizatorului curent autentificat.
     func loadCurrentUser() async throws {
-        // Obține datele utilizatorului autentificat de la AuthenticationManager.
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        
-        // Preia datele utilizatorului din Firestore folosind UserManager.
+        try await UserManager.shared.createNewUser(auth: authDataResult)
         let user = try await UserManager.shared.getUser(userId: authDataResult.uid)
         self.user = user
     }

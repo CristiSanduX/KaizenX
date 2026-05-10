@@ -11,12 +11,12 @@
 			<string>Google Sign In </string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.462138698747-i29ji7i2op5kuoehhka9gd05uulrke73</string>
+				<string>com.googleusercontent.apps.149046257525-ec1no79e0i9flfpjsich3a2vlnf4gjd2</string>
 			</array>
 		</dict>
 	</array>
 	<key>GIDClientID</key>
-	<string>462138698747-i29ji7i2op5kuoehhka9gd05uulrke73.apps.googleusercontent.com</string>
+	<string>149046257525-ec1no79e0i9flfpjsich3a2vlnf4gjd2.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>DISCOVERY.ttf</string>
@@ -24,6 +24,8 @@
 		<string>CormorantGaramond-SemiBold.ttf</string>
 	</array>
 	<key>UIAppSupportsHDR</key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>KaizenX folosește HealthKit pentru a salva antrenamentele și activitatea ta zilnică.</string>

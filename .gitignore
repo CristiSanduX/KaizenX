@@ -61,3 +61,4 @@ Carthage/Build
 ##
 *.plist
 
+KaizenX/KaizenX/Configurations/GoogleService-Info.plist
