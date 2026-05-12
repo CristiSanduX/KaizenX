@@ -66,6 +66,7 @@
 		1CD80C782BFB4CC7007D1C16 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD80C772BFB4CC7007D1C16 /* StepsView.swift */; };
 		1CF1A2712B37156A005B0D1F /* WaterCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */; };
 		1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */; };
+		AA000001000000000000AAAA /* WaterReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000BBBB /* WaterReminderManager.swift */; };
 		1CF1A2772B371747005B0D1F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2762B371747005B0D1F /* MainView.swift */; };
 		1CF1A27A2B371D24005B0D1F /* GymCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A2792B371D24005B0D1F /* GymCounterView.swift */; };
 		1CF1A27C2B371D34005B0D1F /* GymCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */; };
@@ -120,6 +121,7 @@
 		1CD80C772BFB4CC7007D1C16 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
 		1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterView.swift; sourceTree = "<group>"; };
 		1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCounterViewModel.swift; sourceTree = "<group>"; };
+		AA000001000000000000BBBB /* WaterReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterReminderManager.swift; sourceTree = "<group>"; };
 		1CF1A2762B371747005B0D1F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1CF1A2792B371D24005B0D1F /* GymCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCounterView.swift; sourceTree = "<group>"; };
 		1CF1A27B2B371D34005B0D1F /* GymCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCounterViewModel.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				1CF1A2702B37156A005B0D1F /* WaterCounterView.swift */,
 				1CF1A2722B371579005B0D1F /* WaterCounterViewModel.swift */,
 				1C9782572B428345003B8CDD /* WaterAnimationView.swift */,
+				AA000001000000000000BBBB /* WaterReminderManager.swift */,
 			);
 			path = WaterCounter;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				1CF1A2772B371747005B0D1F /* MainView.swift in Sources */,
 				1CFC6C0A2D3AAA0B00C005D8 /* FoodEntryView.swift in Sources */,
 				1CF1A2732B371579005B0D1F /* WaterCounterViewModel.swift in Sources */,
+				AA000001000000000000AAAA /* WaterReminderManager.swift in Sources */,
 				1CF1A27A2B371D24005B0D1F /* GymCounterView.swift in Sources */,
 				1CF8A6892AE8878C008534A7 /* SignInEmailView.swift in Sources */,
 				1C9AB6E82C0C83DE0004B66B /* ExerciseDetailView.swift in Sources */,

@@ -38,6 +38,7 @@ private struct WaterTheme {
 struct WaterCounterView: View {
     @StateObject private var viewModel = WaterCounterViewModel()
     @State private var showGoalPicker = false
+    @AppStorage("waterRemindersEnabled") private var remindersEnabled = false
 
     private static let dateFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -71,6 +72,7 @@ struct WaterCounterView: View {
                 statsSection
                 motivationalSection
                 tipSection
+                reminderSection
                 historySection
             }
             .padding(.horizontal, 20)
@@ -237,6 +239,37 @@ struct WaterCounterView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var reminderSection: some View {
+        HStack(spacing: 14) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(remindersEnabled ? Color.blue : Color(.systemGray4))
+                    .frame(width: 40, height: 40)
+                Image(systemName: remindersEnabled ? "bell.fill" : "bell.slash")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(.white)
+            }
+            .animation(.easeInOut(duration: 0.2), value: remindersEnabled)
+
+            Text("Remindere hidratare")
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(.primary)
+
+            Spacer()
+
+            Toggle("", isOn: $remindersEnabled)
+                .labelsHidden()
+                .tint(.blue)
+                .onChange(of: remindersEnabled) { _, enabled in
+                    WaterReminderManager.shared.requestPermissionAndSchedule(enabled: enabled)
+                }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 
     @ViewBuilder
