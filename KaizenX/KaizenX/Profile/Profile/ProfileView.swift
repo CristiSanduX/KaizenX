@@ -7,29 +7,45 @@
 
 import SwiftUI
 
-/// Afișează profilul utilizatorului curent, permițând actualizarea imaginii de profil și vizualizarea datelor de autentificare.
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInview: Bool
-    
-    // Stări pentru afișarea selectorului de imagini și stocarea imaginii selectate.
+
     @State private var isImagePickerPresented = false
     @State private var selectedImage: UIImage?
-    
-    // Stare pentru a gestiona apăsarea butonului
-    @State private var isPressed = false
-    
+
+    private var waterGoal: Double {
+        let saved = UserDefaults.standard.double(forKey: "waterGoal")
+        return saved > 0 ? saved : 2500
+    }
+
     var body: some View {
-        ScrollView {
-            VStack(alignment: .center) {
+        NavigationStack {
+            VStack(spacing: 0) {
+                Spacer()
+
                 if let user = viewModel.user {
-                    ProfileHeaderView(user: user, isImagePickerPresented: $isImagePickerPresented, selectedImage: $selectedImage, isPressed: $isPressed)
-                    
-                    StatCardView(title: "Progres Pași", progress: viewModel.steps / 10000, currentValue: Int(viewModel.steps), goalValue: 10000, unit: "Pași")
-                    
-                    StatCardView(title: "Progres Hidratare", progress: viewModel.waterIntake / viewModel.waterIntakeGoal, currentValue: Int(viewModel.waterIntake), goalValue: Int(viewModel.waterIntakeGoal), unit: "ml")
-                    
-                    GymLocatorView()
+                    VStack(spacing: 32) {
+                        avatarSection(user: user)
+                        statsSection
+                    }
+                } else {
+                    ProgressView()
+                }
+
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.systemGray6).ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        SettingsView(showSignInView: $showSignInview)
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundStyle(Color.darkRed)
+                    }
                 }
             }
         }
@@ -42,141 +58,164 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $isImagePickerPresented) {
             PhotoPicker(selectedImage: $selectedImage) {
-                guard let selectedImage = selectedImage else { return }
-                Task {
-                    try? await viewModel.uploadImageToStorage(selectedImage)
-                }
-            }
-        }
-        .navigationTitle("Profil")
-        .toolbar {
-            // Adaugă un buton pentru navigare către setări.
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    SettingsView(showSignInView: $showSignInview)
-                } label: {
-                    Image(systemName: "gear")
-                        .font(.headline)
-                }
+                guard let img = selectedImage else { return }
+                Task { try? await viewModel.uploadImageToStorage(img) }
             }
         }
     }
-}
 
-struct ProfileHeaderView: View {
-    let user: DBUser
-    @Binding var isImagePickerPresented: Bool
-    @Binding var selectedImage: UIImage?
-    @Binding var isPressed: Bool
-    
-    var body: some View {
-        VStack {
-            Text("PROFIL")
-                .font(.custom("Rubik-VariableFont_wght", size: 35))
-                .foregroundColor(.accentColor)
-                .padding(.top, 20)
-                .padding(.bottom, 15)
-            ZStack {
-                Circle()
-                    .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
-                    .foregroundColor(.accentColor)
-                    .frame(width: 220, height: 220)
-                    .overlay(
-                        CSXShape()
-                            .stroke(style: .init(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                            .foregroundColor(.accentColor)
-                            .frame(width: 100, height: 100)
-                    )
-                ZStack(alignment: .bottomTrailing) {
-                    if let photoURLString = user.photoURL, let photoURL = URL(string: photoURLString) {
-                        AsyncImage(url: photoURL) { image in
-                            image.resizable()
+    // MARK: - Avatar
+
+    private func avatarSection(user: DBUser) -> some View {
+        VStack(spacing: 14) {
+            ZStack(alignment: .bottomTrailing) {
+                Group {
+                    if let urlStr = user.photoURL, let url = URL(string: urlStr) {
+                        AsyncImage(url: url) { image in
+                            image.resizable().scaledToFill()
                         } placeholder: {
-                            ProgressView()
+                            Color(.systemGray5)
                         }
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
                     } else {
-                        // Adaugă o imagine placeholder dacă nu există o imagine de profil.
-                        Image(systemName: "person.circle.fill")
+                        Image(systemName: "person.fill")
                             .resizable()
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
-                            .padding()
+                            .scaledToFit()
+                            .padding(28)
+                            .foregroundStyle(Color(.systemGray3))
+                            .background(Color(.systemGray5))
                     }
-                    
-                    // Butonul de editare cu semnul „plus”.
-                    Button(action: {
-                        isPressed = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            isPressed = false
-                            isImagePickerPresented = true
-                        }
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 25))
-                            .foregroundColor(isPressed ? .gray : .white)
-                            .background(isPressed ? Color.gray : Color.accentColor)
-                            .scaleEffect(isPressed ? 1.5 : 1.0)
-                            .clipShape(Circle())
+                }
+                .frame(width: 110, height: 110)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color(.systemGray4), lineWidth: 1))
+
+                Button { isImagePickerPresented = true } label: {
+                    ZStack {
+                        Circle().fill(Color.darkRed).frame(width: 32, height: 32)
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(.white)
                     }
-                    .padding(10)
-                    .animation(.easeInOut(duration: 0.3), value: isPressed)
+                }
+                .offset(x: 4, y: 4)
+            }
+
+            VStack(spacing: 4) {
+                Text(viewModel.displayName)
+                    .font(.title3.weight(.semibold))
+                if let email = user.email {
+                    Text(email)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             }
-            .padding(.top, 30)
-            .padding(.bottom, 30)
         }
+    }
+
+    // MARK: - Stats
+
+    private var statsSection: some View {
+        HStack(spacing: 12) {
+            ProfileStatCard(
+                icon: "figure.walk",
+                label: "Pași",
+                value: String(format: "%d", Int(viewModel.steps)),
+                goal: "din 10.000",
+                progress: min(viewModel.steps / 10000, 1.0),
+                color: viewModel.steps >= 10000 ? .green : .purple
+            )
+            ProfileStatCard(
+                icon: "drop.fill",
+                label: "Apă",
+                value: formatWater(viewModel.waterIntake),
+                goal: "din \(formatWater(waterGoal))",
+                progress: min(viewModel.waterIntake / waterGoal, 1.0),
+                color: viewModel.waterIntake >= waterGoal ? .green : .blue
+            )
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private func formatWater(_ ml: Double) -> String {
+        let l = ml / 1000
+        if l.truncatingRemainder(dividingBy: 1) == 0 { return "\(Int(l)) L" }
+        if l.truncatingRemainder(dividingBy: 0.5) == 0 { return String(format: "%.1f L", l) }
+        return String(format: "%.2f L", l)
     }
 }
 
-struct StatCardView: View {
-    let title: String
+// MARK: - Stat Card
+
+private struct ProfileStatCard: View {
+    let icon: String
+    let label: String
+    let value: String
+    let goal: String
     let progress: Double
-    let currentValue: Int
-    let goalValue: Int
-    let unit: String
-    
+    let color: Color
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.accentColor)
-            ProgressView(value: progress)
-                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(color)
+                Text(label)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.secondary)
+            }
+
+            Text(value)
+                .font(.title2.weight(.bold))
+                .foregroundStyle(.primary)
+                .contentTransition(.numericText())
+
+            Text(goal)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color(.systemGray5)).frame(height: 4)
+                    Capsule().fill(color)
+                        .frame(width: geo.size.width * progress, height: 4)
+                        .animation(.easeInOut(duration: 0.5), value: progress)
+                }
+            }
+            .frame(height: 4)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+}
+
+// MARK: - Legacy
+
+struct StatCardView: View {
+    let title: String; let progress: Double; let currentValue: Int; let goalValue: Int; let unit: String
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title).font(.headline).foregroundStyle(Color.darkRed)
+            ProgressView(value: progress).progressViewStyle(LinearProgressViewStyle(tint: .blue))
             HStack {
-                Text("\(currentValue) \(unit)")
-                Spacer()
+                Text("\(currentValue) \(unit)"); Spacer()
                 Text("Obiectiv: \(goalValue) \(unit)")
             }
-            .font(.subheadline)
-            .foregroundColor(.secondary)
+            .font(.subheadline).foregroundStyle(.secondary)
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 20).fill(Color(.systemGray6)))
-        .shadow(radius: 5)
-        .padding(.horizontal)
+        .shadow(radius: 5).padding(.horizontal)
     }
 }
 
 struct GymLocatorView: View {
     @StateObject private var locationManager = LocationManager()
-
     var body: some View {
-        VStack {
-            Text("Săli de sport din apropiere")
-                .font(.title2)
-                .foregroundColor(.accentColor)
-                .padding(.top, 25)
-                .padding(.bottom, 20)
-            GoogleMapsView(locationManager: locationManager)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .shadow(radius: 10)
-                .frame(height: 400)
-                .padding(.horizontal)
-                .padding(.bottom, 10)
-        }
+        GoogleMapsView(locationManager: locationManager)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .frame(height: 400)
     }
 }
-
-

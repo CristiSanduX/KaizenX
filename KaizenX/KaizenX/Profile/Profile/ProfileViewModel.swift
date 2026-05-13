@@ -11,6 +11,18 @@ import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
 
+extension ProfileViewModel {
+    var displayName: String {
+        if let name = Auth.auth().currentUser?.displayName, !name.isEmpty { return name }
+        if let email = user?.email {
+            return email.components(separatedBy: "@").first?
+                .replacingOccurrences(of: ".", with: " ")
+                .capitalized ?? email
+        }
+        return "Utilizator"
+    }
+}
+
 
 /// ViewModel pentru ProfileView. Gestionează încărcarea și stocarea datelor profilului utilizatorului.
 @MainActor
